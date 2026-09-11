@@ -123,7 +123,7 @@ Allow only connector/version/operation, environment ID, tenant/installation/appl
 - Synthetic vectors: `tests/characterization/healthcare/sogei-basic-session`.
 - No official WSDL or captured traffic was used.
 
-See [../../provenance.md](../provenance.md) for the exact source register and anomalies.
+See [../../provenance.md](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/connectors/healthcare/provenance.md) for the exact source register and anomalies.
 
 ## Execution location
 

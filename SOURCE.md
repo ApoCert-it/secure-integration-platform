@@ -17,8 +17,10 @@ Licenses, copyright notices and third-party attribution are preserved.
 The snapshot includes the public Core, Windows Local Broker, SDK, Admin UI/API,
 synthetic evaluation tools, tests and the optional FSE2, Azure and local PKCS#12
 packs. Private customer-specific integrations and operational material are excluded.
-Development branches, internal agent instructions, planning/review diaries and
-development CI workflows are not copied.
+Development branches, internal agent instructions and planning/review diaries are
+not copied. The two general/Admin CI definitions are retained unchanged because
+source-level architecture and SBOM tests read them. Workflow execution is disabled
+on this distribution repository; the cloud smoke workflow is not included.
 
 Runtime source, SDK, tests, dependency lock files and build configuration are
 unchanged from the development baseline. Publication-only edits consist of the
@@ -37,6 +39,10 @@ Publication checks cover the actual distributed file inventory, source equality,
 licenses, secret scanning, documentation links and whitespace. These checks do not
 constitute a fresh run of every platform, cloud or live-service test on this
 repository. Removing development history is not a new functional qualification.
+
+Historical live-matrix tools that update development review diaries must be run
+from the development repository, not this curated distribution. They are not the
+documented Core quickstart or Windows adoption commands.
 
 This is a source technical preview, not a signed binary release or a production,
 certification, accreditation or CRA/NIS 2 conformity claim. Current API/package

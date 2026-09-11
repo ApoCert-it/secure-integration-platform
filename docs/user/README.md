@@ -14,7 +14,7 @@
 - [Standalone Local Broker candidate](local-broker.md): local SDK protection without
   Gateway, explicit key lifecycle and a real-service verification command that passed
   once on the exact software candidate; see the guide for remaining claim limits.
-- [FSE2 validation and status](fse2-validation-status.md):
+- [FSE2 validation and status](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/user/fse2-validation-status.md):
   current optional pilot entry point, requiring a host .NET SDK and previously
   authorized OfficialTest access/material; shipped runner for bootstrap, roles and bounded invocation.
 - [Administration](administration.md): lifecycle, bindings, grants, four-eyes, audit and health.
@@ -26,7 +26,7 @@
 
 Capability status is summarized only in
 [IMPLEMENTATION_STATUS.md](../../IMPLEMENTATION_STATUS.md#product-status). The
-[previous FSE2 validate-only pilot](fse2-officialtest.md)
+[previous FSE2 validate-only pilot](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/user/fse2-officialtest.md)
 is historical for first adoption; qualifications do not transfer between profiles.
 
 These guides require no SQL, direct store access or reading tests. If an ordinary

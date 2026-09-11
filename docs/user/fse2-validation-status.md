@@ -5,7 +5,7 @@
 **Outcome:** VERIFICA validation and bounded lookup, not document publication.
 The [capability summary](../../IMPLEMENTATION_STATUS.md#product-status) distinguishes
 offline coverage, live outcomes and limits; the
-[current-spec contract](../connectors/healthcare/fse2/current-spec.md) details the routes.
+[current-spec contract](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/connectors/healthcare/fse2/current-spec.md) details the routes.
 
 This local path uses the normal Gateway, PostgreSQL and the Published
 `fse2-organization-current-spec@1.0.0` profile. It does not enable document
@@ -24,7 +24,7 @@ operations remain offline-qualified; this does not imply live availability.
 - No other active `secure-integration-m5-quickstart` stack. The command rejects
   resources from other checkouts; it does not attempt to free other owners' ports or containers.
 - Organization/locality administrative configuration, stored outside the repository.
-  The [officialtest-pilot.example.json](../../tools/fse2/officialtest-pilot.example.json)
+  The [officialtest-pilot.example.json](https://github.com/ApoCert-it/secure-integration-platform/blob/main/tools/fse2/officialtest-pilot.example.json)
   template contains only synthetic values: use values permitted by your test access.
   The domain is the official three-digit organization code and corresponding
   description (§16.3.7), **not** the local health authority/facility identifier.

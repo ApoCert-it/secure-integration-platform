@@ -16,7 +16,7 @@ contain a supported Lombardia or Emilia-Romagna production profile.
 | Live regional conformance | Not performed and not claimed |
 
 Implementation details are in the [implementation plan](https://github.com/msala9/secure-integration-platform/blob/b13e6ba781a90d331836d37ec363baf27248737f/docs/implementation/HEALTHCARE-WAVE1-REGIONAL-EPRESCRIPTION.md)
-and local evidence is in the [test report](../../../testing/HEALTHCARE-WAVE1-REGIONAL-EPRESCRIPTION-REPORT.md).
+and local evidence is in the [test report](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/testing/HEALTHCARE-WAVE1-REGIONAL-EPRESCRIPTION-REPORT.md).
 
 ## Official sources reviewed
 

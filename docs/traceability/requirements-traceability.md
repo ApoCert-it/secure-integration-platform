@@ -4,8 +4,8 @@ This matrix distinguishes requirements, named tests, evidence types and status. 
 capability status is in [IMPLEMENTATION_STATUS.md](../../IMPLEMENTATION_STATUS.md).
 The DOC-02 map below is a snapshot of baseline
 `613b28558fc9aeef13b60381b4fc49b59e2ad5c2`, not a summary updated through PR #65.
-For current FSE2, [current-spec](../connectors/healthcare/fse2/current-spec.md#qualification-summary-redacted-offline-only)
-maps named offline gates and the [validation/status guide](../user/fse2-validation-status.md#qualification-observed-on-september-4-2026)
+For current FSE2, [current-spec](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/connectors/healthcare/fse2/current-spec.md#qualification-summary-redacted-offline-only)
+maps named offline gates and the [validation/status guide](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/user/fse2-validation-status.md#qualification-observed-on-september-4-2026)
 identifies live observations. Milestone tables remain evidence of their respective baselines.
 
 Status values:
@@ -480,7 +480,7 @@ accreditation and live conformance remain blocked until current official specifi
 available. Generic M6 auth tests are regression evidence only, not regional support evidence.
 ## Healthcare Wave 1 - FSE2 National Connector
 
-Current-spec opt-in candidate: [frozen 14-route matrix and qualification](../connectors/healthcare/fse2/current-spec.md).
+Current-spec opt-in candidate: [frozen 14-route matrix and qualification](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/connectors/healthcare/fse2/current-spec.md).
 `Fse2CurrentSpecTests`, the current/historical Published HTTPS matrix, the dual-profile
 clean-state provisioner gate and Core path projection/approval parity tests cover the new
 contract. Existing `FSE2_DUR_*` gates retain durable scope/restart/replica coverage.

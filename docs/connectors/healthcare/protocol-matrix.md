@@ -61,4 +61,4 @@ Characterized across several regional profile candidates. Certificate purpose is
 | `fvg-pkce-jwt` | Authorization Code + PKCE, access/ID token, RS256 signing, multi-header injection | PKCE/handoff and signing primitives reusable by VetInfo and other FSE profiles |
 | `umbria-mtls-jwt` | mTLS plus two RS256 JWT profiles with distinct certificate purposes | Certificate-purpose separation, signing policy and mTLS transport |
 
-The matrix intentionally does not include a universal authentication abstraction. The minimum contracts for these four connectors are defined in [auth-primitives-required.md](auth-primitives-required.md).
+The matrix intentionally does not include a universal authentication abstraction. The minimum contracts for these four connectors are defined in [auth-primitives-required.md](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/connectors/healthcare/auth-primitives-required.md).

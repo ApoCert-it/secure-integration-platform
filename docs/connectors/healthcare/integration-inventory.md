@@ -16,7 +16,7 @@ Customer-specific and restricted sources are excluded from this public inventory
 
 | Source class | Material analyzed | Result |
 |---|---|---|
-| Public official sources | Sources listed in [provenance.md](provenance.md) | **OFFICIAL_CURRENT** or **OFFICIAL_HISTORICAL** only for the facts directly supported there |
+| Public official sources | Sources listed in [provenance.md](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/connectors/healthcare/provenance.md) | **OFFICIAL_CURRENT** or **OFFICIAL_HISTORICAL** only for the facts directly supported there |
 | Repository architecture | ADR-0007, ADR-0009, ADR-0010, ADR-0011, ADR-0015, ADR-0018 and ADR-0019; implementation plan, test strategy, threat model and migration guidance | **KNOWN** product boundaries and security invariants |
 | Existing connector material | Connector Definition v1 documentation and the synthetic Secure Layer and Managed SOAP examples | **KNOWN** server-owned binding and synthetic test conventions; examples are pre-M4 analysis artefacts, not executable real connectors |
 | Samples, fixtures and tools | Repository samples, test fixtures, M3 legacy simulator and diagrams | No real healthcare implementation or reusable proprietary code was found; only synthetic product behavior and architectural seams |

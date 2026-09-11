@@ -29,7 +29,7 @@ they are not a second quickstart, an MSI or a new qualification of the current b
 
 ## Optional FSE2 OfficialTest pilot
 
-Use the [current validation/status pilot](fse2-validation-status.md).
+Use the [current validation/status pilot](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/user/fse2-validation-status.md).
 This optional pack requires a host .NET SDK, previously authorized A1/S1 material
 and OfficialTest access: the Core's container-only application-tooling prerequisites
 do not apply here. The runner handles local bootstrap, enrollment and roles;

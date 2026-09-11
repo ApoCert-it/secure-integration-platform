@@ -18,8 +18,8 @@ provider, the .NET SDK and the Admin UI/API. The software is a technical
 preview: having these components does not imply an installer, API stability or
 production qualification.
 
-This is ApoCert's curated source distribution. See the [changelog](CHANGELOG.md)
-and [source provenance](SOURCE.md) for this snapshot and its verification limits.
+This is ApoCert's curated source distribution. See the [changelog](https://github.com/ApoCert-it/secure-integration-platform/blob/main/CHANGELOG.md)
+and [source provenance](https://github.com/ApoCert-it/secure-integration-platform/blob/main/SOURCE.md) for this snapshot and its verification limits.
 
 Start with the [architecture overview](#architecture-overview) or
 [run the Core locally](#running-the-core-locally). Continue with
@@ -295,7 +295,7 @@ not interchangeable:
   Windows version or a universal production deployment.
 - **Optional FSE2.** The pack for Italy's electronic health record system
   (Fascicolo Sanitario Elettronico 2.0) depends on Core contracts, never the reverse.
-  The [current validation/status pilot](docs/user/fse2-validation-status.md)
+  The [current validation/status pilot](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/user/fse2-validation-status.md)
   has its own prerequisites, including a host .NET SDK, OfficialTest access and
   previously provisioned, authorized A1/S1 material. Its 14 routes are complete
   offline within the frozen specification's limits. CDA `VERIFICA` and workflow
@@ -352,6 +352,6 @@ use `MPL-2.0 OR Apache-2.0`. The texts are in [LICENSE](LICENSE) and
 or dependency licenses.
 
 [CONTRIBUTING.md](CONTRIBUTING.md) and [DCO.md](DCO.md) describe contributions.
-The [documentation index](docs/README.md)
+The [documentation index](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/README.md)
 separates current procedures, technical references and history; milestone documents
 do not override the integrated status.

@@ -8,7 +8,7 @@ All APIs below are conceptual minimums. Concrete names and packaging may change 
 
 ## Delivery classification
 
-This classification follows the actual connector waves in [M6-IMPLEMENTATION-PLAN.md](M6-IMPLEMENTATION-PLAN.md). It authorizes only synthetic primitive work after a separate implementation authorization; it does not make a production connector ready.
+This classification follows the actual connector waves in [M6-IMPLEMENTATION-PLAN.md](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/connectors/healthcare/M6-IMPLEMENTATION-PLAN.md). It authorizes only synthetic primitive work after a separate implementation authorization; it does not make a production connector ready.
 
 ### REQUIRED NOW - Wave 1 synthetic contracts
 

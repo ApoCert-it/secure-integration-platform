@@ -112,7 +112,7 @@ Record connector/profile/operation, opaque attempt/session ID, derived tenant/in
 - Synthetic vectors: `tests/characterization/healthcare/lombardia-oauth-helper`.
 - Architectural inference: server-owned token/resource processing; browser/helper presentation does not imply a Broker dependency.
 
-See [../../provenance.md](../provenance.md).
+See [../../provenance.md](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/connectors/healthcare/provenance.md).
 
 ## Execution location
 

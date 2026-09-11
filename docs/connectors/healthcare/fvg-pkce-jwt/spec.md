@@ -112,7 +112,7 @@ Record derived execution context, connector/version/operation, opaque attempt/se
 - Execution inference: server-owned token/API processing and ADR-0019 separate signing capability; browser presentation does not imply a Broker dependency.
 - No official OAuth metadata, JWKS, claim profile or packet capture was used.
 
-See [the provenance register](../provenance.md).
+See [the provenance register](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/connectors/healthcare/provenance.md).
 
 ## Execution location
 

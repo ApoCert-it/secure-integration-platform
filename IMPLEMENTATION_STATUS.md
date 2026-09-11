@@ -1,7 +1,7 @@
 # Implementation status
 
 Snapshot: 11 Sep 2026. Exact development baseline and source checks are recorded in
-[SOURCE.md](SOURCE.md). This is a source technical preview, not a production release.
+[SOURCE.md](https://github.com/ApoCert-it/secure-integration-platform/blob/main/SOURCE.md). This is a source technical preview, not a production release.
 
 ## Included capabilities
 
@@ -24,8 +24,8 @@ Snapshot: 11 Sep 2026. Exact development baseline and source checks are recorded
 - [Core quickstart](docs/user/quickstart.md) and [local pilot](docs/user/local-pilot.md).
 - [Local Broker](docs/user/local-broker.md): service delivery, local protection and application credential adoption.
 - [Administration](docs/user/administration.md) and [guided onboarding](docs/user/guided-connector-onboarding.md).
-- [FSE2 validation/status](docs/user/fse2-validation-status.md) and [current specification](docs/connectors/healthcare/fse2/current-spec.md).
-- [Azure provider](packs/deployment/azure/README.md) and [local PKCS#12 provider](packs/deployment/local-pkcs12/README.md).
+- [FSE2 validation/status](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/user/fse2-validation-status.md) and [current specification](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/connectors/healthcare/fse2/current-spec.md).
+- [Azure provider](https://github.com/ApoCert-it/secure-integration-platform/blob/main/packs/deployment/azure/README.md) and [local PKCS#12 provider](https://github.com/ApoCert-it/secure-integration-platform/blob/main/packs/deployment/local-pkcs12/README.md).
 - [CRA/NIS 2 adoption guidance](docs/security/cra-nis2-adoption.md).
 
 ## Boundaries

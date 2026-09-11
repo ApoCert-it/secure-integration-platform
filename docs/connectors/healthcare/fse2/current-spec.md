@@ -12,7 +12,7 @@ official access/certification and live publication conformance are outside this 
 qualification. No OfficialTest request or operational FSE2 material was used for that gate.
 The earlier validate-only live observation does not qualify this new definition.
 
-A later, separately authorized [validation/status path](../../../user/fse2-validation-status.md)
+A later, separately authorized [validation/status path](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/user/fse2-validation-status.md)
 qualified CDA VERIFICA and workflow status with one event after an actual Gateway restart
 on 4 September 2026. FHIR VERIFICA returned upstream 500 `generic-error` and is not live
 qualified; the cause of that 500 is undetermined. This partial observation does not qualify
@@ -153,7 +153,7 @@ transformation bodies are not returned to the consumer or made unbounded to fit.
 
 ## Supported provisioning (same tool, no SQL)
 
-Use the existing [plan/apply/verify role workflow](../../../user/fse2-officialtest.md#1-plan--no-effects)
+Use the existing [plan/apply/verify role workflow](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/user/fse2-officialtest.md#1-plan--no-effects)
 and its authenticated Admin session mechanism. For this new definition, start from the
 same protected plan shape but set `schemaVersion: "2.0"` and add exactly:
 

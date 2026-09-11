@@ -110,7 +110,7 @@ Record connector/version/operation, derived tenant/installation/application, cer
 - Synthetic vectors: `tests/characterization/healthcare/umbria-mtls-jwt`.
 - Execution inference: ADR-0015 and ADR-0019 separate certificate/signing capabilities.
 
-See [the provenance register](../provenance.md).
+See [the provenance register](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/connectors/healthcare/provenance.md).
 
 ## Execution location
 

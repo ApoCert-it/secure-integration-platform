@@ -14,19 +14,19 @@
 - [Security model](security/security-model.md), [threat model](security/threat-model.md) and [CRA/NIS 2 adoption guidance](security/cra-nis2-adoption.md).
 - [Gateway API](api/gateway-api.md), [OpenAPI](api/gateway-openapi.yaml) and [Broker IPC](api/broker-ipc.md).
 - [Connector development](connector-development/README.md), [specification](connectors/connector-specification.md) and [SDK contract](connectors/connector-sdk.md).
-- [Requirements and test traceability](traceability/requirements-traceability.md).
+- [Requirements and test traceability](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/traceability/requirements-traceability.md).
 
 ## Optional packs
 
-- [FSE2 validation and status](user/fse2-validation-status.md), with separate external prerequisites and explicitly bounded live qualification.
-- [FSE2 current specification](connectors/healthcare/fse2/current-spec.md): fourteen offline-qualified routes and their limitations.
-- [Azure provider](../packs/deployment/azure/README.md).
-- [Local PKCS#12 provider](../packs/deployment/local-pkcs12/README.md).
+- [FSE2 validation and status](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/user/fse2-validation-status.md), with separate external prerequisites and explicitly bounded live qualification.
+- [FSE2 current specification](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/connectors/healthcare/fse2/current-spec.md): fourteen offline-qualified routes and their limitations.
+- [Azure provider](https://github.com/ApoCert-it/secure-integration-platform/blob/main/packs/deployment/azure/README.md).
+- [Local PKCS#12 provider](https://github.com/ApoCert-it/secure-integration-platform/blob/main/packs/deployment/local-pkcs12/README.md).
 
 ## Scope and provenance
 
 [Implementation status](../IMPLEMENTATION_STATUS.md) records capability limits.
-[Source provenance](../SOURCE.md) identifies the exact development baseline and
+[Source provenance](https://github.com/ApoCert-it/secure-integration-platform/blob/main/SOURCE.md) identifies the exact development baseline and
 publication-only changes. Older technical records retain their own dates and
 qualification scope; they are not current adoption procedures.
 

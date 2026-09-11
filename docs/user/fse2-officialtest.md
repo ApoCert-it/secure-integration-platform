@@ -1,7 +1,7 @@
 # FSE2 OfficialTest pilot — historical validate-only profile
 
 For the new current-spec path limited to VERIFICA and lookup, see
-[FSE2 Organization: validation and status](fse2-validation-status.md). This guide
+[FSE2 Organization: validation and status](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/user/fse2-validation-status.md). This guide
 preserves the context of the previous validate-cda 1.0.1 profile.
 
 **Audience:** organizations authorized to use the OfficialTest environment.
@@ -9,7 +9,7 @@ preserves the context of the previous validate-cda 1.0.1 profile.
 `fse2-officialtest-validate-cda@1.0.1` / `validate-cda` and the shared provisioner.
 **Historical claim:** `validate-cda` LIVE_QUALIFIED on its own exact baseline.
 The bootstrap/session/runner gaps below concern this earlier path, not the
-[current pilot](fse2-validation-status.md). The
+[current pilot](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/user/fse2-validation-status.md). The
 [capability status](../../IMPLEMENTATION_STATUS.md#product-status) distinguishes the profiles.
 
 This guide puts steps in their actual order and identifies where the product stops.
@@ -62,7 +62,7 @@ Stop if any of the following is missing:
   distinct Connector Approver;
 - Gateway HTTPS and, if needed, only a pinned public DER CA;
 - a protected operational plan outside Git, conforming to the
-  [closed schema](../connectors/healthcare/fse2/fse2-officialtest-operational-plan.schema.json).
+  [closed schema](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/connectors/healthcare/fse2/fse2-officialtest-operational-plan.schema.json).
 
 For this historical path, the repository did not yet offer a supported workflow to
 create a real FSE2 deployment from scratch, import operational provider material,
@@ -182,7 +182,7 @@ or endpoints read from evidence as an operational runner. The next product slice
 was required to deliver that runner/guided workflow and close the black-box
 **time to first successful call** gate. Only an already-authorized owner of the
 external runner used for qualification could make a new call, with new live authorization.
-The [current pilot](fse2-validation-status.md) supersedes this adoption blocker.
+The [current pilot](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/user/fse2-validation-status.md) supersedes this adoption blocker.
 
 ## Resume, errors and cleanup
 
@@ -198,7 +198,7 @@ The [current pilot](fse2-validation-status.md) supersedes this adoption blocker.
   preserves the previous configuration as historical evidence.
 
 The code → action table is in [troubleshooting.md](troubleshooting.md). The profile's
-technical reference is the [FSE2 README](../connectors/healthcare/fse2/README.md).
+technical reference is the [FSE2 README](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/connectors/healthcare/fse2/README.md).
 
 ## Future success criterion recorded for this path
 

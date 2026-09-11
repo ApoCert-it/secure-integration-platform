@@ -1,9 +1,9 @@
 # FSE2 National Connector — Organization profile
 
-**Current entry point:** [validation and workflow status pilot](../../../user/fse2-validation-status.md).
+**Current entry point:** [validation and workflow status pilot](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/user/fse2-validation-status.md).
 The opt-in `fse2-organization-current-spec@1.0.0` is integrated through PR #65.
 The [capability summary](../../../../IMPLEMENTATION_STATUS.md#product-status) owns current
-status; the [14-route current-spec contract](current-spec.md) owns the frozen offline
+status; the [14-route current-spec contract](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/connectors/healthcare/fse2/current-spec.md) owns the frozen offline
 scope, request/response matrix and acceptance limits.
 
 Offline completeness does not mean full live qualification. The current pilot records
@@ -14,7 +14,7 @@ a Core dependency.
 
 ## Historical profiles
 
-The [validate-only guide](../../../user/fse2-officialtest.md) retains the earlier
+The [validate-only guide](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/user/fse2-officialtest.md) retains the earlier
 `fse2-officialtest-validate-cda@1.0.1` path and shared provisioner reference. Its
 bootstrap/session/runner gaps do not describe the current distributed pilot.
 The [history index](https://github.com/msala9/secure-integration-platform/blob/b13e6ba781a90d331836d37ec363baf27248737f/docs/history/README.md#earlier-fse2-paths) preserves the
@@ -47,7 +47,7 @@ from the server-side public catalog.
 
 The provisioner does not make the live call. Qualification of this validate-only
 profile came from a controlled, redacted external runner. For first adoption, now use
-the [shipped current-spec runner](../../../user/fse2-validation-status.md), with
+the [shipped current-spec runner](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/user/fse2-validation-status.md), with
 its prerequisites and limits, not integration tests, fixtures or hand-reconstructed requests.
 
 Parity applies only to `fse2-officialtest-validate-cda@1.0.1`: both JWTs use only the
@@ -91,7 +91,7 @@ retry; the first case produces one success audit, the second one failure audit.
 ## Minimal create → status example — historical profile
 
 This example preserves the historical factory. For the current profile, use the
-[current-spec consumer contract](current-spec.md#consumer-contract), which requires
+[current-spec consumer contract](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/connectors/healthcare/fse2/current-spec.md#consumer-contract), which requires
 the preceding VALIDATION workflow for ordinary publication. The VERIFICA/status
 evaluation runner does not enable these publication operations.
 

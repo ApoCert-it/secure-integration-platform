@@ -8,7 +8,7 @@ ownership-checked cleanup.
 This is the canonical Core local pilot. It requires no cloud, FSE2 material, SQL,
 `.env`, host .NET SDK, Node, npm, curl or PostgreSQL, or trust-store changes.
 These prerequisites do not extend to the
-[optional FSE2 pilot](fse2-validation-status.md#prerequisites).
+[optional FSE2 pilot](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/user/fse2-validation-status.md#prerequisites).
 
 ## Prerequisites
 

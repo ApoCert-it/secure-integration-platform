@@ -3,7 +3,7 @@
 ## 11 Sep 2026 — Initial institutional source snapshot
 
 First curated ApoCert source distribution, based on the exact development revision
-listed in [SOURCE.md](SOURCE.md). This entry summarizes the included software; it
+listed in [SOURCE.md](https://github.com/ApoCert-it/secure-integration-platform/blob/main/SOURCE.md). This entry summarizes the included software; it
 does not claim all components were newly implemented on this date.
 
 - Windows Local Broker with authenticated IPC, installation-local protection,

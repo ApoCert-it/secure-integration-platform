@@ -1,0 +1,290 @@
+name: m5-admin-ui
+
+on:
+  push:
+    branches: [main, m5/admin-ui-mvp]
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  CANDIDATE_COMMIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+  WEB: src/Admin/Admin.Web
+
+jobs:
+  admin-ui-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with: { ref: '${{ env.CANDIDATE_COMMIT_SHA }}' }
+      - uses: actions/setup-node@v6
+        with: { node-version: 22.22.1, cache: npm, cache-dependency-path: src/Admin/Admin.Web/package-lock.json }
+      - run: npm ci --ignore-scripts
+        working-directory: ${{ env.WEB }}
+      - run: npm run lint && npm run check:api && npm run check:runtime
+        working-directory: ${{ env.WEB }}
+
+  admin-ui-unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with: { ref: '${{ env.CANDIDATE_COMMIT_SHA }}' }
+      - uses: actions/setup-node@v6
+        with: { node-version: 22.22.1, cache: npm, cache-dependency-path: src/Admin/Admin.Web/package-lock.json }
+      - run: npm ci --ignore-scripts && npm test
+        working-directory: ${{ env.WEB }}
+
+  admin-ui-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with: { ref: '${{ env.CANDIDATE_COMMIT_SHA }}' }
+      - uses: actions/setup-node@v6
+        with: { node-version: 22.22.1, cache: npm, cache-dependency-path: src/Admin/Admin.Web/package-lock.json }
+      - run: npm ci --ignore-scripts && npm run build
+        working-directory: ${{ env.WEB }}
+      - uses: actions/upload-artifact@v6
+        with: { name: 'admin-ui-${{ env.CANDIDATE_COMMIT_SHA }}', path: src/Admin/Admin.Web/dist, if-no-files-found: error }
+
+  admin-api-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with: { ref: '${{ env.CANDIDATE_COMMIT_SHA }}' }
+      - uses: actions/setup-dotnet@v5
+        with: { global-json-file: global.json, cache: true, cache-dependency-path: '**/packages.lock.json' }
+      - run: dotnet test tests/integration/Gateway.Integration.Tests/Gateway.Integration.Tests.csproj -c Release --filter FullyQualifiedName~AdminApiSecurityTests
+
+  admin-auth-oidc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with: { ref: '${{ env.CANDIDATE_COMMIT_SHA }}' }
+      - uses: actions/setup-dotnet@v5
+        with: { global-json-file: global.json, cache: true, cache-dependency-path: '**/packages.lock.json' }
+      - name: Exercise synthetic OIDC protocol and session revocation
+        run: dotnet test tests/integration/Gateway.Integration.Tests/Gateway.Integration.Tests.csproj -c Release --filter FullyQualifiedName~AdminOidcProtocolTests
+
+  admin-ui-browser-mock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with: { ref: '${{ env.CANDIDATE_COMMIT_SHA }}' }
+      - uses: actions/setup-node@v6
+        with: { node-version: 22.22.1, cache: npm, cache-dependency-path: src/Admin/Admin.Web/package-lock.json }
+      - run: npm ci --ignore-scripts && npx playwright install --with-deps chromium && npm run test:ui-mock
+        working-directory: ${{ env.WEB }}
+
+  admin-ui-full-stack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with: { ref: '${{ env.CANDIDATE_COMMIT_SHA }}' }
+      - name: Validate immutable .NET container base images
+        shell: pwsh
+        run: ./eng/validate-container-base-images.ps1
+      - uses: actions/setup-dotnet@v5
+        with: { global-json-file: global.json, cache: true, cache-dependency-path: '**/packages.lock.json' }
+      - uses: actions/setup-node@v6
+        with: { node-version: 22.22.1, cache: npm, cache-dependency-path: src/Admin/Admin.Web/package-lock.json }
+      - run: npm ci --ignore-scripts && npx playwright install --with-deps chromium
+        working-directory: ${{ env.WEB }}
+      - name: Run production-build M5 stack and browser workflow
+        shell: pwsh
+        run: ./tools/m5/Invoke-M5FullStack.ps1
+      - name: Verify Docker cleanup
+        if: always()
+        shell: bash
+        run: |
+          test -z "$(docker ps -aq --filter label=com.docker.compose.project=secure-integration-m5-quickstart)"
+          test -z "$(docker volume ls -q --filter label=com.docker.compose.project=secure-integration-m5-quickstart)"
+          test -z "$(docker network ls -q --filter label=com.docker.compose.project=secure-integration-m5-quickstart)"
+
+  m5-postgresql-18:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: broker_gateway_m5
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports: [5432:5432]
+        options: >-
+          --health-cmd "pg_isready -U postgres -d broker_gateway_m5"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      GATEWAY_MIGRATION_CONNECTION: Host=127.0.0.1;Port=5432;Database=broker_gateway_m5;Username=postgres;SSL Mode=Disable;GSS Encryption Mode=Disable
+      GATEWAY_POSTGRES_MIGRATION_CONNECTION: Host=127.0.0.1;Port=5432;Database=broker_gateway_m5;Username=postgres;SSL Mode=Disable;GSS Encryption Mode=Disable
+    steps:
+      - uses: actions/checkout@v6
+        with: { ref: '${{ env.CANDIDATE_COMMIT_SHA }}' }
+      - uses: actions/setup-dotnet@v5
+        with: { global-json-file: global.json, cache: true, cache-dependency-path: '**/packages.lock.json' }
+      - name: Apply all migrations and prove second application is a no-op
+        shell: bash
+        run: |
+          set -euo pipefail
+          first="$(dotnet run --project src/Gateway/Gateway.Migrations/Gateway.Migrations.csproj -c Release -- apply)"
+          grep -F 'Applied 0005_admin_sessions_m5.sql' <<<"$first"
+          grep -F 'Applied 0006_admin_role_revocation_m5.sql' <<<"$first"
+          grep -F 'Applied 0007_binding_bundle_immutability_m5.sql' <<<"$first"
+          grep -F 'Applied 0008_provider_resource_catalog_m5.sql' <<<"$first"
+          grep -F 'Applied 0009_runtime_locator_resolution_m5.sql' <<<"$first"
+          grep -F 'Applied 0010_operation_scoped_locator_m5.sql' <<<"$first"
+          grep -F 'Applied 0011_direct_installation_m55.sql' <<<"$first"
+          second="$(dotnet run --project src/Gateway/Gateway.Migrations/Gateway.Migrations.csproj -c Release --no-build -- apply)"
+          ! grep -Fq 'Applied ' <<<"$second"
+      - name: Exercise real M5 PostgreSQL stores and fault boundaries
+        env:
+          GATEWAY_POSTGRES_ADMIN_CONNECTION: Host=127.0.0.1;Port=5432;Database=broker_gateway_m5;Username=m5_test_admin;SSL Mode=Disable;GSS Encryption Mode=Disable
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker exec "${{ job.services.postgres.id }}" psql -v ON_ERROR_STOP=1 -U postgres -d broker_gateway_m5 -c "CREATE ROLE m5_test_admin LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION; GRANT gateway_admin TO m5_test_admin;"
+          dotnet test tests/integration/Gateway.Integration.Tests/Gateway.Integration.Tests.csproj -c Release --filter "FullyQualifiedName~PostgresIsolationTests"
+          dotnet test tests/integration/Gateway.Integration.Tests/Gateway.Integration.Tests.csproj -c Release --no-build --filter "FullyQualifiedName=SecureIntegration.Gateway.Integration.Tests.AdminApiPostgreSqlSecurityTests.M5_E2E_Admin_approval_publish_runtime_provider_transport_prevents_credential_exfiltration"
+      - name: Verify non-superuser roles and provider catalog least privilege
+        shell: bash
+        env: { POSTGRES_SERVICE_ID: '${{ job.services.postgres.id }}' }
+        run: |
+          set -euo pipefail
+          docker exec "$POSTGRES_SERVICE_ID" psql -v ON_ERROR_STOP=1 -U postgres -d broker_gateway_m5 -Atc "SELECT bool_and(NOT rolsuper AND NOT rolcreatedb AND NOT rolcreaterole) FROM pg_roles WHERE rolname IN ('gateway_runtime','gateway_admin');" | grep -Fx t
+          docker exec "$POSTGRES_SERVICE_ID" psql -v ON_ERROR_STOP=1 -U postgres -d broker_gateway_m5 -Atc "SELECT NOT has_table_privilege('gateway_admin','gateway.provider_resource_catalog_version','UPDATE');" | grep -Fx t
+          docker exec "$POSTGRES_SERVICE_ID" psql -v ON_ERROR_STOP=1 -U postgres -d broker_gateway_m5 -Atc "SELECT NOT has_table_privilege('gateway_readonly','gateway.provider_resource_locator','SELECT');" | grep -Fx t
+          docker exec "$POSTGRES_SERVICE_ID" psql -v ON_ERROR_STOP=1 -U postgres -d broker_gateway_m5 -Atc "SELECT NOT has_table_privilege('gateway_runtime','gateway.provider_resource_locator','SELECT');" | grep -Fx t
+          docker exec "$POSTGRES_SERVICE_ID" psql -v ON_ERROR_STOP=1 -U postgres -d broker_gateway_m5 -Atc "SELECT has_function_privilege('gateway_runtime','gateway.resolve_published_provider_locator(uuid,text,text,text,uuid,uuid,bigint,bytea,uuid,uuid,uuid)','EXECUTE');" | grep -Fx t
+          docker exec "$POSTGRES_SERVICE_ID" psql -v ON_ERROR_STOP=1 -U postgres -d broker_gateway_m5 -Atc "SELECT to_regprocedure('gateway.resolve_published_provider_locator(uuid,text,text,uuid,uuid,bigint,bytea,uuid,uuid,uuid)') IS NULL;" | grep -Fx t
+          docker exec "$POSTGRES_SERVICE_ID" psql -v ON_ERROR_STOP=1 -U postgres -d broker_gateway_m5 -Atc "SELECT NOT has_schema_privilege('gateway_locator_owner','gateway','CREATE');" | grep -Fx t
+          docker exec "$POSTGRES_SERVICE_ID" psql -v ON_ERROR_STOP=1 -U postgres -d broker_gateway_m5 -Atc "SELECT count(*)=0 FROM information_schema.columns WHERE table_schema='gateway' AND table_name='provider_resource_catalog_version' AND (column_name LIKE '%secret%' OR column_name='provider_reference');" | grep -Fx t
+      - name: Clean M5 PostgreSQL schema
+        if: always()
+        shell: bash
+        env: { POSTGRES_SERVICE_ID: '${{ job.services.postgres.id }}' }
+        run: docker exec "$POSTGRES_SERVICE_ID" psql -v ON_ERROR_STOP=1 -U postgres -d broker_gateway_m5 -c 'DROP SCHEMA IF EXISTS gateway CASCADE;'
+
+  admin-ui-accessibility:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with: { ref: '${{ env.CANDIDATE_COMMIT_SHA }}' }
+      - uses: actions/setup-node@v6
+        with: { node-version: 22.22.1, cache: npm, cache-dependency-path: src/Admin/Admin.Web/package-lock.json }
+      - run: npm ci --ignore-scripts && npm run test:a11y
+        working-directory: ${{ env.WEB }}
+
+  gateway-container-with-ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with: { ref: '${{ env.CANDIDATE_COMMIT_SHA }}' }
+      - name: Validate immutable .NET container base images
+        shell: pwsh
+        run: ./eng/validate-container-base-images.ps1
+      - name: Build and inspect Gateway image
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker build --pull --label "org.opencontainers.image.revision=$CANDIDATE_COMMIT_SHA" -f src/Gateway/Gateway.Api/Dockerfile -t secure-integration-gateway:m5 .
+          test -n "$(docker image inspect secure-integration-gateway:m5 --format '{{.Config.User}}')"
+          test "$(docker image inspect secure-integration-gateway:m5 --format '{{.Config.User}}')" != "0"
+          docker run -d --name gateway-m5 --read-only --tmpfs /tmp -p 18080:8080 -e ASPNETCORE_ENVIRONMENT=Development secure-integration-gateway:m5
+          trap 'docker rm -f gateway-m5 >/dev/null 2>&1 || true' EXIT
+          for i in {1..30}; do curl -fsS http://127.0.0.1:18080/health/ready >/dev/null && break; sleep 1; done
+          curl -fsS http://127.0.0.1:18080/admin/ | grep -F '<div id="root"></div>'
+          test "$(docker exec gateway-m5 sh -c 'command -v node || true')" = ""
+          docker image inspect secure-integration-gateway:m5 --format '{{.Id}}' | tee gateway-m5-digest.txt
+
+  clean-clone-ui-quickstart:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with: { ref: '${{ env.CANDIDATE_COMMIT_SHA }}' }
+      - name: Validate immutable .NET container base images
+        shell: pwsh
+        run: ./eng/validate-container-base-images.ps1
+      - uses: actions/setup-dotnet@v5
+        with: { global-json-file: global.json }
+      - uses: actions/setup-node@v6
+        with: { node-version: 22.22.1, cache: npm, cache-dependency-path: src/Admin/Admin.Web/package-lock.json }
+      - name: Exercise clean-clone import-to-runtime workflow
+        shell: pwsh
+        run: ./tools/m5/Invoke-M5Quickstart.ps1 -Phase Workflow
+      - name: Verify failed child output redaction and cleanup
+        shell: pwsh
+        run: ./tools/alpha/Test-AlphaGoldenPath.ps1
+      - name: Exercise Direct .NET alpha golden path
+        shell: pwsh
+        run: ./tools/alpha/Invoke-AlphaGoldenPath.ps1 -Phase Run -SkipBuild -DotNetPath (Get-Command dotnet).Source
+      - name: Stop and verify cleanup
+        if: always()
+        shell: pwsh
+        run: |
+          ./tools/m5/Invoke-M5Quickstart.ps1 -Phase Stop
+          if (docker ps -a --filter label=com.docker.compose.project=secure-integration-m5-quickstart -q) { throw 'Containers remain' }
+          if (docker volume ls --filter label=com.docker.compose.project=secure-integration-m5-quickstart -q) { throw 'Volumes remain' }
+
+  open-source-boundary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with: { ref: '${{ env.CANDIDATE_COMMIT_SHA }}' }
+      - uses: actions/setup-dotnet@v5
+        with: { global-json-file: global.json }
+      - uses: actions/setup-node@v6
+        with: { node-version: 22.22.1 }
+      - shell: pwsh
+        run: |
+          if (Select-String -LiteralPath eng/Export-OpenSourceCore.ps1 -SimpleMatch '& powershell.exe') { throw 'OSS_EXPORT_WINDOWS_SHELL_REGRESSION' }
+          ./eng/Export-OpenSourceCore.ps1
+
+  license-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with: { ref: '${{ env.CANDIDATE_COMMIT_SHA }}' }
+      - uses: actions/setup-node@v6
+        with: { node-version: 22.22.1, cache: npm, cache-dependency-path: src/Admin/Admin.Web/package-lock.json }
+      - run: npm ci --ignore-scripts && node ../../../tools/m5/check-frontend-licenses.mjs
+        working-directory: ${{ env.WEB }}
+
+  secret-scan:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v6
+        with: { ref: '${{ env.CANDIDATE_COMMIT_SHA }}', fetch-depth: 0 }
+      - name: Prove scanner rejects a synthetic negative fixture, then scan clean tree
+        shell: pwsh
+        run: |
+          $fixture = 'tests/.m5-secret-scanner-negative-fixture.txt'
+          try {
+            Set-Content -LiteralPath $fixture -Value 'client_secret=negative-fixture-credential-123456789' -NoNewline
+            & pwsh -NoLogo -NoProfile -File ./eng/scan-secrets.ps1 *> $null
+            if ($LASTEXITCODE -eq 0) { throw 'M5_SECRET_SCANNER_NEGATIVE_FIXTURE_NOT_DETECTED' }
+          }
+          finally { Remove-Item -LiteralPath $fixture -Force -ErrorAction SilentlyContinue }
+          & pwsh -NoLogo -NoProfile -File ./eng/scan-secrets.ps1
+          if ($LASTEXITCODE -ne 0) { throw 'M5_SECRET_SCANNER_CLEAN_TREE_FAILED' }
+
+  sbom:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with: { ref: '${{ env.CANDIDATE_COMMIT_SHA }}' }
+      - name: Validate immutable .NET container base images
+        shell: pwsh
+        run: ./eng/validate-container-base-images.ps1
+      - uses: actions/setup-dotnet@v5
+        with: { global-json-file: global.json }
+      - uses: actions/setup-node@v6
+        with: { node-version: 22.22.1 }
+      - uses: anchore/sbom-action/download-syft@v0
+      - shell: pwsh
+        run: |
+          ./eng/generate-sbom.ps1
+          ./eng/test-sbom-modes.ps1
+      - uses: actions/upload-artifact@v6
+        with: { name: 'm5-sbom-${{ env.CANDIDATE_COMMIT_SHA }}', path: .artifacts/sbom, if-no-files-found: error }
