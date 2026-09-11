@@ -1,0 +1,35 @@
+<Project>
+  <PropertyGroup>
+    <ProductVersion>0.1.0-alpha.1</ProductVersion>
+    <_ProductVersionProjectPath>$([System.String]::Copy('$(MSBuildProjectFullPath)').Replace('\', '/'))</_ProductVersionProjectPath>
+    <_ProductVersionExcluded>$([System.Text.RegularExpressions.Regex]::IsMatch('$(_ProductVersionProjectPath)', '/(?:packs|src/ConnectorPacks)/'))</_ProductVersionExcluded>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(_ProductVersionExcluded)' != 'True'">
+    <Version>$(ProductVersion)</Version>
+    <PackageVersion>$(ProductVersion)</PackageVersion>
+    <InformationalVersion>$(ProductVersion)</InformationalVersion>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AnalysisLevel>latest-Recommended</AnalysisLevel>
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <DebugType>embedded</DebugType>
+    <RepositoryUrl>https://github.com/marcobiz/secure-integration-platform</RepositoryUrl>
+    <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
+    <Authors>Secure Integration Platform Contributors</Authors>
+    <Company>ApoCert S.r.l.</Company>
+    <Copyright>Copyright © 2026 ApoCert S.r.l.</Copyright>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.csproj'">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+</Project>

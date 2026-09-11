@@ -1,0 +1,600 @@
+using System.Collections.Frozen;
+using System.Collections.ObjectModel;
+using System.Text.Json;
+
+namespace SecureIntegration.Authentication.CertificateSigning;
+
+/// <summary>Immutable server-derived scope for one outbound authentication operation.</summary>
+public sealed record AuthenticationExecutionContext(
+    Guid TenantId,
+    Guid InstallationId,
+    Guid ApplicationId,
+    Guid EnvironmentId,
+    Guid ConnectorVersionId,
+    string ConnectorId,
+    string OperationId,
+    string ProfileId,
+    Uri Endpoint,
+    Guid CorrelationId);
+
+/// <summary>Distinct uses that cannot be substituted even when backed by the same provider.</summary>
+public enum AuthenticationResourcePurpose
+{
+    /// <summary>RS256 JWT signing only.</summary>
+    JwtSigning,
+    /// <summary>Outbound TLS client authentication only.</summary>
+    MutualTlsClientAuthentication
+}
+
+/// <summary>Current server-owned resource state.</summary>
+public enum AuthenticationResourceStatus
+{
+    /// <summary>The exact catalog revision is usable.</summary>
+    Active,
+    /// <summary>The resource is denied before provider or network access.</summary>
+    Disabled
+}
+
+/// <summary>Approved public metadata frozen into a resource binding.</summary>
+public sealed record BoundResourcePublicMetadata(
+    string FingerprintSha256,
+    string SubjectPublicKeyInfoSha256,
+    DateTimeOffset NotBefore,
+    DateTimeOffset NotAfter,
+    string KeyAlgorithm,
+    int PublicKeySize,
+    string Version);
+
+/// <summary>
+/// Server-owned resolution result. ProviderReference is produced only by the protected resolver;
+/// it is never an input to a connector-facing signing or mTLS operation.
+/// </summary>
+public sealed record BoundAuthenticationResource(
+    string LogicalBindingId,
+    AuthenticationResourcePurpose Purpose,
+    AuthenticationResourceStatus Status,
+    Guid ConnectorVersionId,
+    string ConnectorId,
+    string OperationId,
+    string ProfileId,
+    long PolicyRevision,
+    string PolicyChecksumSha256,
+    Guid EnvironmentId,
+    Uri Endpoint,
+    long CatalogRevision,
+    string CatalogChecksumSha256,
+    string ProviderReference,
+    BoundResourcePublicMetadata PublicMetadata);
+
+/// <summary>Resolves only approved, immutable authentication bindings from server-owned state.</summary>
+public interface IAuthenticationResourceBindingResolver
+{
+    /// <summary>Resolves an exact logical binding and purpose within the server-derived execution context.</summary>
+    Task<BoundAuthenticationResource> ResolveAsync(
+        AuthenticationExecutionContext context,
+        string logicalBindingId,
+        AuthenticationResourcePurpose purpose,
+        CancellationToken cancellationToken);
+}
+
+/// <summary>Server-owned source for approved authentication policies.</summary>
+public interface IAuthenticationPolicySource
+{
+    /// <summary>Resolves the approved RS256 policy for one Published operation.</summary>
+    Task<ServerOwnedRs256PolicySnapshot> ResolveRs256Async(
+        AuthenticationExecutionContext context,
+        string policyId,
+        CancellationToken cancellationToken);
+
+    /// <summary>Resolves the approved outbound mTLS policy for one Published operation.</summary>
+    Task<ServerOwnedMutualTlsPolicySnapshot> ResolveMutualTlsAsync(
+        AuthenticationExecutionContext context,
+        string policyId,
+        CancellationToken cancellationToken);
+}
+
+/// <summary>
+/// Resolves a policy-selected runtime security value from a registered server-side boundary.
+/// Connector callers cannot construct the resolution request or supply a value directly.
+/// </summary>
+public interface ITrustedRuntimeClaimValueResolver
+{
+    /// <summary>Resolves one exact typed source for the authenticated invocation and Published policy.</summary>
+    Task<TrustedRuntimeClaimValue> ResolveAsync(
+        TrustedRuntimeClaimResolutionRequest request,
+        CancellationToken cancellationToken);
+}
+
+/// <summary>Closed provenance classification for a runtime security value.</summary>
+public enum TrustedRuntimeClaimValueProvenance
+{
+    /// <summary>The value was produced by a registered server-side runtime resolver.</summary>
+    RegisteredServerResolver,
+    /// <summary>Ordinary caller business data, which is never accepted as trusted runtime material.</summary>
+    CallerBusinessData
+}
+
+/// <summary>Exact immutable invocation and authorization binding for one runtime security value.</summary>
+public sealed record TrustedRuntimeClaimInvocationBinding(
+    Guid TenantId,
+    Guid ApplicationId,
+    Guid InstallationId,
+    Guid EnvironmentId,
+    Guid ConnectorVersionId,
+    string ConnectorId,
+    string OperationId,
+    string ProfileId,
+    Uri Endpoint,
+    Guid CorrelationId,
+    string PolicyId,
+    long PolicyRevision,
+    string PolicyChecksumSha256,
+    long CatalogRevision,
+    string CatalogChecksumSha256,
+    string ResourceVersion);
+
+/// <summary>
+/// Server-created request passed only to the registered resolver selected by runtime composition.
+/// It contains no business request dictionary and cannot be constructed by a Connector consumer.
+/// </summary>
+public sealed class TrustedRuntimeClaimResolutionRequest
+{
+    internal TrustedRuntimeClaimResolutionRequest(
+        JwtTrustedValueSource source,
+        TrustedRuntimeClaimInvocationBinding invocationBinding)
+    {
+        Source = source;
+        InvocationBinding = invocationBinding;
+    }
+
+    /// <summary>Exact typed source selected by the Published policy.</summary>
+    public JwtTrustedValueSource Source { get; }
+    /// <summary>Exact authenticated invocation, policy and resource revision binding.</summary>
+    public TrustedRuntimeClaimInvocationBinding InvocationBinding { get; }
+}
+
+/// <summary>
+/// Immutable runtime security value returned by a registered server-side resolver.
+/// This is not a user principal, business claim or caller claim bag.
+/// </summary>
+public sealed class TrustedRuntimeClaimValue
+{
+    internal TrustedRuntimeClaimValue(
+        JwtTrustedValueSource source,
+        string value,
+        TrustedRuntimeClaimValueProvenance provenance,
+        TrustedRuntimeClaimInvocationBinding invocationBinding,
+        string authorizationEvidenceReference)
+    {
+        Source = source;
+        Value = value;
+        Provenance = provenance;
+        InvocationBinding = invocationBinding;
+        AuthorizationEvidenceReference = authorizationEvidenceReference;
+    }
+
+    /// <summary>
+    /// Creates a value from the exact request delivered to a registered server-side resolver.
+    /// No overload accepts an independently selected source or invocation binding.
+    /// </summary>
+    public static TrustedRuntimeClaimValue FromRegisteredResolver(
+        TrustedRuntimeClaimResolutionRequest request,
+        string value,
+        string authorizationEvidenceReference)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+        return new(
+            request.Source,
+            value,
+            TrustedRuntimeClaimValueProvenance.RegisteredServerResolver,
+            request.InvocationBinding,
+            authorizationEvidenceReference);
+    }
+
+    /// <summary>Typed source selected by policy.</summary>
+    public JwtTrustedValueSource Source { get; }
+    /// <summary>Validated security value; never written to diagnostics by this contract.</summary>
+    public string Value { get; }
+    /// <summary>Closed provenance classification.</summary>
+    public TrustedRuntimeClaimValueProvenance Provenance { get; }
+    /// <summary>Exact invocation and authorization binding.</summary>
+    public TrustedRuntimeClaimInvocationBinding InvocationBinding { get; }
+    /// <summary>Opaque, non-sensitive authorization evidence reference.</summary>
+    public string AuthorizationEvidenceReference { get; }
+}
+
+/// <summary>UTC clock used by validity and JWT lifetime policy.</summary>
+public interface IAuthenticationClock
+{
+    /// <summary>Current UTC time.</summary>
+    DateTimeOffset UtcNow { get; }
+}
+
+/// <summary>System UTC clock.</summary>
+public sealed class SystemAuthenticationClock : IAuthenticationClock
+{
+    /// <inheritdoc />
+    public DateTimeOffset UtcNow => DateTimeOffset.UtcNow;
+}
+
+/// <summary>Stable sanitized primitive failure.</summary>
+public sealed class AuthenticationPrimitiveException : Exception
+{
+    /// <summary>Creates a failure containing only a stable metadata-safe code.</summary>
+    public AuthenticationPrimitiveException(string code, bool retryable = false)
+        : base(code)
+    {
+        Code = code;
+        Retryable = retryable;
+    }
+
+    /// <summary>Stable non-secret error code.</summary>
+    public string Code { get; }
+    /// <summary>Whether an explicitly idempotent caller may retry.</summary>
+    public bool Retryable { get; }
+}
+
+/// <summary>Server-derived source for the JWT subject.</summary>
+public enum JwtSubjectPolicy
+{
+    /// <summary>Use the authenticated Installation identifier.</summary>
+    Installation,
+    /// <summary>Use the authenticated Application identifier.</summary>
+    Application,
+    /// <summary>Use a fixed value compiled into the approved policy.</summary>
+    Fixed,
+    /// <summary>Use the authenticated Tenant identifier.</summary>
+    Tenant,
+    /// <summary>Use a typed runtime value selected by Published policy and resolved server-side.</summary>
+    TrustedRuntimeValue
+}
+
+/// <summary>Typed server-owned sources for trusted dynamic JWT values.</summary>
+public enum JwtTrustedValueSource
+{
+    /// <summary>Use the authenticated Tenant identifier.</summary>
+    AuthenticatedTenantId,
+    /// <summary>Use the authenticated Application identifier.</summary>
+    AuthenticatedApplicationId,
+    /// <summary>Use the authenticated Installation identifier.</summary>
+    AuthenticatedInstallationId,
+    /// <summary>Use an external actor identifier from a registered trusted runtime resolver.</summary>
+    ExternalActorId,
+    /// <summary>Use a delegated subject identifier from a registered trusted runtime resolver.</summary>
+    DelegatedSubjectId,
+    /// <summary>Use an authorized operator identifier from a registered trusted runtime resolver.</summary>
+    AuthorizedOperatorId
+}
+
+/// <summary>A policy-bound trusted claim whose value is derived from authenticated runtime state.</summary>
+public sealed record JwtTrustedClaimBinding(string Name, JwtTrustedValueSource Source);
+
+/// <summary>Server-owned protected-header policy for public X.509 material.</summary>
+public enum JwtCertificateHeaderMode
+{
+    /// <summary>Do not emit an x5c protected header.</summary>
+    None,
+    /// <summary>Emit only the verified leaf certificate.</summary>
+    Leaf,
+    /// <summary>Emit the verified leaf followed by its verified issuer chain.</summary>
+    Chain
+}
+
+/// <summary>Exact server-owned temporal claim set; lifetime and skew remain separate existing policies.</summary>
+public enum JwtTemporalClaimMode
+{
+    /// <summary>Legacy M6 behavior: emit iat, nbf and exp.</summary>
+    IssuedAtNotBeforeExpiration,
+    /// <summary>Emit iat and exp, omitting nbf exactly.</summary>
+    IssuedAtExpiration
+}
+
+/// <summary>Exact certificate Key Usage required by one server-owned JWT signing policy.</summary>
+public enum JwtSigningCertificateKeyUsageMode
+{
+    /// <summary>Historical behavior: when Key Usage is present, require digitalSignature.</summary>
+    DigitalSignature,
+    /// <summary>Require a present Key Usage extension containing contentCommitment/nonRepudiation.</summary>
+    ContentCommitment
+}
+
+/// <summary>Immutable server-owned RS256 policy snapshot for an exact Published operation.</summary>
+public sealed class ServerOwnedRs256PolicySnapshot
+{
+    private ServerOwnedRs256PolicySnapshot(
+        string policyId,
+        long policyRevision,
+        Guid connectorVersionId,
+        string connectorId,
+        string operationId,
+        Guid environmentId,
+        Uri endpoint,
+        string issuer,
+        string audience,
+        JwtSubjectPolicy subjectPolicy,
+        string? fixedSubject,
+        IReadOnlySet<string> allowedClaims,
+        TimeSpan lifetime,
+        TimeSpan allowedClockSkew,
+        string logicalKeyBindingId,
+        string resourceVersion,
+        long catalogRevision,
+        string catalogChecksumSha256,
+        int minimumRsaKeySize,
+        JwtCertificateHeaderMode certificateHeaderMode,
+        JwtTemporalClaimMode temporalClaimMode,
+        JwtSigningCertificateKeyUsageMode certificateKeyUsageMode,
+        IReadOnlyList<JwtTrustedClaimBinding>? trustedClaims,
+        JwtTrustedValueSource? trustedSubjectSource)
+    {
+        PolicyId = policyId;
+        PolicyRevision = policyRevision;
+        ConnectorVersionId = connectorVersionId;
+        ConnectorId = connectorId;
+        OperationId = operationId;
+        EnvironmentId = environmentId;
+        Endpoint = endpoint;
+        Issuer = issuer;
+        Audience = audience;
+        SubjectPolicy = subjectPolicy;
+        FixedSubject = fixedSubject;
+        AllowedClaims = allowedClaims.ToFrozenSet(StringComparer.Ordinal);
+        Lifetime = lifetime;
+        AllowedClockSkew = allowedClockSkew;
+        LogicalKeyBindingId = logicalKeyBindingId;
+        ResourceVersion = resourceVersion;
+        CatalogRevision = catalogRevision;
+        CatalogChecksumSha256 = catalogChecksumSha256;
+        MinimumRsaKeySize = minimumRsaKeySize;
+        CertificateHeaderMode = certificateHeaderMode;
+        TemporalClaimMode = temporalClaimMode;
+        CertificateKeyUsageMode = certificateKeyUsageMode;
+        TrustedClaims = new ReadOnlyCollection<JwtTrustedClaimBinding>(trustedClaims?.ToArray() ?? []);
+        TrustedSubjectSource = trustedSubjectSource;
+        PolicyChecksumSha256 = AuthenticationPolicyDigest.Rs256(this);
+    }
+
+    /// <summary>Creates a policy snapshot for use by the protected server-side policy catalogue.</summary>
+    public static ServerOwnedRs256PolicySnapshot Create(
+        string policyId,
+        long policyRevision,
+        Guid connectorVersionId,
+        string connectorId,
+        string operationId,
+        Guid environmentId,
+        Uri endpoint,
+        string issuer,
+        string audience,
+        JwtSubjectPolicy subjectPolicy,
+        string? fixedSubject,
+        IReadOnlySet<string> allowedClaims,
+        TimeSpan lifetime,
+        TimeSpan allowedClockSkew,
+        string logicalKeyBindingId,
+        string resourceVersion,
+        long catalogRevision,
+        string catalogChecksumSha256,
+        int minimumRsaKeySize = 2048,
+        JwtCertificateHeaderMode certificateHeaderMode = JwtCertificateHeaderMode.None,
+        JwtTemporalClaimMode temporalClaimMode = JwtTemporalClaimMode.IssuedAtNotBeforeExpiration,
+        IReadOnlyList<JwtTrustedClaimBinding>? trustedClaims = null,
+        JwtTrustedValueSource? trustedSubjectSource = null) => new(
+            policyId, policyRevision, connectorVersionId, connectorId, operationId, environmentId, endpoint,
+            issuer, audience, subjectPolicy, fixedSubject, allowedClaims, lifetime, allowedClockSkew,
+            logicalKeyBindingId, resourceVersion, catalogRevision, catalogChecksumSha256, minimumRsaKeySize,
+            certificateHeaderMode, temporalClaimMode, JwtSigningCertificateKeyUsageMode.DigitalSignature,
+            trustedClaims, trustedSubjectSource);
+
+    /// <summary>
+    /// Creates a policy snapshot with one explicit bounded signing-certificate Key Usage requirement.
+    /// </summary>
+    public static ServerOwnedRs256PolicySnapshot Create(
+        string policyId,
+        long policyRevision,
+        Guid connectorVersionId,
+        string connectorId,
+        string operationId,
+        Guid environmentId,
+        Uri endpoint,
+        string issuer,
+        string audience,
+        JwtSubjectPolicy subjectPolicy,
+        string? fixedSubject,
+        IReadOnlySet<string> allowedClaims,
+        TimeSpan lifetime,
+        TimeSpan allowedClockSkew,
+        string logicalKeyBindingId,
+        string resourceVersion,
+        long catalogRevision,
+        string catalogChecksumSha256,
+        int minimumRsaKeySize,
+        JwtSigningCertificateKeyUsageMode certificateKeyUsageMode,
+        JwtCertificateHeaderMode certificateHeaderMode = JwtCertificateHeaderMode.None,
+        JwtTemporalClaimMode temporalClaimMode = JwtTemporalClaimMode.IssuedAtNotBeforeExpiration,
+        IReadOnlyList<JwtTrustedClaimBinding>? trustedClaims = null,
+        JwtTrustedValueSource? trustedSubjectSource = null) => new(
+            policyId, policyRevision, connectorVersionId, connectorId, operationId, environmentId, endpoint,
+            issuer, audience, subjectPolicy, fixedSubject, allowedClaims, lifetime, allowedClockSkew,
+            logicalKeyBindingId, resourceVersion, catalogRevision, catalogChecksumSha256, minimumRsaKeySize,
+            certificateHeaderMode, temporalClaimMode, certificateKeyUsageMode, trustedClaims, trustedSubjectSource);
+
+    /// <summary>Logical approved policy identifier.</summary>
+    public string PolicyId { get; }
+    /// <summary>Immutable policy revision.</summary>
+    public long PolicyRevision { get; }
+    /// <summary>Digest over all security-relevant policy fields.</summary>
+    public string PolicyChecksumSha256 { get; }
+    /// <summary>Published ConnectorVersion identity.</summary>
+    public Guid ConnectorVersionId { get; }
+    /// <summary>Connector identity.</summary>
+    public string ConnectorId { get; }
+    /// <summary>Invoked operation identity.</summary>
+    public string OperationId { get; }
+    /// <summary>Server-derived Environment identity.</summary>
+    public Guid EnvironmentId { get; }
+    /// <summary>Approved outbound endpoint.</summary>
+    public Uri Endpoint { get; }
+    /// <summary>Approved issuer.</summary>
+    public string Issuer { get; }
+    /// <summary>Approved audience.</summary>
+    public string Audience { get; }
+    /// <summary>Approved subject derivation.</summary>
+    public JwtSubjectPolicy SubjectPolicy { get; }
+    /// <summary>Approved fixed subject when applicable.</summary>
+    public string? FixedSubject { get; }
+    /// <summary>Approved business-claim names.</summary>
+    public IReadOnlySet<string> AllowedClaims { get; }
+    /// <summary>Approved token lifetime.</summary>
+    public TimeSpan Lifetime { get; }
+    /// <summary>Approved clock skew.</summary>
+    public TimeSpan AllowedClockSkew { get; }
+    /// <summary>Logical key binding resolved only by the runtime.</summary>
+    public string LogicalKeyBindingId { get; }
+    /// <summary>Exact approved resource revision.</summary>
+    public string ResourceVersion { get; }
+    /// <summary>Exact approved resource-catalog revision.</summary>
+    public long CatalogRevision { get; }
+    /// <summary>Exact approved resource-catalog checksum.</summary>
+    public string CatalogChecksumSha256 { get; }
+    /// <summary>Minimum accepted RSA strength.</summary>
+    public int MinimumRsaKeySize { get; }
+    /// <summary>Approved typed x5c protected-header mode.</summary>
+    public JwtCertificateHeaderMode CertificateHeaderMode { get; }
+    /// <summary>Approved exact temporal claim set.</summary>
+    public JwtTemporalClaimMode TemporalClaimMode { get; }
+    /// <summary>Approved bounded certificate Key Usage requirement.</summary>
+    public JwtSigningCertificateKeyUsageMode CertificateKeyUsageMode { get; }
+    /// <summary>Policy-bound trusted dynamic claims, separate from caller business claims.</summary>
+    public IReadOnlyList<JwtTrustedClaimBinding> TrustedClaims { get; }
+    /// <summary>Typed trusted runtime source selected by policy when it owns the reserved subject.</summary>
+    public JwtTrustedValueSource? TrustedSubjectSource { get; }
+}
+
+/// <summary>Immutable server-owned mTLS policy snapshot for an exact Published operation.</summary>
+public sealed class ServerOwnedMutualTlsPolicySnapshot
+{
+    private ServerOwnedMutualTlsPolicySnapshot(
+        string policyId,
+        long policyRevision,
+        Guid connectorVersionId,
+        string connectorId,
+        string operationId,
+        Guid environmentId,
+        Uri endpoint,
+        string httpMethod,
+        string logicalCertificateBindingId,
+        string resourceVersion,
+        long catalogRevision,
+        string catalogChecksumSha256,
+        TimeSpan nearExpiryWarningWindow,
+        TimeSpan timeout,
+        long maximumResponseBytes,
+        int minimumRsaKeySize,
+        int minimumEcdsaKeySize)
+    {
+        PolicyId = policyId;
+        PolicyRevision = policyRevision;
+        ConnectorVersionId = connectorVersionId;
+        ConnectorId = connectorId;
+        OperationId = operationId;
+        EnvironmentId = environmentId;
+        Endpoint = endpoint;
+        HttpMethod = httpMethod;
+        LogicalCertificateBindingId = logicalCertificateBindingId;
+        ResourceVersion = resourceVersion;
+        CatalogRevision = catalogRevision;
+        CatalogChecksumSha256 = catalogChecksumSha256;
+        NearExpiryWarningWindow = nearExpiryWarningWindow;
+        Timeout = timeout;
+        MaximumResponseBytes = maximumResponseBytes;
+        MinimumRsaKeySize = minimumRsaKeySize;
+        MinimumEcdsaKeySize = minimumEcdsaKeySize;
+        PolicyChecksumSha256 = AuthenticationPolicyDigest.MutualTls(this);
+    }
+
+    /// <summary>Creates a policy snapshot for use by the protected server-side policy catalogue.</summary>
+    public static ServerOwnedMutualTlsPolicySnapshot Create(
+        string policyId,
+        long policyRevision,
+        Guid connectorVersionId,
+        string connectorId,
+        string operationId,
+        Guid environmentId,
+        Uri endpoint,
+        string httpMethod,
+        string logicalCertificateBindingId,
+        string resourceVersion,
+        long catalogRevision,
+        string catalogChecksumSha256,
+        TimeSpan nearExpiryWarningWindow,
+        TimeSpan timeout,
+        long maximumResponseBytes,
+        int minimumRsaKeySize = 2048,
+        int minimumEcdsaKeySize = 256) => new(
+            policyId, policyRevision, connectorVersionId, connectorId, operationId, environmentId, endpoint,
+            httpMethod, logicalCertificateBindingId, resourceVersion, catalogRevision, catalogChecksumSha256,
+            nearExpiryWarningWindow, timeout, maximumResponseBytes, minimumRsaKeySize, minimumEcdsaKeySize);
+
+    /// <summary>Logical approved policy identifier.</summary>
+    public string PolicyId { get; }
+    /// <summary>Immutable policy revision.</summary>
+    public long PolicyRevision { get; }
+    /// <summary>Digest over all security-relevant policy fields.</summary>
+    public string PolicyChecksumSha256 { get; }
+    /// <summary>Published ConnectorVersion identity.</summary>
+    public Guid ConnectorVersionId { get; }
+    /// <summary>Connector identity.</summary>
+    public string ConnectorId { get; }
+    /// <summary>Invoked operation identity.</summary>
+    public string OperationId { get; }
+    /// <summary>Server-derived Environment identity.</summary>
+    public Guid EnvironmentId { get; }
+    /// <summary>Approved outbound endpoint.</summary>
+    public Uri Endpoint { get; }
+    /// <summary>Approved outbound HTTP method.</summary>
+    public string HttpMethod { get; }
+    /// <summary>Logical certificate binding resolved only by the runtime.</summary>
+    public string LogicalCertificateBindingId { get; }
+    /// <summary>Exact approved resource revision.</summary>
+    public string ResourceVersion { get; }
+    /// <summary>Exact approved resource-catalog revision.</summary>
+    public long CatalogRevision { get; }
+    /// <summary>Exact approved resource-catalog checksum.</summary>
+    public string CatalogChecksumSha256 { get; }
+    /// <summary>Non-blocking warning window.</summary>
+    public TimeSpan NearExpiryWarningWindow { get; }
+    /// <summary>Server-owned dispatch timeout.</summary>
+    public TimeSpan Timeout { get; }
+    /// <summary>Server-owned maximum response size.</summary>
+    public long MaximumResponseBytes { get; }
+    /// <summary>Minimum accepted RSA strength.</summary>
+    public int MinimumRsaKeySize { get; }
+    /// <summary>Minimum accepted ECDSA strength.</summary>
+    public int MinimumEcdsaKeySize { get; }
+}
+
+/// <summary>One profile-allowlisted business claim.</summary>
+public sealed record JwtBoundClaim(string Name, JsonElement Value);
+
+/// <summary>Stores only a digest of a generated JWT identifier until expiry.</summary>
+public interface IJwtReplayStore
+{
+    /// <summary>Reserves one identifier digest exactly once.</summary>
+    Task<bool> TryReserveAsync(ReadOnlyMemory<byte> identifierSha256, DateTimeOffset expiresAt, CancellationToken cancellationToken);
+}
+
+/// <summary>Generates unpredictable JWT identifiers.</summary>
+public interface IJwtIdentifierSource
+{
+    /// <summary>Creates a new opaque identifier.</summary>
+    string Create();
+}
+
+/// <summary>Non-blocking public health classification for a valid mTLS certificate.</summary>
+public enum ClientCertificateHealth
+{
+    /// <summary>Valid outside the configured warning window.</summary>
+    Healthy,
+    /// <summary>Valid but inside the configured warning window.</summary>
+    NearExpiry
+}

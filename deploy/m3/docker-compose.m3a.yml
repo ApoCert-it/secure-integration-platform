@@ -1,0 +1,148 @@
+name: broker-gateway-m3a
+
+services:
+  postgres:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: broker_gateway_m3
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${M3_POSTGRES_ADMIN_PASSWORD:?required}
+    networks:
+      m3:
+        ipv4_address: 172.29.44.3
+    ports:
+      - "${M3_POSTGRES_BIND_IP:-127.0.0.1}:${M3_POSTGRES_PORT:-15432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d broker_gateway_m3"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    volumes:
+      - m3-postgres:/var/lib/postgresql
+
+  migrations:
+    build:
+      context: ../..
+      dockerfile: src/Gateway/Gateway.Migrations/Dockerfile
+    environment:
+      GATEWAY_MIGRATION_CONNECTION: Host=postgres;Port=5432;Database=broker_gateway_m3;Username=postgres;Password=${M3_POSTGRES_ADMIN_PASSWORD:?required};SSL Mode=Disable;GSS Encryption Mode=Disable
+    depends_on:
+      postgres:
+        condition: service_healthy
+    read_only: true
+    tmpfs: [/tmp]
+    networks: [m3]
+
+  provisioner:
+    build:
+      context: ../..
+      dockerfile: tools/m3/Provisioner/Dockerfile
+    environment:
+      M3_POSTGRES_ADMIN_CONNECTION: Host=postgres;Port=5432;Database=broker_gateway_m3;Username=postgres;Password=${M3_POSTGRES_ADMIN_PASSWORD:?required};SSL Mode=Disable;GSS Encryption Mode=Disable
+      M3_POSTGRES_RUNTIME_PASSWORD: ${M3_POSTGRES_RUNTIME_PASSWORD:?required}
+      M3_ACTIVATION_HMAC_BASE64: ${M3_ACTIVATION_HMAC_BASE64:?required}
+      M3_VENDOR_CLIENT_PFX_BASE64: ${M3_VENDOR_CLIENT_PFX_BASE64:?required}
+      M3_WRONG_VENDOR_CLIENT_PFX_BASE64: ${M3_WRONG_VENDOR_CLIENT_PFX_BASE64:?required}
+      M3_PRIMARY_ENVIRONMENT_ID: ${M3_PRIMARY_ENVIRONMENT_ID:-}
+      M3_PROVISIONING_OUTPUT: /evidence-raw/provisioning.json
+    volumes:
+      - ${M3_RAW_EVIDENCE_DIRECTORY:?required}:/evidence-raw
+    depends_on:
+      migrations:
+        condition: service_completed_successfully
+    networks: [m3]
+
+  vault:
+    build:
+      context: ../..
+      dockerfile: tools/m3/SyntheticVault/Dockerfile
+    hostname: vault.m3.test
+    environment:
+      ASPNETCORE_URLS: https://+:8443
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /run/m3-certs/vault.pfx
+      ASPNETCORE_Kestrel__Certificates__Default__Password: ${M3_CERTIFICATE_PASSWORD:?required}
+      M3_SYNTHETIC_VAULT_TOKEN: ${M3_SYNTHETIC_VAULT_TOKEN:?required}
+      M3_VENDOR_API_KEY: ${M3_VENDOR_API_KEY:?required}
+      M3_VENDOR_CLIENT_PFX_BASE64: ${M3_VENDOR_CLIENT_PFX_BASE64:?required}
+      M3_WRONG_VENDOR_CLIENT_PFX_BASE64: ${M3_WRONG_VENDOR_CLIENT_PFX_BASE64:?required}
+      M3_ACTIVATION_HMAC_BASE64: ${M3_ACTIVATION_HMAC_BASE64:?required}
+    volumes:
+      - ${M3_CERTIFICATE_DIRECTORY:?required}:/run/m3-certs:ro
+    read_only: true
+    tmpfs: [/tmp]
+    networks:
+      m3:
+        ipv4_address: 172.29.44.5
+        aliases:
+          - vault.m3.test
+    ports:
+      - "${M3_VAULT_BIND_IP:-127.0.0.1}:${M3_VAULT_PORT:-18444}:8443"
+
+  vendor:
+    build:
+      context: ../..
+      dockerfile: tools/m3/VendorMock/Dockerfile
+    hostname: vendor.m3.test
+    environment:
+      ASPNETCORE_URLS: https://+:8443
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /run/m3-certs/vendor-server.pfx
+      ASPNETCORE_Kestrel__Certificates__Default__Password: ${M3_CERTIFICATE_PASSWORD:?required}
+      M3_VENDOR_API_KEY: ${M3_VENDOR_API_KEY:?required}
+      M3_VENDOR_CLIENT_THUMBPRINT: ${M3_VENDOR_CLIENT_THUMBPRINT:?required}
+      M3_VENDOR_CONTROL_TOKEN: ${M3_VENDOR_CONTROL_TOKEN:?required}
+    volumes:
+      - ${M3_CERTIFICATE_DIRECTORY:?required}:/run/m3-certs:ro
+    read_only: true
+    tmpfs: [/tmp]
+    networks:
+      m3:
+        ipv4_address: 172.29.44.6
+        aliases:
+          - vendor.m3.test
+    ports:
+      - "${M3_VENDOR_BIND_IP:-127.0.0.1}:${M3_VENDOR_PORT:-18445}:8443"
+
+  gateway:
+    build:
+      context: ../..
+      dockerfile: src/Gateway/Gateway.Api/Dockerfile
+    ports:
+      - "${M3_GATEWAY_BIND_IP:-127.0.0.1}:${M3_GATEWAY_PORT:-18443}:8443"
+    environment:
+      ASPNETCORE_ENVIRONMENT: M3Testing
+      ASPNETCORE_URLS: https://+:8443
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /run/m3-certs/gateway.pfx
+      ASPNETCORE_Kestrel__Certificates__Default__Password: ${M3_CERTIFICATE_PASSWORD:?required}
+      GATEWAY_HEALTH_URL: https://localhost:8443/health/live
+      SSL_CERT_FILE: /run/m3-certs/ca.crt
+      ConnectionStrings__GatewayDatabase: Host=postgres;Port=5432;Database=broker_gateway_m3;Username=m3_gateway_runtime;Password=${M3_POSTGRES_RUNTIME_PASSWORD:?required};SSL Mode=Disable;GSS Encryption Mode=Disable
+      Gateway__Provider__Kind: Synthetic
+      Gateway__Provider__Endpoint: https://vault.m3.test:8443/
+      Gateway__Provider__AccessTokenEnvironmentVariable: M3_SYNTHETIC_VAULT_TOKEN
+      M3_SYNTHETIC_VAULT_TOKEN: ${M3_SYNTHETIC_VAULT_TOKEN:?required}
+      Gateway__ActivationHmacKeyBase64: ${M3_ACTIVATION_HMAC_BASE64:?required}
+      Gateway__M3PrivateMockHost: vendor.m3.test
+      Gateway__M3PrivateMockCidr: 172.29.44.0/28
+    volumes:
+      - ${M3_CERTIFICATE_DIRECTORY:?required}:/run/m3-certs:ro
+    read_only: true
+    tmpfs: [/tmp]
+    depends_on:
+      provisioner:
+        condition: service_completed_successfully
+      vault:
+        condition: service_started
+      vendor:
+        condition: service_started
+    networks:
+      m3:
+        ipv4_address: 172.29.44.4
+
+networks:
+  m3:
+    ipam:
+      config:
+        - subnet: 172.29.44.0/28
+
+volumes:
+  m3-postgres:

@@ -1,0 +1,343 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
+namespace SecureIntegration.ConnectorPacks.Healthcare.FSE2;
+
+/// <summary>Explicit FSE2 outbound operations frozen from the official Gateway profile.</summary>
+public enum Fse2Operation
+{
+    ValidateCda,
+    ValidateFhir,
+    Create,
+    Replace,
+    Delete,
+    UpdateMetadata,
+    UpdateMetadataChainConcealment,
+    ValidateAndCreate,
+    ValidateAndReplace,
+    GetStatusByWorkflow,
+    GetStatusByTrace,
+    UpdateMetadataLegacy,
+    CreateFhir,
+    ReplaceFhir
+}
+
+/// <summary>Official deployment availability; test-only operations are never promoted to production.</summary>
+public enum Fse2OperationAvailability
+{
+    ProductionAvailable,
+    TestOnlyOfficial,
+    NotAvailable
+}
+
+/// <summary>Retry classification fixed by operation semantics.</summary>
+public enum Fse2RetryClass
+{
+    SafeRetry,
+    ConditionalRetry,
+    NoAutomaticRetry
+}
+
+/// <summary>Server-owned target environment classification.</summary>
+public enum Fse2EnvironmentClass
+{
+    Synthetic,
+    OfficialTest,
+    Production
+}
+
+/// <summary>Official FSE action claim values used by the supported organization profile.</summary>
+public enum Fse2Action
+{
+    Create,
+    Update,
+    Delete
+}
+
+/// <summary>Official FSE purpose-of-use values used by the frozen operation profile.</summary>
+public enum Fse2PurposeOfUse
+{
+    Treatment,
+    Update,
+    AccessUpdate
+}
+
+/// <summary>Authority classification for every emitted FSE2 claim.</summary>
+public enum Fse2ClaimAuthority
+{
+    ServerOwned,
+    TrustedRuntime,
+    BusinessAllowlisted,
+    Derived
+}
+
+/// <summary>Sanitized connector failure categories.</summary>
+public enum Fse2ErrorCategory
+{
+    PolicyDenied,
+    InputDenied,
+    AuthenticationDenied,
+    DestinationDenied,
+    UpstreamRejected,
+    TemporarilyUnavailable,
+    ResponseInvalid
+}
+
+/// <summary>Metadata-safe FSE2 failure. It never retains provider text, JWTs or clinical bodies.</summary>
+public sealed class Fse2ConnectorException : Exception
+{
+    public Fse2ConnectorException(Fse2ErrorCategory category, string safeCode, bool retryable = false, string? safeUpstreamCode = null)
+        : base(safeCode)
+    {
+        if (!Fse2Validation.IsSafeCode(safeCode)) throw new ArgumentException("FSE2_SAFE_CODE_INVALID", nameof(safeCode));
+        if (safeUpstreamCode is not null && !Fse2Validation.IsSafeCode(safeUpstreamCode))
+            throw new ArgumentException("FSE2_SAFE_UPSTREAM_CODE_INVALID", nameof(safeUpstreamCode));
+        Category = category;
+        SafeCode = safeCode;
+        Retryable = retryable;
+        SafeUpstreamCode = safeUpstreamCode;
+    }
+
+    public Fse2ErrorCategory Category { get; }
+    public string SafeCode { get; }
+    public bool Retryable { get; }
+    public string? SafeUpstreamCode { get; }
+}
+
+/// <summary>Validated business/clinical claims that never establish the authenticated actor.</summary>
+public sealed class Fse2ClinicalClaims
+{
+    private Fse2ClinicalClaims(string personId, bool patientConsent, string? resourceHl7Type)
+    {
+        PersonId = personId;
+        PatientConsent = patientConsent;
+        ResourceHl7Type = resourceHl7Type;
+    }
+
+    public string PersonId { get; }
+    public bool PatientConsent { get; }
+    public string? ResourceHl7Type { get; }
+
+    public static Fse2ClinicalClaims CreatePerson(
+        string taxIdentifier,
+        string assigningAuthorityOid,
+        bool patientConsent,
+        string? resourceHl7Type = null) =>
+        new(Fse2IheFormatter.FormatPersonCx(taxIdentifier, assigningAuthorityOid), patientConsent,
+            resourceHl7Type is null ? null : Fse2Validation.ValidateResourceHl7Type(resourceHl7Type));
+
+    public static Fse2ClinicalClaims CreateCanonicalPerson(
+        string canonicalPersonCx,
+        bool patientConsent,
+        string? resourceHl7Type = null)
+    {
+        Fse2IheFormatter.ValidateCx(canonicalPersonCx, organization: false);
+        return new(canonicalPersonCx, patientConsent,
+            resourceHl7Type is null ? null : Fse2Validation.ValidateResourceHl7Type(resourceHl7Type));
+    }
+}
+
+/// <summary>
+/// Immutable caller-visible request. Static factories expose only frozen operations and contain no endpoint,
+/// actor subject, role, purpose, algorithm, certificate, x5c or temporal selectors.
+/// </summary>
+public sealed class Fse2Request
+{
+    private const int MaximumDocumentInputBytes = 128 * 1024 * 1024;
+    private const int MaximumJsonInputBytes = 1024 * 1024;
+    private readonly byte[] document;
+    private readonly byte[] requestBody;
+
+    private Fse2Request(
+        Fse2Operation operation,
+        ReadOnlyMemory<byte> document,
+        ReadOnlyMemory<byte> requestBody,
+        string? documentContentType,
+        string? resourceIdentifier,
+        Fse2ClinicalClaims? clinicalClaims)
+    {
+        Operation = operation;
+        if (document.Length > MaximumDocumentInputBytes || requestBody.Length > MaximumJsonInputBytes)
+            throw new ArgumentException("FSE2_PAYLOAD_TOO_LARGE");
+        this.document = document.ToArray();
+        this.requestBody = requestBody.ToArray();
+        DocumentContentType = documentContentType;
+        ResourceIdentifier = resourceIdentifier;
+        ClinicalClaims = clinicalClaims;
+    }
+
+    public Fse2Operation Operation { get; }
+    public ReadOnlyMemory<byte> Document => document.ToArray();
+    public ReadOnlyMemory<byte> RequestBody => requestBody.ToArray();
+    public string? DocumentContentType { get; }
+    public string? ResourceIdentifier { get; }
+    public Fse2ClinicalClaims? ClinicalClaims { get; }
+
+    /// <summary>
+    /// Creates the connector-specific BGW1 payload. It contains business input only and exposes no
+    /// endpoint, actor, issuer, audience, signing slot, certificate or provider selector.
+    /// </summary>
+    public byte[] SerializeAuthorizedPayload()
+    {
+        using MemoryStream output = new();
+        using (Utf8JsonWriter writer = new(output))
+        {
+            writer.WriteStartObject();
+            if (ClinicalClaims is not null)
+            {
+                writer.WriteString("personId", ClinicalClaims.PersonId);
+                writer.WriteBoolean("patientConsent", ClinicalClaims.PatientConsent);
+                if (ClinicalClaims.ResourceHl7Type is not null)
+                    writer.WriteString("resourceHl7Type", ClinicalClaims.ResourceHl7Type);
+            }
+            if (document.Length > 0)
+                writer.WriteBase64String("documentBase64", document);
+            if (requestBody.Length > 0)
+                writer.WriteBase64String("requestBodyBase64", requestBody);
+            if (DocumentContentType is not null)
+                writer.WriteString("documentContentType", DocumentContentType);
+            if (ResourceIdentifier is not null)
+                writer.WriteString("resourceIdentifier", ResourceIdentifier);
+            writer.WriteEndObject();
+        }
+        return output.ToArray();
+    }
+
+    /// <summary>Validated input for the opt-in current-spec Published profile. No authority selectors.</summary>
+    public static Fse2Request ForCurrentSpec(
+        Fse2Operation operation,
+        ReadOnlyMemory<byte> document = default,
+        ReadOnlyMemory<byte> requestBody = default,
+        string? documentContentType = null,
+        string? resourceIdentifier = null,
+        Fse2ClinicalClaims? clinicalClaims = null)
+    {
+        Fse2OperationDescriptor descriptor = Fse2OperationCatalog.Get(operation);
+        if (descriptor.HasDocument != !document.IsEmpty || descriptor.HasJsonBody != !requestBody.IsEmpty ||
+            descriptor.RequiresResourceIdentifier != (resourceIdentifier is not null) ||
+            (descriptor.Action is not null) != (clinicalClaims is not null) ||
+            descriptor.HasDocument != (documentContentType is not null))
+            throw new ArgumentException("FSE2_REQUEST_SHAPE_DENIED");
+        if (descriptor.HasDocument && (documentContentType != "application/pdf" &&
+            !(operation == Fse2Operation.ValidateFhir && documentContentType == "application/json")))
+            throw new ArgumentException("FSE2_DOCUMENT_CONTENT_TYPE_DENIED");
+        if (descriptor.HasJsonBody) Fse2CurrentSpec.ValidateRequestBody(operation, requestBody);
+        if (descriptor.Action is not null && operation != Fse2Operation.Delete && clinicalClaims?.ResourceHl7Type is null)
+            throw new ArgumentException("FSE2_RESOURCE_HL7_TYPE_REQUIRED");
+        if (resourceIdentifier is not null)
+            _ = operation switch
+            {
+                Fse2Operation.GetStatusByWorkflow => Fse2Validation.ValidateWorkflowId(resourceIdentifier),
+                Fse2Operation.GetStatusByTrace => Fse2Validation.ValidateTraceId(resourceIdentifier),
+                _ => Fse2Validation.ValidateDocumentId(resourceIdentifier)
+            };
+        return new(operation, document, requestBody, documentContentType, resourceIdentifier, clinicalClaims);
+    }
+
+    public static Fse2Request ValidateCda(ReadOnlyMemory<byte> document, ReadOnlyMemory<byte> requestBody, Fse2ClinicalClaims claims) =>
+        DocumentRequest(Fse2Operation.ValidateCda, document, requestBody, "application/pdf", null, claims);
+
+    public static Fse2Request ValidateFhir(ReadOnlyMemory<byte> document, ReadOnlyMemory<byte> requestBody, string contentType, Fse2ClinicalClaims claims) =>
+        DocumentRequest(Fse2Operation.ValidateFhir, document, requestBody, contentType, null, claims);
+
+    public static Fse2Request Create(ReadOnlyMemory<byte> document, ReadOnlyMemory<byte> requestBody, Fse2ClinicalClaims claims) =>
+        DocumentRequest(Fse2Operation.Create, document, requestBody, "application/pdf", null, claims);
+
+    public static Fse2Request Replace(string documentId, ReadOnlyMemory<byte> document, ReadOnlyMemory<byte> requestBody, Fse2ClinicalClaims claims) =>
+        DocumentRequest(Fse2Operation.Replace, document, requestBody, "application/pdf", Fse2Validation.ValidateDocumentId(documentId), claims);
+
+    public static Fse2Request Delete(string documentId, Fse2ClinicalClaims claims) =>
+        new(Fse2Operation.Delete, default, default, null, Fse2Validation.ValidateDocumentId(documentId), claims ?? throw new ArgumentNullException(nameof(claims)));
+
+    public static Fse2Request UpdateMetadata(string documentId, ReadOnlyMemory<byte> requestBody, Fse2ClinicalClaims claims) =>
+        JsonRequest(Fse2Operation.UpdateMetadata, documentId, requestBody, claims);
+
+    public static Fse2Request UpdateMetadataChainConcealment(string documentId, ReadOnlyMemory<byte> requestBody, Fse2ClinicalClaims claims) =>
+        JsonRequest(Fse2Operation.UpdateMetadataChainConcealment, documentId, requestBody, claims);
+
+    public static Fse2Request ValidateAndCreate(ReadOnlyMemory<byte> document, ReadOnlyMemory<byte> requestBody, Fse2ClinicalClaims claims) =>
+        DocumentRequest(Fse2Operation.ValidateAndCreate, document, requestBody, "application/pdf", null, claims);
+
+    public static Fse2Request ValidateAndReplace(string documentId, ReadOnlyMemory<byte> document, ReadOnlyMemory<byte> requestBody, Fse2ClinicalClaims claims) =>
+        DocumentRequest(Fse2Operation.ValidateAndReplace, document, requestBody, "application/pdf", Fse2Validation.ValidateDocumentId(documentId), claims);
+
+    public static Fse2Request GetStatusByWorkflow(string workflowInstanceId) =>
+        new(Fse2Operation.GetStatusByWorkflow, default, default, null,
+            Fse2Validation.ValidateWorkflowId(workflowInstanceId), null);
+
+    public static Fse2Request GetStatusByTrace(string traceId) =>
+        new(Fse2Operation.GetStatusByTrace, default, default, null, Fse2Validation.ValidateTraceId(traceId), null);
+
+    private static Fse2Request DocumentRequest(Fse2Operation operation, ReadOnlyMemory<byte> document, ReadOnlyMemory<byte> requestBody, string contentType, string? id, Fse2ClinicalClaims claims)
+    {
+        ArgumentNullException.ThrowIfNull(claims);
+        if (document.IsEmpty) throw new ArgumentException("FSE2_DOCUMENT_REQUIRED", nameof(document));
+        Fse2Validation.ValidateJsonObject(requestBody, operation);
+        if (contentType is not ("application/pdf" or "application/json")) throw new ArgumentException("FSE2_DOCUMENT_CONTENT_TYPE_DENIED", nameof(contentType));
+        return new(operation, document, requestBody, contentType, id, claims);
+    }
+
+    private static Fse2Request JsonRequest(Fse2Operation operation, string documentId, ReadOnlyMemory<byte> requestBody, Fse2ClinicalClaims claims)
+    {
+        ArgumentNullException.ThrowIfNull(claims);
+        Fse2Validation.ValidateJsonObject(requestBody);
+        return new(operation, default, requestBody, null, Fse2Validation.ValidateDocumentId(documentId), claims);
+    }
+}
+
+/// <summary>Closed workflow event vocabulary exposed by the FSE2 status vertical.</summary>
+[JsonConverter(typeof(JsonStringEnumConverter<Fse2WorkflowEventType>))]
+public enum Fse2WorkflowEventType
+{
+    [JsonStringEnumMemberName("VALIDATION")]
+    Validation,
+    [JsonStringEnumMemberName("PUBLICATION")]
+    Publication,
+    [JsonStringEnumMemberName("SEND_TO_INI")]
+    SendToIni,
+    [JsonStringEnumMemberName("SEND_TO_UAR")]
+    SendToUar,
+    [JsonStringEnumMemberName("UAR_FINAL_STATUS")]
+    UarFinalStatus
+}
+
+/// <summary>Closed workflow outcome vocabulary exposed by the FSE2 status vertical.</summary>
+[JsonConverter(typeof(JsonStringEnumConverter<Fse2WorkflowEventOutcome>))]
+public enum Fse2WorkflowEventOutcome
+{
+    [JsonStringEnumMemberName("SUCCESS")]
+    Success,
+    [JsonStringEnumMemberName("BLOCKING_ERROR")]
+    BlockingError
+}
+
+/// <summary>Bounded status event with no patient, document, message, issuer or raw upstream data.</summary>
+public sealed record Fse2WorkflowEvent(
+    Fse2WorkflowEventType EventType,
+    DateTimeOffset EventTimestamp,
+    Fse2WorkflowEventOutcome Outcome);
+
+/// <summary>Closed status lookup result; upstream problem text is never exposed.</summary>
+[JsonConverter(typeof(JsonStringEnumConverter<Fse2StatusClassification>))]
+public enum Fse2StatusClassification
+{
+    [JsonStringEnumMemberName("FOUND")]
+    Found,
+    [JsonStringEnumMemberName("NOT_FOUND")]
+    NotFound
+}
+
+/// <summary>Technical-only normalized response.</summary>
+public sealed record Fse2Response(
+    int StatusCode,
+    Guid CorrelationId,
+    string? WorkflowInstanceId,
+    string? TraceId,
+    string? SpanId,
+    string? SafeWarning,
+    Fse2RetryClass RetryClass,
+    IReadOnlyList<Fse2WorkflowEvent> WorkflowEvents)
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public Fse2StatusClassification? StatusClassification { get; init; }
+}

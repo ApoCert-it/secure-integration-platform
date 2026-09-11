@@ -1,0 +1,24 @@
+# Exact historical false positive: the word `key` was a typed ECDSA fixture parameter,
+# not a credential. The source was renamed in the following commit for clarity.
+9f3447ce497d5bc5f86c45c1b6b9101cf7074976:tests/unit/Gateway.Unit.Tests/GatewaySecurityTests.cs:generic-api-key:290
+
+# Exact M6 documentation false positives: prose describing identity/token risks was
+# misclassified as a generic key. Both phrases were rewritten in the next commit.
+33f838226b2aadbf4425ef8e265233f004a0a431:docs/connectors/healthcare/M6-IMPLEMENTATION-PLAN.md:generic-api-key:116
+33f838226b2aadbf4425ef8e265233f004a0a431:docs/connectors/healthcare/M6-IMPLEMENTATION-PLAN.md:generic-api-key:158
+
+# Exact historical false positive: `clientKey` is an RSA-typed synthetic TLS fixture
+# parameter and contains no credential value.
+fc367a9c0011b334effacc7d5221a0a4af559a5b:tests/integration/Gateway.Integration.Tests/AdminApiSecurityTests.cs:generic-api-key:779
+
+# Exact historical false positive: the value is a synthetic mutation case name,
+# not a credential. The test data label was renamed in the following commit.
+2fb355967d87cb825e6aaeddcbf2a9236b83289c:packs/deployment/local-pkcs12/tests/Providers.LocalPkcs12.Tests/LocalPkcs12ProviderTests.cs:generic-api-key:136
+
+# Exact historical false positive: the typed synthetic Direct enrollment method
+# parameter contains no credential value and is now named `signer`.
+# Owner: FSE2 maintainers; remove these exceptions
+# when the originating commit is no longer in the scanned history.
+3ee5c0e5dd1dffe61767e607d131809bdc52990b:tools/fse2/OfficialTestProvisioner/Pilot.cs:generic-api-key:154
+# The explanatory comment originally repeated the same source expression.
+074e46220c12031772c6b066625937c04f409ae0:.gitleaksignore:generic-api-key:18

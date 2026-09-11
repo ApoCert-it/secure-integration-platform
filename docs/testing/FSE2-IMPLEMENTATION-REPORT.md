@@ -1,0 +1,495 @@
+# FSE2 National Connector Organization profile — implementation report
+
+Date: 2026-08-12
+
+Immutable Core/Auth/Runtime baseline: `a40765dfa30dce23c6ce266b18740c3c766c21e3`
+
+Content-commitment remediation branch: `wave1/fse2-content-commitment-signing`
+
+Lineage: historical PR #16; Organization replacement branch
+`wave1/fse2-national-organization`; this branch is a new focused Core exception and does not
+rewrite either lineage.
+
+Official public freeze: guide 2.23 and OpenAPI 1.0.0 at
+`430e6b5d9dde8a35b04ae635c11303db787a977e`.
+
+## Implemented result
+
+### OfficialTest `validate-cda` operationalization candidate (2026-08-28)
+
+Starting from exact main `977175138c1dc89de43ce1cf5eaa8f5d953adc16`, the candidate adds a
+vertical-only operational source and provisioner for one operation. The embedded Connector source
+contains exactly `validate-cda`, logical endpoint/A1/S1 bindings, `VERIFICA`, deterministic
+multipart bytes, server-owned JSON Accept, zero retry, redirect deny and no `attachment_hash`.
+Deployment compilation accepts a strict protected organization/locality plan and exact public
+provider revisions; the stable application identity remains source-owned. No P12, password,
+private key, token, session principal or reusable secret is accepted by the compiler.
+
+The supported provisioner uses the existing Admin API for validate/import/validate-stored,
+bindings, checksum-specific approval review/request/acceptance, publication and read-back. `plan`
+is evaluated before Admin client construction and exposes only fixed IDs/digests plus explicit zero
+workflow-store, signing, DNS, HTTPS, transport and network counters. Configure/propose and
+approve/publish are deliberately separate session phases. The publish phase additionally verifies
+that the current server-derived principal is the distinct approver of the exact definition; the
+server remains authoritative for RBAC, CSRF, approval digest, binding/resource revision freshness,
+PostgreSQL atomic publication and Published immutability.
+
+The new source changes no Core project and adds no Core primitive, IVT, generic secret retrieval,
+client API or direct OfficialTest transport. The FSE2 pack still references only
+`Gateway.Application`; full schema validation remains on the normal Admin surface. Test material is
+synthetic and all local network coverage is loopback-only.
+
+### Shared provisioning resume after rate limit (2026-08-30)
+
+Starting from exact main `156f804aafe9a82fb8b652ce568472a42d47dd63`, the supported tooling
+adds a connector-neutral provisioning state machine and makes the FSE2 vertical provisioner
+phase-aware. Before every mutation it discovers the exact server-side Connector/version/checksum,
+Installation Application and Environment, binding/operation digests, provider identities and
+revisions, operation grant, approval request/decision and publication read-back. It accepts only a
+monotonic phase prefix. Missing/Draft/Validated/bound/granted/proposed/approved states resume at the
+next phase; exact Published/Active is verify-only and performs zero mutations.
+
+An HTTP 429 is never retried by the tool. `Retry-After` is used only when syntactically valid and no
+greater than one hour, and the redacted `BGW-PROVISIONING-RATE-LIMITED` result contains only current
+state, completed phases, next phase, retry safety, optional seconds and the supported command. It
+does not retain response bytes, arbitrary headers, endpoint, tokens, cookies, certificates or
+exception data. Repeating the same `configure` command and protected plan after a rejection at
+binding resumes from server-observed `Validated` and does not re-import or revalidate. Rate limiting
+does not alter server RBAC, CSRF, distinct four-eyes approval, publication concurrency or any
+runtime egress control; there is no force/recovery path.
+
+The ten `PROVISIONER_*` tests use a persistent in-memory Admin API simulator and the real vertical
+command methods. They prove the observed 429/Validated case, same-plan completion, Published no-op,
+checksum/Environment/binding/provider drift denial before mutations, role and self-approval denial,
+redaction, clean-state completion and reuse of the shared state machine with a non-FSE2 identity.
+All negative runtime counters are zero. This is an offline product remediation only and performs no
+OfficialTest DNS/network call or access to real FSE2 material.
+
+### Shared Gateway rate-limit partition correction (2026-08-31)
+
+The residual first-request poisoning was in the shared Gateway host, not the FSE2 state machine.
+The former partition key contained only authenticated `sub` or peer IP while the fixed-window
+factory selected its policy from the path captured by the first request for that key. A typed key now
+contains the server-selected policy class, principal kind and server-side identity. Login,
+DevelopmentAuth login, configured OIDC callback, unauthenticated CSRF and unknown auth paths use AUTH
+with the trusted remote IP. Authenticated CSRF, me, logout and ordinary Admin APIs use API with the
+server-validated subject. DevelopmentApiKey is validated before partition selection and receives a
+constant server-owned API identity. Forwarded-header defaults are cleared so only configured proxy
+addresses can rewrite the peer.
+
+The pragmatic defaults are AUTH=60 requests/60 seconds and API=600 requests/60 seconds, window one
+minute, queue zero and automatic replenishment. Exact boundary tests deny request 61 and 601 while
+another IP/subject remains unaffected. DevelopmentAuth, DevelopmentApiKey and OIDC are qualified
+separately without claiming tenant/Installation partitioning or an external IdP rate limit. The
+previous dual-onboarding attestation is invalidated because it reused three sessions across both
+cycles and prepared state through internal stores. Its replacement starts from an empty task-owned
+PostgreSQL database and keeps one Gateway host and one fixed-window limiter alive while two separate
+M3 Provisioner invocations create distinct Installation, Environment and synthetic provider catalog
+state. Each workflow then creates its own Security Administrator, Connector Editor and Connector
+Approver client/cookie jar, logs each session in exactly once, and completes a distinct Admin API
+lifecycle through Published/Active. The seven named `ADMIN_RATE_LIMIT_*` host gates require six
+sessions, six cookie jars, twelve AUTH requests, zero 429, no reset/window rollover/wait/re-login or
+support intervention, and distinct redacted Installation, Environment and Published-state
+fingerprints. The first workflow completes before the second supported bootstrap begins.
+
+That probative gate exposed a separate shared-session defect: an idempotent role assignment revoked
+all sessions for the principal even when no privilege changed. Both PostgreSQL and in-memory stores
+now preserve sessions for an exact existing assignment while retaining immediate revocation for an
+actual new or removed role. No rate-limit threshold or endpoint classification changed. The
+clean-state FSE2 gate measures the real workflow against the defaults, requires
+AUTH and per-subject API use below 25%, zero 429 and final Published/Active. Existing server-state
+discovery, drift denial, four-eyes, role split and same-command recovery remain unchanged. This
+qualification uses synthetic/local traffic only and claims no live-call result or SLO.
+
+The bounded local qualification closed with 10/10 resumability cases, 1/1 clean-state provisioner,
+1/1 PostgreSQL OfficialTest lifecycle, 3/3 PostgreSQL FSE2 round trips, 10/10 targeted runtime and
+version-policy regressions, 1/1 frozen T03 multipart, and 10/10 focused architecture checks. The
+ephemeral PostgreSQL containers and frozen dataset clone were removed. Preliminary failures remain
+recorded: the first PostgreSQL harness invocation lacked Release outputs; a sandboxed certificate
+run denied synthetic ephemeral-key access; the architecture test still assumed one project
+reference; and two parallel MSBuild traversals ended without diagnostics and left task-owned worker
+processes, which were removed after exact process/path verification. Respectively, a Release
+build, the same synthetic tests with required process access, the updated exact boundary assertion,
+and a serialized build produced the final passing results. None involved OfficialTest traffic or
+real certificate material. Locked restore and advisory inventory also first hit the sandbox network
+sink; the authorized NuGet-only rerun completed all 44 projects with no vulnerable package. A later
+clean-state repetition stopped in the migration child-process harness before product execution; its
+single rerun with the pinned .NET host and build servers disabled passed 1/1 with cleanup complete.
+
+Current gate classification is intentionally bounded:
+
+```text
+FSE2_T01 = PASS
+FSE2_T02 = PASS
+FSE2_T03 = PASS
+FSE2_T04 = BLOCKED_PENDING_OPERATIONAL_CONFIGURATION_AND_LIVE_CALL
+FSE2_T06 = PARTIAL
+```
+
+T01/T02 mean the software-side protected-plan, authority, composition and two-operator workflow are
+implemented and negatively covered; they do not claim that operational certificates were opened or
+imported by this change. T03 remains the existing exact offline named gate. T04 cannot pass until
+real protected configuration is applied by authorized operators and the separately authorized
+single live call occurs. T06 remains partial because there is no OfficialTest response in this
+slice.
+
+### OfficialTest contract-parity remediation (2026-08-30)
+
+Starting from exact main `7ef788e70e881ba0382d5ac2967fe944d8b6ba05`, the canonical
+single-operation source advances immutably from Connector Version `1.0.0` to `1.0.1`. The supported
+provisioner lifecycle therefore creates a new draft/version and never edits a Published definition
+or uses direct SQL/store access. The runtime applies parity only when the exact server-owned
+Published identity is Connector ID `fse2-officialtest-validate-cda`, Connector Version `1.0.1`,
+Environment `OfficialTest` and operation `validate-cda`. Both authorized JWT slots then require
+`certificateHeader=leaf`; the runtime emits an `x5c` array containing exactly the same S1 leaf DER
+encoded with standard Base64 and no issuer, intermediate or root certificate. Exact ordinal ID and
+version comparisons prevent another Connector ID or an unknown future version from inheriting this
+policy. The canonical ID with an unsupported version is denied before provider, signing, DNS or
+transport effects.
+
+For exact `1.0.1`, the `VERIFICA` CDA request contains only `healthDataFormat=CDA` and
+`activity=VERIFICA`; `mode` and `attachment_hash` are absent. Published `1.0.0` is explicitly
+historical compatibility, not contract-parity qualified: it retains chain `x5c` and
+`mode=ATTACHMENT`. The real hosted runtime tests publish and invoke both immutable versions, prove
+isolation for another Connector ID and an unsupported version, then exercise supported upgrade and
+rollback while capturing both JWTs, multipart JSON, endpoint and dispatch count. Upgrade and
+rollback reactivate each version's own effective wire contract rather than changing its semantics.
+Other operations remain unchanged. T03 preserves the exact frozen PDF and `1.0.1` request-body
+bytes in the multipart. This is offline contract parity only: no OfficialTest DNS/network operation
+or real FSE2 material is used, and it does not claim that either the previously observed HTTP 401 or
+the independent-reference HTTP 403 is resolved.
+
+The Organization profile now runs as the external module `healthcare-fse2` and strategy
+`healthcare-fse2-organization`. Its only declared outbound authentication kind is `mtls`.
+The pack consumes the public `AuthorizedConnectorExecution` surface and has one project dependency:
+`Gateway.Application`. It has no `InternalsVisibleTo`, store, provider, signing primitive,
+certificate primitive, restricted-transport implementation, Gateway internal invocation object,
+service locator or HTTP client.
+
+The FSE2-specific profile is parsed and validated inside `Healthcare.FSE2` from the immutable
+`AuthorizedPublishedExtensionConfiguration` copied from initially authorized Published A. The
+strict extension supplies only common organization/locality/application values and a maximum
+document bound. Operation, method, `pathTemplate`, parameter name, content type, multipart
+boundary, signing slots and security policy cannot be selected there; the operation is the exact
+already-authorized Core context and its semantics come from the frozen catalog. The profile does
+not reread a generic store and is not a second authority model. Its approved P.IVA plus assigning authority produce canonical CX;
+the two server-owned signing policies use that value as fixed `sub`. `person_id` remains a separate
+validated business CX. DAP, purpose and action are derived from the frozen operation matrix and
+`use_subject_as_author` is absent. Human Actor remains deferred.
+
+The module registers `Fse2OrganizationPublishedOperationExpectationProvider`. Before strategy,
+capability scope, signing, DNS or network, Core exact-matches mTLS, mandatory restricted transport,
+the two-slot set, RS256, explicit `ContentCommitment` certificate Key Usage on both slots,
+projection, environment-derived audience, canonical subject, issuer/CN
+relation, 300-second `iat`/`exp` with no `nbf`, `jti`, `x5c`, claim sets, equal signing identities and
+their distinction from mTLS. The strategy then requests exactly one fresh opaque token from
+`authorization` and one from `integrity`. Core owns issuer, temporal values, signing binding, SPKI,
+`x5c` and both projections. The vertical never reads either compact JWT and never creates an
+Authorization or `FSE-JWT-Signature` header. Core projects the first as Bearer and the second as the
+FSE header, then performs the existing Published-A freshness, restricted-egress and server-owned
+mTLS flow.
+
+ADR-0028 introduces the only new Core primitive required by the official S1 certificate profile:
+`JwtSigningCertificateKeyUsageMode`, with closed `DigitalSignature` and `ContentCommitment` values.
+The historical public policy factory and an absent Published `certificateKeyUsage` both map exactly
+to `DigitalSignature`. A present value is canonical/checksum/four-eyes covered and the policy digest
+always includes the effective mode. The signer uses separate branches, never a generic OR:
+`DigitalSignature` preserves the old rule (missing Key Usage accepted; present Key Usage must contain
+`DigitalSignature`), while `ContentCommitment` requires a present extension containing
+`X509KeyUsageFlags.NonRepudiation`. No subject, issuer, OID, slot or connector inference exists.
+Private-key handling, chain construction, leaf-first `x5c`, RS256, provider resolution, restricted
+transport and the A1 mTLS validator are unchanged.
+
+FSE2 claim composition remains connector-local. The integrity token receives only allowlisted
+business/derived scalar claims. For document operations, the connector snapshots the exact input
+file bytes, derives `attachment_hash` from those bytes only where the frozen operation requires it,
+and separately composes one immutable deterministic multipart body for restricted transport.
+`validate-cda` does not emit `attachment_hash`. The
+frozen eleven-operation inventory is unchanged: nine Production-available operations, two official
+test-only operations, and no speculative FHIR create/replace, callback or consumer surface. All
+eleven use Core `pathTemplate`; DELETE and both status GETs use `bodyMode: none`, producing no
+`HttpContent`, body bytes or `Content-Type`. Payload operations use REQUIRED.
+
+Responses are reduced to bounded technical identifiers and safe warnings. The module-owned workflow
+store keeps technical workflow/trace correlations scoped by authenticated identities, Connector
+version and `SharedOrganizationProfileChecksumSha256`; it never stores patient or document data.
+The originating `OperationProfileChecksumSha256` is retained separately for validation/audit and is
+not a correlation-key equality requirement between create and status. This correlation
+store is process-local and is not represented as durable PostgreSQL workflow persistence.
+
+## Production-path evidence
+
+`Fse2OrganizationHostedIntegrationTests` crosses the real hosted path:
+
+PostgreSQL 18 or in-memory Published store → Connector import/validation → editor → distinct
+approver → publication → hosted Gateway → BGW1 request authentication → grant → dynamically loaded
+FSE2 module/strategy → exact Published extension → both authorized signing slots → server-owned
+mTLS/restricted HTTPS → synthetic FSE2 server → bounded response.
+
+The all-operation server requires the exact trusted client certificate and checks the real request
+method, projected path without query/fragment, body mode and content type for every one of the 11
+operations. For every operation it verifies two distinct compact tokens and `jti` values, both RS256 signatures,
+the full expected `x5c` chain, the same signing leaf, distinct `auth:`/`integrity:` issuers, fixed
+organization subject, audience, `iat+exp` without `nbf`, exact Published lifetime,
+DAP/purpose/action, the exact claim set, organization/locality/application and person claims, and
+the SHA-256 of exact input-file bytes where required while explicitly rejecting the multipart
+envelope digest. The matrix observes exactly 11 single
+outbounds. The create operation correlates successfully to both workflow and trace status.
+
+The runtime-only synthetic certificate fixture gives the shared S1 signing identity a critical
+`contentCommitment`/`NonRepudiation` Key Usage and no `DigitalSignature`; the distinct A1 mTLS
+identity retains `DigitalSignature` and no `NonRepudiation`. Both FSE2 slots publish and preflight
+the explicit `contentCommitment` mode, use the same S1 SPKI, and remain distinct from A1.
+
+Connector-specific real-Published negatives cover subject, audience, issuer/CN, projection,
+missing/extra/unknown slots, temporal mode/`nbf`, lifetime, `x5c`, claim set and signing/mTLS
+identity relations, including a Published `digitalSignature` substitution against the connector's
+typed `ContentCommitment` expectation. A strategy sentinel plus counters prove zero signing, DNS,
+HTTPS and generic transport/network effects.
+Token-shape negatives reject missing/empty `jti` and any `nbf`. Dynamic-path negatives cover
+missing and caller-named parameters, slash/backslash, percent form, query/fragment, dot segments,
+non-NFC and over-limit values. Cross-scope workflow tests cover every authority dimension and
+unknown workflow/trace values. The deterministic connector race completes mandatory policy
+preflight, blocks public-material resolution immediately before the first signing operation,
+publishes B, resumes and receives Core stale denial with zero signatures, FSE2 requests and generic
+transport effects. Generic signing-slot, provider,
+cancellation, timeout, restricted-egress and binding-substitution matrices remain regression evidence
+from the qualified Core foundation; they are not reimplemented in the vertical.
+
+## Live-contract and safe-diagnostics correction
+
+The frozen guide requires `Accept: application/json`. The qualified FSE2 path now projects that
+value exactly once as server-owned authority; neither the caller nor the BGW1 payload can replace it
+or inject another header. The existing endpoint, POST method, multipart content type, retry zero,
+redirect zero, mTLS identity and dual signing-slot policies are unchanged.
+
+Only this preflight-qualified FSE2 path can receive a bounded HTTP non-success result for mapping.
+The mapper retains at most the status/category and a code/type from the frozen official allowlist;
+its structured HTTP Content-Type parser accepts only exact case-insensitive
+`application/problem+json` with syntactically valid parameters. Broken parameters, missing values,
+unclosed quotes, concatenated media types, controls/CRLF and over-limit headers collapse, as do
+malformed, duplicate, unknown or oversized problems, without preserving body, parameters, title or
+detail. Redirects are never followed: 3xx crosses the mapper only in the bounded FSE2 mode and
+retains no `Location`; legacy and non-FSE2 calls remain `BGW-EGRESS-REDIRECT-DENIED`.
+
+The internal observation lifecycle distinguishes DNS, TCP connect, TLS handshake, response headers,
+response-body reading and completion. mTLS client-auth classification requires a pre-header
+handshake failure plus structural server-certificate acceptance and client-certificate
+request/selection evidence. Post-header reset/EOF/body exceptions and ambiguous TLS failures become
+`TRANSPORT_FAILURE_OTHER`; caller cancellation remains cancellation and timeout remains `TIMEOUT`.
+Audit is metadata-only, every representative failure (including redirect) produces exactly one
+failure audit and zero success, and the external caller still receives the historical generic
+sanitized Gateway Problem.
+
+The earlier evidence that named the T03 gate before that test existed on its attested source commit
+remains immutable and is explicitly invalidated:
+`PREVIOUS_T03_NAMED_GATE_ATTESTATION = INVALIDATED_TEST_NOT_PRESENT_ON_ATTESTED_HEAD`.
+The replacement gate is the versioned test
+`SecureIntegration.ConnectorPacks.Healthcare.FSE2.Integration.Tests.Fse2OrganizationHostedIntegrationTests.FSE2_T03_case_476_reads_frozen_git_objects_and_preserves_exact_official_PDF_in_multipart`
+in `Healthcare.FSE2.Integration.Tests.dll`, sourced from
+`tests/integration/Healthcare.FSE2.Integration.Tests/Fse2OrganizationHostedIntegrationTests.cs`.
+`eng/Acquire-Fse2T03FrozenDataset.ps1` separately acquires and verifies a task-owned object-only
+detached clone; the test requires its explicit path, rejects repository/remote/commit drift, disables
+Git network protocols while reading, and fails rather than skips when the frozen source is absent.
+
+The offline case 476 contract pins official documentation commit
+`430e6b5d9dde8a35b04ae635c11303db787a977e` and dataset commit
+`d937255fd7e9c079c5641c537da17fe98a2f2259`. The canonical XML is
+`Test Case/Validazione/Documenti XML Casi OK/8 - Casi OK Profilo Sanitario Sintetico/PSS476.xml`,
+Git blob `6b654344431a21e02b979ab4907bc53b38cb4143`, 58,712 bytes, SHA-256
+`7B54299D5AD7E87CA7D5569E98ADAC2D687D3E9432FD4D015194E733A2ADAABD`; it is not a PDF.
+The exact-object gate enumerates every checklist XLSX blob from the frozen Git tree. Of 64 rows with
+ID 476, exactly 17 are executed (`SI`); 16 resolve to an existing direct `FILES` PDF through the closed
+ID token, CT23 test-code, bounded nearest execution timestamp, then single-file rule. It reads and
+hashes all 16 PDF blobs and records the embedded-CDA result for each; the YOO Multimedia candidate is
+an unparseable repository blob and is therefore an explicit false match, not a skipped candidate.
+The sole byte-identical embedded-CDA match is
+`GATEWAY/A1#111#DAVINCI.CARE/DaVinci Healthcare/DaVinci/3.3/FILES/PSS476.pdf`, Git blob
+`a4bf835cbf08661a6c530f95bdea1770e0ca4ad0`, 60,148 bytes, SHA-256
+`129BE437228376B897B8D176DE099CA165714901DA3CB7B78EE2F9B68F4A252E`. Its embedded `cda.xml`
+matches the canonical XML byte-for-byte. The exact PDF, not the XML, is projected through
+`Fse2Request` and the multipart `file` part for `POST /documents/validation`; `requestBody` is
+exactly `healthDataFormat=CDA` plus `activity=VERIFICA`; `mode` and `attachment_hash` are absent. The gate uses only a loopback mock and
+performs no OfficialTest DNS resolution or network dispatch.
+
+The historical live evidence at
+`fse2-configuration-authority-reconciliation-20260827T083259Z-7edddfe` remains immutable. Its one
+request is classified only as `UPSTREAM_OR_TRANSPORT_FAILURE_UNCLASSIFIED`; no HTTP rejection,
+status or OfficialTest problem code is retroactively claimed. This correction authorizes and
+performs zero OfficialTest calls.
+
+## Current remediation qualification ledger
+
+Preliminary failures remain visible and are not PASS evidence:
+
+- the first host test command selected machine-wide SDK 8.0.418 and stopped before compilation
+  because `global.json` requires 10.0.302;
+- the first combined container invocation timed out before returning test evidence; its exact
+  transient container was verified absent before the bounded reruns;
+- the first hosted FSE2 compile used incompatible enum assertions (`CS0411`/`CS1503`); the assertions
+  were corrected and the complete hosted class then passed;
+- a later `--no-restore` rerun found an absent `Humanizer.Core` cache entry, and a full-solution
+  Linux restore stopped on Windows targeting (`NETSDK1100`); locked project restores recovered the
+  targeted gates, while an isolated Windows SDK 10.0.302 ran the canonical full build;
+- the Linux architecture run was 39/40 because one pre-existing test treats Windows backslashes in
+  `ProjectReference` paths as native separators; the native Windows rerun passed 40/40;
+- the first PostgreSQL harness assertion expected the wrong `0014` filename after the migration had
+  run. No FSE2 test was claimed, the ephemeral container was removed, and the corrected gate was
+  restarted from a new empty PostgreSQL 18 database.
+
+The local-provider remediation also retained its intermediate failures: the machine-wide .NET 8
+SDK could not satisfy pinned 10.0.302; the first refactor had two compile errors; Windows `Set-Acl`
+required an unavailable privilege; initial exact-ACL and cleanup checks were too strict for Windows
+normalization; OpenSSL CSR verification required checking both status text and exit code; and local
+Windows symlink creation lacked the privilege, so the Windows test uses a junction surrogate while
+the actual symlink case is mandatory on Linux CI. During the active lab, one host timeout left the
+child process running and a concurrent run produced a migrations exit 139; exact PID ownership,
+marker-safe recovery and exact-label Docker stop returned state to zero. Subsequent runs exposed
+PowerShell quoting in Docker label inspection, the Core host's obsolete requirement that every
+external pack advertise generic secrets, and false-negative readiness probes that used live-only or
+a single short in-container request. Each cause was corrected before the affected whole gate was
+rerun. None of these failed attempts is classified as PASS evidence.
+
+These are harness/implementation findings, not rerun PASS records. Final exact-head local gates and
+new CI run/job identifiers are appended only after they complete.
+
+The content-commitment remediation tree then passed the following local gates with SDK 10.0.302:
+
+- full Release restore/build, container-base validation and compilation: zero warnings/errors;
+- complete CertificateSigning suite 100/100, including `JwtX509ExtensionSecurityTests` 22/22;
+  the new named matrix proves NonRepudiation-only PASS only under `ContentCommitment`, legacy denial,
+  DigitalSignature-only denial under `ContentCommitment`, absent-extension denial, `x5c: none`
+  validation, legacy missing-extension compatibility and distinct policy digests;
+- focused Gateway Published/expectation contract classes 42/42, including unchanged legacy
+  canonical checksum, explicit-value checksum binding, unknown-value denial and typed expectation
+  compatibility;
+- FSE2 unit 43/43; hosted non-PostgreSQL profile/policy/path/race matrix 5/5; all 11 wire
+  operations in the matrix with 22 signatures and 11 single transports;
+- fresh PostgreSQL 18 migrations `0001` through `0014`, second apply no-op, locked FSE2 restore,
+  Release build and canonical FSE2 test 1 passed / 0 skipped / 0 failed with
+  `REQUIRE_FSE2_POSTGRES_GATE=1`; the dedicated container was removed;
+- full architecture 40/40 on Windows; the complete ordinary solution command has zero failures.
+  Its environment-gated PostgreSQL skips remain explicit and are not used as PostgreSQL evidence
+  (Gateway 167 passed / 31 skipped; FSE2 hosted 5 passed / 1 skipped in that ordinary run).
+
+Documentation, conservative secret scan, Gitleaks, vulnerability inventory, SBOM, Core export,
+final clean-tree checks and exact-head CI are recorded after the focused remediation commits;
+pre-commit artefacts do not qualify the final head.
+
+Candidate `02c59240e226da484c48cd5c322f67d2574cc115` passed the exact-head local release
+controls: Gitleaks 8.28.0 scanned 328 commits with no leaks; the complete container SBOM manifest
+names that exact SHA and indexes 165 container packages; and the verified Core export contains 430
+allowlisted files with no Healthcare or ConnectorPacks path. PR #32 then passed exact-candidate
+General run
+[`31600436413`](https://github.com/msala9/secure-integration-platform/actions/runs/31600436413)
+6/6 and M5/Admin run
+[`31600436429`](https://github.com/msala9/secure-integration-platform/actions/runs/31600436429)
+15/15. General includes the canonical PostgreSQL 18 FSE2 FQN with zero skip. This concluding report
+update is documentation-only; PR checks must and do re-evaluate every subsequent head before
+handoff. An independent Core certificate-signing security review, limited to the new Key Usage
+criterion and explicitly excluding a general product/vertical review, is requested in the PR body.
+
+## Historical local qualification before the temporal remediation
+
+The following results belong to predecessor candidate `45548c13df5d46cdb5f9cba1d101ee08619ef15b`.
+They remain visible as historical evidence but do not qualify the temporal-remediation exact HEAD.
+The replacement PR and final writer handoff record the newly executed exact-head gates.
+
+Two historical harness invocation failures remain recorded and are not PASS evidence: a bare
+`npm run test:e2e` was started without the required Gateway full-stack service and failed with
+`ECONNREFUSED ::1:8443`; an initial PostgreSQL gate command selected the machine-wide .NET 8 SDK
+instead of repository-pinned SDK 10.0.302 and stopped before any product test ran. The later
+canonical full-stack and pinned-SDK executions do not erase or reclassify those failures.
+
+- FSE2 public-contract unit suite: 33/33 PASS;
+- Healthcare architecture slice: 8/8 PASS, including one `Gateway.Application` reference and no IVT;
+- hosted FSE2 in-memory success/negatives and A→B race: 2/2 PASS;
+- hosted FSE2 PostgreSQL 18 canonical test: 1/1 PASS on an ephemeral `postgres:18` container;
+- migration `0001` through `0013`, including authorized signing slots: PASS; container removed;
+- pack and hosted integration build: zero warnings/errors.
+
+- full `BrokerGateway.slnx` Release build and ordinary test gate: 599 PASS, 31 explicit
+  environment-gated skips and zero failures, with zero build warnings/errors;
+- authorized signing-slot focused regression: 8/8 PASS; complete certificate-signing suite:
+  93/93 PASS; hosted capability/execution regression: 5/5 PASS with its PostgreSQL-only case
+  explicitly skipped in the ordinary run;
+- Admin Web lint, generated OpenAPI diff, 28/28 Vitest, production build and npm high-severity
+  audit: PASS; `FULLSTACK-01` 1/1 PASS with production images, redaction and Docker cleanup;
+- documentation validation, conservative secret scan, NuGet vulnerability scan and
+  `git diff --check`: PASS;
+- full SPDX generation, including the indexed Gateway container, validation and SBOM-mode
+  regression: PASS;
+- verified Core export: PASS for 418 allowlisted files, including its clean restore, Release build,
+  Core tests, Admin build and frontend-license scan; an independent inventory check found no
+  Healthcare or ConnectorPacks path;
+- deterministic M3 split-network, split-firewall and operator-handoff regressions: PASS.
+
+## Pre-remediation canonical PostgreSQL CI qualification
+
+The predecessor connector/CI candidate exact head `c450d7133436a6f7a3a83dcb5c35f594dcadf7b6` qualified on
+2026-08-11 without rerun. General run
+[`31495813159`](https://github.com/msala9/secure-integration-platform/actions/runs/31495813159)
+passed 6/6 and M5/Admin run
+[`31495813186`](https://github.com/msala9/secure-integration-platform/actions/runs/31495813186)
+passed 15/15. In General job
+[`gateway-postgresql-18` (`93793113966`)](https://github.com/msala9/secure-integration-platform/actions/runs/31495813159/job/93793113966),
+the log identifies that exact SHA, restores the FSE2 integration project in locked mode, builds it
+in Release, and runs the exact PostgreSQL FSE2 FQN with `REQUIRE_FSE2_POSTGRES_GATE=1` before the
+always-run cleanup. The explicit result is `Healthcare.FSE2.Integration.Tests.dll`: Failed 0,
+Passed 1, Skipped 0, Total 1.
+
+The historical harness invocation failures above remain failures and are not evidence for the new
+remediation head. This older run does not qualify the current delta. This report does not claim an
+official FSE endpoint call or accreditation.
+
+## Readiness boundary
+
+- `ORGANIZATION_PROFILE = SYNTHETIC_SOFTWARE_COMPATIBILITY_PASS_REVIEW_PENDING`;
+- `HUMAN_ACTOR_PROFILE = DEFERRED`;
+- `NEW_CORE_PRIMITIVE_REQUIRED = YES`;
+- `OFFLINE_CERTIFICATE_CORRELATION_AND_TRUST = PREVIOUSLY_VERIFIED_OUTSIDE_REPOSITORY_NOT_REEXECUTED`;
+- `OPERATIONAL_CERTIFICATE_IMPORT = NOT_PERFORMED`;
+- `LIVE_FSE2_QUALIFICATION = BLOCKED_NOT_EXECUTED`;
+- `ACCREDITED_PRODUCTION_READY = false`.
+
+An optional local PKCS#12 provider candidate supplies a no-cloud laboratory path while remaining
+absent from the Core solution and the default Gateway image. The only Core implementation delta is
+a provider-neutral composition correction: an external pack must expose the client-certificate
+capability but need not advertise generic secrets. No public API or Healthcare/FSE2 logic was added
+to Core. The pack itself declares `SecretValues=false`, rejects Secret manifest entries and returns
+only a stable deny-only `ISecretValueProvider` required by the existing factory contract.
+
+Before every signature and client-certificate return, one fail-closed routine rereads and exact
+matches manifest/resource version and role, P12, leaf, fingerprint, SPKI and ordered chain; loads the
+P12 with `EphemeralKeySet`; exact-matches the private leaf bytes; and builds the already-loaded chain
+with a pinned `CustomRootTrust`, AIA downloads disabled and no environmental trust fallback. The
+30/30 provider suite covers exact-chain success plus delete/substitute/reorder/root/leaf/P12
+mutations for both signing and mTLS, sanitized errors, readiness false, zero returned signature and
+zero returned certificate, as well as deny-only generic secret behavior.
+
+The importer now requires both CSR paths, verifies each CSR signature and exact key↔CSR↔certificate
+SPKI before output, and keeps A1/S1 distinct. A shared PowerShell 5.1 path policy denies relative,
+repository-contained, UNC/network, device, ADS and any ancestor/leaf reparse path; snapshots final
+path and parent identity before every sensitive phase; and permits cleanup only through the same
+per-run marker/identity. Final ACLs are exact for the explicit runtime principal, with Windows
+inheritance disabled and no unnecessary interactive FullControl, or Linux runtime ownership with
+0550/0440. The synthetic self-test passes 15 provenance/principal/ACL negatives and the dedicated
+path suite covers ancestor junction/symlink, leaf reparse, parent substitution and hostile marker.
+
+The canonical active lab passed locally with only per-run synthetic material external to the
+repository: provider probe on Windows and in a networkless Linux non-root/read-only container,
+canonical Compose validation, full Synthetic-provider M5 quickstart, opt-in Local PKCS12 Gateway,
+TLS live/ready, one authorized synthetic signature and one client certificate, then root tamper with
+provider signatures/certificates zero and HTTP live 200/ready 503. Stop succeeded after manifest,
+P12 and env-file deletion while the provider was unhealthy; a separate partial-start label fixture
+was removed and a foreign similarly named network was preserved. Independent post-run enumeration
+found zero exact-project container/network/volume/helper and zero per-run material directories.
+General CI invokes this same path; exact-head CI is still pending at this point in the report.
+
+This PASS is software compatibility using runtime-only synthetic material, not operational custody.
+The previously external certificate correlation/trust evidence was not opened or reproduced. No
+real PEM, CSR, certificate, private key or P12 was accessed or created; no certificate was imported;
+and no FSE2 endpoint was called. Local Administrator and SYSTEM remain residual privileged threats.
+Official provisioning, revocation/rotation, production certificate custody, approved policy values,
+conformance, accreditation, monitoring and live evidence remain required before production
+readiness.

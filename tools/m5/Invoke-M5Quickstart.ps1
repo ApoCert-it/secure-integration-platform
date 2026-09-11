@@ -1,0 +1,374 @@
+[CmdletBinding()]
+param(
+    [ValidateSet('Validate', 'Start', 'Workflow', 'Stop')]
+    [string] $Phase = 'Start',
+    [switch] $SkipBuild,
+    [string] $AdditionalComposeFile,
+    [string] $DotNetPath,
+    [string] $ArtifactRoot
+)
+
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'Stop'
+$root = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..\..')).Path
+$authorizedArtifactBase = [IO.Path]::GetFullPath((Join-Path $root '.artifacts\m5'))
+$rawRoot = $null
+$artifactMarker = $null
+$artifactMarkerValue = 'secure-integration-m5-quickstart-artifacts-v1'
+$envFile = $null
+$baseCompose = Join-Path $root 'deploy\m3\docker-compose.m3a.yml'
+$overlayCompose = Join-Path $root 'deploy\m5\docker-compose.m5.yml'
+$project = 'secure-integration-m5-quickstart'
+$dotnet = $null
+
+function Get-SafeArtifactRoot {
+    $candidate = if ([string]::IsNullOrWhiteSpace($ArtifactRoot)) { Join-Path $root '.artifacts\m5\quickstart' } else { $ArtifactRoot }
+    if (-not [IO.Path]::IsPathRooted($candidate)) { throw 'M5_QUICKSTART_ARTIFACT_ROOT_INVALID' }
+    $segments = @($candidate -split '[\\/]')
+    if ($segments -contains '.' -or $segments -contains '..') { throw 'M5_QUICKSTART_ARTIFACT_ROOT_INVALID' }
+    if ([Environment]::OSVersion.Platform -eq [PlatformID]::Win32NT) {
+        if ($candidate.StartsWith('\\', [StringComparison]::Ordinal) -or
+            $candidate.StartsWith('//', [StringComparison]::Ordinal) -or
+            $candidate.StartsWith('\\?\', [StringComparison]::Ordinal) -or
+            $candidate.StartsWith('\\.\', [StringComparison]::Ordinal) -or
+            $candidate.IndexOf(':', 2) -ge 0) {
+            throw 'M5_QUICKSTART_ARTIFACT_ROOT_INVALID'
+        }
+    }
+    try { $full = [IO.Path]::GetFullPath($candidate) }
+    catch { throw 'M5_QUICKSTART_ARTIFACT_ROOT_INVALID' }
+    if ([Environment]::OSVersion.Platform -eq [PlatformID]::Win32NT) {
+        try { $drive = New-Object IO.DriveInfo([IO.Path]::GetPathRoot($full)) }
+        catch { throw 'M5_QUICKSTART_ARTIFACT_ROOT_INVALID' }
+        if ($drive.DriveType -eq [IO.DriveType]::Network) { throw 'M5_QUICKSTART_ARTIFACT_ROOT_INVALID' }
+    }
+    $comparison = if ([Environment]::OSVersion.Platform -eq [PlatformID]::Win32NT) { [StringComparison]::OrdinalIgnoreCase } else { [StringComparison]::Ordinal }
+    $separator = [IO.Path]::DirectorySeparatorChar
+    $canonicalBase = $authorizedArtifactBase.TrimEnd([char[]]@([IO.Path]::DirectorySeparatorChar, [IO.Path]::AltDirectorySeparatorChar))
+    $basePrefix = $canonicalBase + $separator
+    if ($full.Equals($canonicalBase, $comparison) -or -not $full.StartsWith($basePrefix, $comparison)) {
+        throw 'M5_QUICKSTART_ARTIFACT_ROOT_OUTSIDE_ALLOWED_BASE'
+    }
+    return $full
+}
+
+function Get-ExistingItemWithoutTraversal {
+    param([Parameter(Mandatory = $true)][string] $LiteralPath)
+    try { return Get-Item -LiteralPath $LiteralPath -Force -ErrorAction Stop }
+    catch [System.Management.Automation.ItemNotFoundException] { return $null }
+    catch { throw 'M5_QUICKSTART_ARTIFACT_INSPECTION_FAILED' }
+}
+
+function Assert-NotReparsePoint {
+    param([Parameter(Mandatory = $true)] $Item)
+    if (($Item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
+        throw 'M5_QUICKSTART_ARTIFACT_REPARSE_DENIED'
+    }
+}
+
+function Assert-ArtifactPathComponentsSafe {
+    $pathRoot = [IO.Path]::GetPathRoot($artifactRoot)
+    if ([string]::IsNullOrWhiteSpace($pathRoot)) { throw 'M5_QUICKSTART_ARTIFACT_ROOT_INVALID' }
+    $relative = $artifactRoot.Substring($pathRoot.Length)
+    $current = $pathRoot
+    foreach ($segment in @($relative -split '[\\/]' | Where-Object { $_.Length -gt 0 })) {
+        $current = Join-Path $current $segment
+        $item = Get-ExistingItemWithoutTraversal -LiteralPath $current
+        if ($null -eq $item) { break }
+        Assert-NotReparsePoint -Item $item
+    }
+}
+
+function Assert-ArtifactTreeSafe {
+    Assert-ArtifactPathComponentsSafe
+    $rootItem = Get-ExistingItemWithoutTraversal -LiteralPath $artifactRoot
+    if ($null -eq $rootItem) { return $false }
+    Assert-NotReparsePoint -Item $rootItem
+    if (-not $rootItem.PSIsContainer) { throw 'M5_QUICKSTART_ARTIFACT_ROOT_INVALID' }
+    $pending = New-Object 'System.Collections.Generic.Stack[string]'
+    $pending.Push($artifactRoot)
+    while ($pending.Count -gt 0) {
+        $directory = $pending.Pop()
+        $directoryItem = Get-ExistingItemWithoutTraversal -LiteralPath $directory
+        if ($null -eq $directoryItem) { throw 'M5_QUICKSTART_ARTIFACT_INSPECTION_FAILED' }
+        Assert-NotReparsePoint -Item $directoryItem
+        try { $children = @(Get-ChildItem -LiteralPath $directory -Force -ErrorAction Stop) }
+        catch { throw 'M5_QUICKSTART_ARTIFACT_INSPECTION_FAILED' }
+        foreach ($child in $children) {
+            Assert-NotReparsePoint -Item $child
+            if ($child.PSIsContainer) { $pending.Push($child.FullName) }
+        }
+    }
+    return $true
+}
+
+function Assert-OwnedArtifactRoot {
+    param([switch] $AllowAbsent)
+    $exists = Assert-ArtifactTreeSafe
+    if (-not $exists) {
+        if ($AllowAbsent) { return $false }
+        throw 'M5_QUICKSTART_ARTIFACT_ROOT_NOT_OWNED'
+    }
+    $markerItem = Get-ExistingItemWithoutTraversal -LiteralPath $artifactMarker
+    if ($null -eq $markerItem -or $markerItem.PSIsContainer) { throw 'M5_QUICKSTART_ARTIFACT_ROOT_NOT_OWNED' }
+    Assert-NotReparsePoint -Item $markerItem
+    try { $marker = Get-Content -LiteralPath $artifactMarker -Raw -ErrorAction Stop }
+    catch { throw 'M5_QUICKSTART_ARTIFACT_ROOT_NOT_OWNED' }
+    if ($marker -cne $artifactMarkerValue) { throw 'M5_QUICKSTART_ARTIFACT_ROOT_NOT_OWNED' }
+    return $true
+}
+
+function Write-StableQuickstartFailure {
+    param([Parameter(Mandatory = $true)] $Failure)
+    $message = [string]$Failure.Exception.Message
+    $code = if ($message -cmatch '^(M5_QUICKSTART_[A-Z0-9_]+)(?::.*)?$') { $Matches[1] } else { 'M5_QUICKSTART_FAILED' }
+    [Console]::Error.WriteLine($code)
+}
+
+function Invoke-Checked {
+    param([Parameter(Mandatory)] [string] $File, [Parameter(Mandatory)] [string[]] $Arguments)
+    & $File @Arguments
+    if ($LASTEXITCODE -ne 0) {
+        $component = switch -Regex ([IO.Path]::GetFileNameWithoutExtension($File)) {
+            '^docker$' {
+                if ($Arguments -contains 'config') { 'DOCKER_CONFIG' }
+                elseif ($Arguments -contains 'up') { 'DOCKER_UP' }
+                elseif ($Arguments -contains 'exec') { 'DOCKER_EXEC' }
+                else { 'DOCKER' }
+                break
+            }
+            '^dotnet$' { 'DOTNET'; break }
+            '^npm$' { 'NPM'; break }
+            '^node$' { 'NODE'; break }
+            '^chmod$' { 'CHMOD'; break }
+            default { 'COMMAND' }
+        }
+        throw "M5_QUICKSTART_COMMAND_FAILED_$component"
+    }
+}
+
+function Invoke-ContainerAdminProbe {
+    param([Parameter(Mandatory = $true)][string] $CaPath)
+    $sdkImage = 'mcr.microsoft.com/dotnet/sdk:10.0.302@sha256:72dd743782f2ae7e5476fd64f6a460045e3998dc862218b80e6944cba79a01b0'
+    $arguments = @(
+        'run', '--rm', '--pull', 'missing',
+        '--label', ('com.docker.compose.project=' + $project),
+        '--user', '1657:1657',
+        '--read-only',
+        '--cap-drop', 'ALL',
+        '--security-opt', 'no-new-privileges',
+        '--pids-limit', '64',
+        '--tmpfs', '/tmp:rw,nosuid,size=1m',
+        '--network', ($project + '_m3'),
+        '--add-host', 'gateway.m3.test:172.29.44.4',
+        '--mount', ("type=bind,source=$CaPath,target=/run/m5-probe/ca.crt,readonly"),
+        $sdkImage,
+        'curl', '--fail', '--silent', '--show-error', '--max-time', '15', '--max-filesize', '262144',
+        '--cacert', '/run/m5-probe/ca.crt', 'https://gateway.m3.test:8443/admin/')
+    $content = (& docker @arguments | Out-String)
+    if ($LASTEXITCODE -ne 0 -or
+        $content.IndexOf('<div id="root"></div>', [StringComparison]::Ordinal) -lt 0 -or
+        $content.IndexOf('__CSP_NONCE__', [StringComparison]::Ordinal) -ge 0) {
+        throw 'M5_QUICKSTART_ADMIN_PROBE_FAILED'
+    }
+}
+
+function ComposeArguments {
+    param([string[]] $Tail, [switch] $IncludeAdditional)
+    $arguments = @('compose', '--project-name', $project, '--env-file', $envFile, '--file', $baseCompose, '--file', $overlayCompose)
+    if ($IncludeAdditional -and -not [string]::IsNullOrWhiteSpace($AdditionalComposeFile)) { $arguments += @('--file', $AdditionalComposeFile) }
+    return $arguments + $Tail
+}
+
+function Get-ExactProjectResources {
+    param([Parameter(Mandatory = $true)][ValidateSet('container', 'network', 'volume')][string] $Kind)
+    $arguments = switch ($Kind) {
+        'container' { @('ps', '-aq', '--filter', ('label=com.docker.compose.project=' + $project)) }
+        'network' { @('network', 'ls', '-q', '--filter', ('label=com.docker.compose.project=' + $project)) }
+        'volume' { @('volume', 'ls', '-q', '--filter', ('label=com.docker.compose.project=' + $project)) }
+    }
+    $values = @(& docker @arguments)
+    if ($LASTEXITCODE -ne 0) { throw 'M5_QUICKSTART_CLEANUP_ENUMERATION_FAILED' }
+    return @($values | ForEach-Object { ([string]$_).Trim() } | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
+}
+
+function Assert-ExactProjectOwnership {
+    param([Parameter(Mandatory = $true)][ValidateSet('container', 'network', 'volume')][string] $Kind,
+        [Parameter(Mandatory = $true)][string] $Id)
+    $encodedLabels = switch ($Kind) {
+        'container' { (& docker inspect $Id --format '{{json .Config.Labels}}' | Out-String).Trim() }
+        'network' { (& docker network inspect $Id --format '{{json .Labels}}' | Out-String).Trim() }
+        'volume' { (& docker volume inspect $Id --format '{{json .Labels}}' | Out-String).Trim() }
+    }
+    if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($encodedLabels)) {
+        throw 'M5_QUICKSTART_CLEANUP_OWNERSHIP_INVALID'
+    }
+    try { $labels = $encodedLabels | ConvertFrom-Json }
+    catch { throw 'M5_QUICKSTART_CLEANUP_OWNERSHIP_INVALID' }
+    $projectLabel = $labels.PSObject.Properties['com.docker.compose.project']
+    if ($null -eq $projectLabel -or ([string]$projectLabel.Value).Trim() -cne $project) {
+        throw 'M5_QUICKSTART_CLEANUP_OWNERSHIP_INVALID'
+    }
+}
+
+function Remove-ExactProjectResources {
+    $containers = @(Get-ExactProjectResources -Kind container)
+    foreach ($id in $containers) { Assert-ExactProjectOwnership -Kind container -Id $id; Invoke-Checked 'docker' @('rm', '--force', $id) }
+    $networks = @(Get-ExactProjectResources -Kind network)
+    foreach ($id in $networks) { Assert-ExactProjectOwnership -Kind network -Id $id; Invoke-Checked 'docker' @('network', 'rm', $id) }
+    $volumes = @(Get-ExactProjectResources -Kind volume)
+    foreach ($id in $volumes) { Assert-ExactProjectOwnership -Kind volume -Id $id; Invoke-Checked 'docker' @('volume', 'rm', $id) }
+    if (@(Get-ExactProjectResources -Kind container).Count -ne 0 -or
+        @(Get-ExactProjectResources -Kind network).Count -ne 0 -or
+        @(Get-ExactProjectResources -Kind volume).Count -ne 0) {
+        throw 'M5_QUICKSTART_CLEANUP_FAILED'
+    }
+}
+
+function Initialize-OwnedArtifactRoot {
+    Assert-ArtifactPathComponentsSafe
+    if (Assert-ArtifactTreeSafe) {
+        [void](Assert-OwnedArtifactRoot)
+        throw 'M5_QUICKSTART_ARTIFACT_ROOT_NOT_CLEAN'
+    }
+    New-Item -ItemType Directory -Path $artifactRoot | Out-Null
+    if (-not (Assert-ArtifactTreeSafe)) { throw 'M5_QUICKSTART_ARTIFACT_INSPECTION_FAILED' }
+    [IO.File]::WriteAllText($artifactMarker, $artifactMarkerValue, [Text.UTF8Encoding]::new($false))
+    [void](Assert-OwnedArtifactRoot)
+}
+
+function Remove-OwnedArtifactRoot {
+    if (-not (Assert-OwnedArtifactRoot -AllowAbsent)) { return }
+    [void](Assert-OwnedArtifactRoot)
+    Remove-Item -LiteralPath $artifactRoot -Recurse -Force
+    if ($null -ne (Get-ExistingItemWithoutTraversal -LiteralPath $artifactRoot)) { throw 'M5_QUICKSTART_ARTIFACT_CLEANUP_FAILED' }
+}
+
+try {
+    $artifactRoot = Get-SafeArtifactRoot
+    $rawRoot = Join-Path $artifactRoot 'raw'
+    $artifactMarker = Join-Path $artifactRoot '.m5-quickstart-owner'
+    $envFile = Join-Path $rawRoot 'm3a.env'
+    $dotnet = if ([string]::IsNullOrWhiteSpace($DotNetPath)) { Join-Path $root '.dotnet\dotnet.exe' } else { [IO.Path]::GetFullPath($DotNetPath) }
+    if (-not (Test-Path -LiteralPath $dotnet -PathType Leaf)) {
+        if (-not [string]::IsNullOrWhiteSpace($DotNetPath)) { throw 'M5_QUICKSTART_DOTNET_INVALID' }
+        $dotnet = 'dotnet'
+    }
+
+if (-not [string]::IsNullOrWhiteSpace($AdditionalComposeFile)) {
+    $additionalFullPath = [IO.Path]::GetFullPath($AdditionalComposeFile)
+    $allowedAdditionalCompose = [IO.Path]::GetFullPath((Join-Path $root 'deploy\fse2\docker-compose.fse2-local.yml'))
+    if ($additionalFullPath -ne $allowedAdditionalCompose -or -not (Test-Path -LiteralPath $additionalFullPath -PathType Leaf)) {
+        throw 'M5_QUICKSTART_ADDITIONAL_COMPOSE_DENIED'
+    }
+    $AdditionalComposeFile = $additionalFullPath
+}
+
+if ($Phase -eq 'Workflow') {
+    & (Join-Path $PSScriptRoot 'Invoke-M5FullStack.ps1') -UseExistingImages:$SkipBuild
+    if ($LASTEXITCODE -ne 0) { throw 'M5_QUICKSTART_WORKFLOW_FAILED' }
+    Write-Host 'M5_QUICKSTART_WORKFLOW_PASS'
+    exit 0
+}
+
+if ($Phase -eq 'Validate') {
+    Invoke-Checked 'docker' @('version')
+    Invoke-Checked 'docker' @('compose', 'version')
+    Invoke-Checked 'node' @('--version')
+    Push-Location (Join-Path $root 'src\Admin\Admin.Web')
+    try {
+        Invoke-Checked 'npm' @('ci', '--ignore-scripts')
+        Invoke-Checked 'npm' @('run', 'lint')
+        Invoke-Checked 'npm' @('test')
+        Invoke-Checked 'npm' @('run', 'build')
+    } finally { Pop-Location }
+    Write-Host 'M5_QUICKSTART_VALIDATE_PASS'
+    exit 0
+}
+
+if ($Phase -eq 'Stop') {
+    [void](Assert-OwnedArtifactRoot -AllowAbsent)
+    Remove-ExactProjectResources
+    Remove-OwnedArtifactRoot
+    Write-Host 'M5_QUICKSTART_STOP_PASS'
+    exit 0
+}
+
+Initialize-OwnedArtifactRoot
+New-Item -ItemType Directory -Path $rawRoot | Out-Null
+Invoke-Checked $dotnet @('run', '--project', (Join-Path $root 'tools\m3\FixtureGenerator\FixtureGenerator.csproj'), '--configuration', 'Release', '--', $rawRoot)
+$adminPasswordBytes = New-Object byte[] 32
+$random = [Security.Cryptography.RandomNumberGenerator]::Create()
+try { $random.GetBytes($adminPasswordBytes) } finally { $random.Dispose() }
+$adminPassword = [Convert]::ToBase64String($adminPasswordBytes)
+[Array]::Clear($adminPasswordBytes, 0, $adminPasswordBytes.Length)
+[IO.File]::AppendAllText($envFile, "M5_POSTGRES_ADMIN_API_PASSWORD=$adminPassword`n", [Text.UTF8Encoding]::new($false))
+$adminPassword = $null
+if ([Environment]::OSVersion.Platform -ne [PlatformID]::Win32NT) { Invoke-Checked 'chmod' @('0777', $rawRoot) }
+Invoke-Checked 'docker' (ComposeArguments @('config', '--quiet'))
+$up = @('up', '--detach')
+if (-not $SkipBuild) { $up = @('up', '--build', '--pull', 'always', '--detach') }
+Invoke-Checked 'docker' (ComposeArguments $up)
+
+$deadline = [DateTimeOffset]::UtcNow.AddMinutes(6)
+$ready = $false
+do {
+    $container = (& docker @((ComposeArguments @('ps', '--quiet', 'gateway'))))
+    if ($LASTEXITCODE -eq 0 -and -not [string]::IsNullOrWhiteSpace($container)) {
+        $health = (& docker inspect $container.Trim() --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}missing{{end}}')
+        if ($LASTEXITCODE -eq 0 -and $health.Trim() -eq 'healthy') { $ready = $true; break }
+    }
+    Start-Sleep -Seconds 2
+} while ([DateTimeOffset]::UtcNow -lt $deadline)
+if (-not $ready) { throw 'M5_QUICKSTART_GATEWAY_NOT_READY' }
+
+# Consume the synthetic one-time activation through the real challenge/PoP
+# enrollment client. The report is metadata-only; provisioning secrets remain
+# confined to the ignored raw fixture directory.
+$environment = @{}
+foreach ($line in Get-Content -LiteralPath $envFile) {
+    $separator = $line.IndexOf('=')
+    if ($separator -gt 0) { $environment[$line.Substring(0, $separator)] = $line.Substring($separator + 1) }
+}
+$securityOutput = Join-Path $artifactRoot 'enrollment-status.json'
+$env:M3_GATEWAY_BASE_ADDRESS = 'https://localhost:18443/'
+$env:M3_GATEWAY_CA_FILE = Join-Path $rawRoot 'certificates\ca.crt'
+$env:M3_PROVISIONING_FILE = Join-Path $rawRoot 'provisioning.json'
+$env:M3_SECURITY_DRIVER_PFX = Join-Path $rawRoot 'certificates\security-driver.pfx'
+$env:M3_CERTIFICATE_PASSWORD = [string]$environment.M3_CERTIFICATE_PASSWORD
+$env:M3_SECURITY_OUTPUT = $securityOutput
+$env:M3_SECURITY_SCOPE = 'smoke'
+Invoke-Checked $dotnet @('run', '--project', (Join-Path $root 'tools\m3\SecurityDriver\SecurityDriver.csproj'), '--configuration', 'Release')
+$enrollment = Get-Content -LiteralPath $securityOutput -Raw | ConvertFrom-Json
+if (-not $enrollment.passed) { throw 'M5_QUICKSTART_ENROLLMENT_FAILED' }
+
+# An optional deployment overlay is applied only after the canonical Synthetic-provider
+# enrollment and sample invocation have passed. This preserves the default quickstart gate while
+# allowing a provider-specific Gateway image to reuse the qualified database and environment.
+if (-not [string]::IsNullOrWhiteSpace($AdditionalComposeFile)) {
+    $providerUp = @('up', '--detach', '--no-deps', '--force-recreate', 'gateway')
+    if (-not $SkipBuild) { $providerUp = @('up', '--build', '--pull', 'always', '--detach', '--no-deps', '--force-recreate', 'gateway') }
+    Invoke-Checked 'docker' (ComposeArguments -Tail $providerUp -IncludeAdditional)
+    $providerDeadline = [DateTimeOffset]::UtcNow.AddMinutes(3)
+    $providerReady = $false
+    do {
+        $providerContainer = (& docker @((ComposeArguments -Tail @('ps', '--quiet', 'gateway') -IncludeAdditional)))
+        if ($LASTEXITCODE -eq 0 -and -not [string]::IsNullOrWhiteSpace($providerContainer)) {
+            $providerHealth = (& docker inspect $providerContainer.Trim() --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}missing{{end}}')
+            if ($LASTEXITCODE -eq 0 -and $providerHealth.Trim() -eq 'healthy') { $providerReady = $true; break }
+        }
+        Start-Sleep -Seconds 2
+    } while ([DateTimeOffset]::UtcNow -lt $providerDeadline)
+    if (-not $providerReady) { throw 'M5_QUICKSTART_ADDITIONAL_PROVIDER_NOT_READY' }
+}
+
+Invoke-ContainerAdminProbe -CaPath (Join-Path $rawRoot 'certificates\ca.crt')
+Write-Host 'M5_QUICKSTART_START_PASS'
+Write-Host 'Synthetic enrollment: Active (challenge, proof-of-possession and activation completed).'
+Write-Host 'Admin UI: https://localhost:18443/admin/'
+Write-Host 'Stop with: powershell -NoProfile -File tools/m5/Invoke-M5Quickstart.ps1 -Phase Stop'
+}
+catch {
+    Write-StableQuickstartFailure -Failure $_
+    exit 1
+}

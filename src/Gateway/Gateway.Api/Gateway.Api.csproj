@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>SecureIntegration.Gateway.Api</AssemblyName>
+    <RootNamespace>SecureIntegration.Gateway.Api</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Gateway.Application\Gateway.Application.csproj" />
+    <ProjectReference Include="..\Gateway.Infrastructure\Gateway.Infrastructure.csproj" />
+    <ProjectReference Include="..\Gateway.ConnectorRuntime.Auth.Http\Gateway.ConnectorRuntime.Auth.Http.csproj" />
+    <ProjectReference Include="..\Gateway.ConnectorRuntime.Auth.Soap\Gateway.ConnectorRuntime.Auth.Soap.csproj" />
+    <ProjectReference Include="..\..\Authentication\CertificateSigning\Authentication.CertificateSigning.csproj" />
+    <ProjectReference Include="..\..\Providers\Synthetic\Providers.Synthetic.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" />
+  </ItemGroup>
+</Project>
