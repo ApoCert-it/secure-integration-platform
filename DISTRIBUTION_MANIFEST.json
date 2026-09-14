@@ -1,0 +1,4300 @@
+{
+  "schemaVersion": 1,
+  "distribution": "ApoCert institutional source snapshot",
+  "publishedDate": "2026-09-14",
+  "sourceCommit": "2c2ff275afefb52c02e7660ec80944bcaf3d44a3",
+  "sourceTree": "d0e10e158f5762f85b50666e3a7503a6a6aa9cbf",
+  "previousInstitutionalCommit": "f89f50c37ddfb7671c885bf2fbb753974a467952",
+  "contentEncoding": "canonical Git blob bytes; checkout line endings may differ",
+  "fileCount": 712,
+  "selfExcludedPaths": [
+    "DISTRIBUTION_MANIFEST.json",
+    "DISTRIBUTION_MANIFEST.json.sha256"
+  ],
+  "selection": "All previous institutional payload paths plus seven newly exported Core source files; no new optional pack.",
+  "excludedCorePaths": [
+    "docs/internal/complexity-governance.md"
+  ],
+  "originalCoreExport": {
+    "archive": "sip-core-0.1.0-alpha.1-2c2ff275afef.zip",
+    "archiveSha256": "C794AC3E10744FD0DCCEA7C88F342229A95E44EBD1B6D5AF055648C4BCB1B0C2",
+    "manifestSha256": "4883E3952B2F0C4573E6932CBF538065296CCA04A06180CA8E5B3E1CD17FD3B9",
+    "sourceFileCount": 534,
+    "metadataFileCount": 4,
+    "includedHere": false
+  },
+  "files": [
+    {
+      "path": ".config/dotnet-tools.json",
+      "bytes": 183,
+      "sha256": "16F71ACEF9768642C89CE79E4C2D43F24460FCA107DBFE5AB6A7399DC1FEA348",
+      "origin": "exact-source"
+    },
+    {
+      "path": ".dockerignore",
+      "bytes": 225,
+      "sha256": "AE36FC7BAB9A734508761F67A6C134198EA7EB530A8AAA08B4ADF062B267B8F3",
+      "origin": "exact-source"
+    },
+    {
+      "path": ".editorconfig",
+      "bytes": 633,
+      "sha256": "405513B272157109A7E5E9D31D4A92C43E2CD3D7D82F7969E5E2D49D523025DE",
+      "origin": "exact-source"
+    },
+    {
+      "path": ".gitattributes",
+      "bytes": 153,
+      "sha256": "68BA3A832E3BBB34D8B5EF59B5EF33C66AC9A540EA91F565D6C6EBB1A4438987",
+      "origin": "exact-source"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "bytes": 41716,
+      "sha256": "3948D2C831D40E0F5FCCE05AD88862E86BFC878E3679BE8F2B03C70E1AB2B3D2",
+      "origin": "exact-source"
+    },
+    {
+      "path": ".github/workflows/m5-admin-ui.yml",
+      "bytes": 15678,
+      "sha256": "3F7442B5C2D6C4252AB8734D0346332A07A0AAC586C044EEADDBB2927CE3C8BD",
+      "origin": "exact-source"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 545,
+      "sha256": "E38F3AAFBCFEAA6B2D5C577E0192FC5F21C4586130B819D93768C19FBE092889",
+      "origin": "exact-source"
+    },
+    {
+      "path": ".gitleaksignore",
+      "bytes": 1772,
+      "sha256": "BAE8A7B202CBF261C9ECA5961C41C77468E6224C4F29A04332F5137C5346649E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "ARCHITECTURE.md",
+      "bytes": 2109,
+      "sha256": "EE708100DD7F9427308CD98F901EA1B2514428E9C0FF00F9C79B7FA9A22FB0B5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "BrokerGateway.Azure.slnx",
+      "bytes": 387,
+      "sha256": "FE5346FCC9AC7BE15AC3BA9A7AB4B61A5F90409889DAA004DA5D0EBBC4B62A2F",
+      "origin": "exact-source"
+    },
+    {
+      "path": "BrokerGateway.Core.slnx",
+      "bytes": 3257,
+      "sha256": "6BC0FDFBB2230793FEFA1247729C7E327009B3E7B71145E197F3226D6BA94DD8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "BrokerGateway.LocalPkcs12.slnx",
+      "bytes": 506,
+      "sha256": "CC6010B19EB08C108D51872EF2EE5B9F3ADE98FADFC5728C52C84AFC78D18EC2",
+      "origin": "exact-source"
+    },
+    {
+      "path": "BrokerGateway.slnx",
+      "bytes": 4213,
+      "sha256": "6171E81103E561FE9444D844E8131ACECB094670BB0CBFE9C8C9DDADE3E4B9D8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 3246,
+      "sha256": "463D7016E59BA2F4B437DD795C0A82F97EBC42055F8848158436BFAC4C8251D5",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "CODE_OF_CONDUCT.md",
+      "bytes": 4944,
+      "sha256": "AE1F1F16041FC9684DA47B97A04F5BC1BD3C0B3DA5E20614EDA7ED21ABDB3E48",
+      "origin": "exact-source"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "bytes": 3125,
+      "sha256": "83AB41B15728492F9E2EB471799587CCB82F42077BB69117CD62048B27B6C70C",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "DCO.md",
+      "bytes": 1365,
+      "sha256": "DAC2B0A921AAF4BCAF484DC082FBEA072398BEDECF5F1D4DCCE7E122BBE5D2D5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "Directory.Build.props",
+      "bytes": 1744,
+      "sha256": "826F49B81788F79BAA57E4049121BC70B5A9C44F1E0453F783B9C291535657D4",
+      "origin": "exact-source"
+    },
+    {
+      "path": "Directory.Build.targets",
+      "bytes": 209,
+      "sha256": "12CEB157EFD1E751D7D484CFB6062F1FE2D5F63DB996D15523E4CAE68938C921",
+      "origin": "exact-source"
+    },
+    {
+      "path": "Directory.Packages.props",
+      "bytes": 1090,
+      "sha256": "E0D48F9460E235942BC0716A7167CAC83CFA2D2D0B7CBEA1377547957039268E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "IMPLEMENTATION_STATUS.md",
+      "bytes": 5405,
+      "sha256": "60999DF92B7FEF2932CB26CB51AA4D148AA9F052A133B591B50C48A5D0F2CEDD",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 16726,
+      "sha256": "3F3D9E0024B1921B067D6F7F88DEB4A60CBE7A78E76C64E3F1D7FC3B779B9D04",
+      "origin": "exact-source"
+    },
+    {
+      "path": "LICENSE-APACHE-2.0",
+      "bytes": 11358,
+      "sha256": "CFC7749B96F63BD31C3C42B5C471BF756814053E847C10F3EB003417BC523D30",
+      "origin": "exact-source"
+    },
+    {
+      "path": "LICENSING.md",
+      "bytes": 3452,
+      "sha256": "601CABAFF3D283FE6C8A9C1EDE4E32D4F0DFEAD6BEEBB43C51EE714DD877D643",
+      "origin": "exact-source"
+    },
+    {
+      "path": "NOTICE",
+      "bytes": 276,
+      "sha256": "117ED3A0EA96B026EA9B2BBF444D5406916344112FC71C1D74CEB3F93D1EE1AD",
+      "origin": "exact-source"
+    },
+    {
+      "path": "NuGet.config",
+      "bytes": 314,
+      "sha256": "EF7888E0DF6772FC3F7B51CAFE51E6A505D98FC63DE3C6C72454176C8AD70B6E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "OPEN_SOURCE_BOUNDARIES.md",
+      "bytes": 2118,
+      "sha256": "C5A9E2690481095B7C378DEC78F191BE46CACA43FB97079C58DFD0741D9FAAAE",
+      "origin": "exact-source"
+    },
+    {
+      "path": "README.md",
+      "bytes": 22527,
+      "sha256": "6DDF80FEA6B521D66E71F400FA14D8C6803A295F432DC167B3EF883D4BC246BC",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "SECURITY.md",
+      "bytes": 2030,
+      "sha256": "A5D7831E1E22EBD35CC7E2463157CB3618A357B2F6A2C7375E0DE15CAC372106",
+      "origin": "exact-source"
+    },
+    {
+      "path": "SOURCE.md",
+      "bytes": 5932,
+      "sha256": "3ABDC5FFB1E15D53E05CF81919C60C791CA8EAAFE230A91AC8A1DF26AE7193E2",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "deploy/azure-bicep/README.md",
+      "bytes": 1014,
+      "sha256": "9F0921B2E6FC36CE4D1C1154A88A139C22BB8DE37C610A13F1946CFF0BD7769D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "deploy/azure-bicep/m3-dev.bicep",
+      "bytes": 11645,
+      "sha256": "33A8E4A9FC82CABF321129BA3DAFE25D6800C8E60B1C8114DF0A6E60F6CDFD48",
+      "origin": "exact-source"
+    },
+    {
+      "path": "deploy/azure-bicep/main.bicep",
+      "bytes": 871,
+      "sha256": "74B6728B98B529E813C15296C5AE94931317F186039290AE407F1371487834CB",
+      "origin": "exact-source"
+    },
+    {
+      "path": "deploy/docker-compose.m2.yml",
+      "bytes": 1554,
+      "sha256": "8FBEA8B99F2664F7152C642A7350E5B352043A0A72862CE184DE606B7A08BED1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "deploy/docker/README.md",
+      "bytes": 669,
+      "sha256": "6CB0968E3D0D173970E97396A58B81275C597BE946440323DA3155BDB295699F",
+      "origin": "exact-source"
+    },
+    {
+      "path": "deploy/fse2/docker-compose.fse2-local.yml",
+      "bytes": 3246,
+      "sha256": "AC353D845BB99A4A7A119F791C0E3F38DADF65AC2BA8864C7C9B4109BB08C13D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "deploy/m3/docker-compose.m3a.yml",
+      "bytes": 5470,
+      "sha256": "4BD21FA3C11DD2215506C376F1EC1919F9B3BC62AF0209D5B0DCE34587056A35",
+      "origin": "exact-source"
+    },
+    {
+      "path": "deploy/m4/docker-compose.m4.yml",
+      "bytes": 604,
+      "sha256": "BDFFB20738231E012D964FE9E2A351CFCDD0AA00037CDA7BA9BE21E7CBB5A529",
+      "origin": "exact-source"
+    },
+    {
+      "path": "deploy/m5/docker-compose.m5.yml",
+      "bytes": 1943,
+      "sha256": "B05AFEE0EE45B3C7BB758E22F72766B831D477BA3036F2D884B4DFB8F9299D31",
+      "origin": "exact-source"
+    },
+    {
+      "path": "deploy/release-manifest.template.json",
+      "bytes": 991,
+      "sha256": "5C89DB31B6C1F546422013BFA00284CF4D58E04E6B048989A49B6F095F4C1A51",
+      "origin": "exact-source"
+    },
+    {
+      "path": "deploy/windows/Invoke-LocalBroker.ps1",
+      "bytes": 27543,
+      "sha256": "EAEC89F45E25CE5DB4C4737CE221E9D53EAFB75F47881863E488B20C6C4F49EC",
+      "origin": "exact-source"
+    },
+    {
+      "path": "deploy/windows/README.md",
+      "bytes": 14731,
+      "sha256": "A435CDD925ED13C3F5BA7807A6DA832C3CB29DD0106E99B51323BD07B4F5CBDF",
+      "origin": "exact-source"
+    },
+    {
+      "path": "deploy/windows/install-service.ps1",
+      "bytes": 591,
+      "sha256": "B260227319F315B94E39AF2743C0CDFAB85C6CE1FA204279A0E408BCA9433A73",
+      "origin": "exact-source"
+    },
+    {
+      "path": "deploy/windows/uninstall-service.ps1",
+      "bytes": 231,
+      "sha256": "DA034D037E4C152E99BB610ABCB20682CFE5AC5ACBAD147F22EF9051DC435461",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/README.md",
+      "bytes": 2684,
+      "sha256": "410FFD5044C364D06BAD599E3282AFD67C7469396FFA19C26AF683C6F5565F85",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/adr/0001-runtime-and-languages.md",
+      "bytes": 812,
+      "sha256": "E683B5D5FE7AEEC81D0B8E64F5FBD6631897F0EE4348CD54C5D5670928BCB3B4",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0002-modular-monolith.md",
+      "bytes": 717,
+      "sha256": "FD38D70EA95BBAA2E942C3EDD54EBF610A6B84DE3A6D2145FC28D9E5C5A8A854",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0003-named-pipe-ipc.md",
+      "bytes": 2099,
+      "sha256": "E2606F4908086D4DA937123482BF3086FF14D3F448C4358B38C42E8F8BC9F000",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0004-local-protection.md",
+      "bytes": 1707,
+      "sha256": "DEBB46688FE1463DC20AE7F8AEAA2536415F32114A9BD4C18A781A19834E3925",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0005-postgresql.md",
+      "bytes": 626,
+      "sha256": "8E52EAEE1B05262828B4866EC22433400AA66180BC6196A44E43A2E8F8B16AAD",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0006-canonical-json.md",
+      "bytes": 586,
+      "sha256": "0356EC75EE9121DF469EA9615416FD5E6FB9A8C4BB73FBE7084BB80F253B1FCC",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0007-azure-key-vault.md",
+      "bytes": 772,
+      "sha256": "DBA076054C60C294A2A8E32AD790255B9A2FD43F258A41284320A5BF767BD95F",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0008-installation-identity.md",
+      "bytes": 842,
+      "sha256": "0FA099619301D2C40C6EFD5A35F89EDC93A32A29CA524C933757B438BF031A3C",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0009-plugin-model.md",
+      "bytes": 731,
+      "sha256": "D62F08A4BC7348C8D6B588E1A8DF9F6D83BC9FC8115C4D67435F0440B4DF825C",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0010-connector-definition.md",
+      "bytes": 1082,
+      "sha256": "91C5810055EE51E7935973AE79204A608E8759C9497CEB3F3B6166303F401D03",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0011-secure-layer-managed-connector.md",
+      "bytes": 558,
+      "sha256": "8C1DA9C553569E09128697284F25B7B366927AD706324A3DCD02DAA9D45C0034",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0012-admin-authentication.md",
+      "bytes": 4714,
+      "sha256": "DFDAFA590E3BA8B37124F5732229CE5A6CC72E8683C4B4C930EC7E607A88AF09",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0013-azure-deployment.md",
+      "bytes": 653,
+      "sha256": "4EADB063D7B184A859E146E8E13006582CE72137577B55FD7959253ACBCCC3BF",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0014-recovery.md",
+      "bytes": 523,
+      "sha256": "775F10BEF6807723C1E76126F79A5D6DDD9B39F52822FC3947F500005A63ED85",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0015-execution-location.md",
+      "bytes": 466,
+      "sha256": "0D86AC2F614F7F1CA8F3B4DD92F4012111ACA8F34AABDA047702AB2E71960BF2",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0016-application-process-identification.md",
+      "bytes": 623,
+      "sha256": "D08A4D911906E817FF499630182F335817827443207956F2A58523BF4440BC8C",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0017-msi-installation-provisioning.md",
+      "bytes": 8883,
+      "sha256": "4941189E0CD03970D67A56D49BF58C23CE3C89B98F49C37E04F0888DB0008F36",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0018-connector-lifecycle-and-runtime-cache.md",
+      "bytes": 2199,
+      "sha256": "7F92A63BA7F3260E3329289653F83A78C561CE0955B60EDB09CB1F3604F7D7F6",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0019-provider-pack-boundaries.md",
+      "bytes": 1966,
+      "sha256": "87F3008EFF8D1E6A420F6C6C4C0FB99A72831FA1D79B6579FA254A34F2045CA0",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0020-direct-gateway-client-principal.md",
+      "bytes": 1886,
+      "sha256": "A76254BDF4CCAB66156D19F0C48A701EAA68BD1BBFD1D0F6EC5227AE4F226E41",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0021-regional-eprescription-commonality.md",
+      "bytes": 4374,
+      "sha256": "5672B8EEE7015A95FC445032A30BED92334460D977BA51EC3ED6750723F4C9CA",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0022-typed-session-handshake-and-external-admission.md",
+      "bytes": 5226,
+      "sha256": "96E2F608C0781A872DBD508DA422A20B0A84546D7CE6A07ADB2039EDDA0B746A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0023-provider-neutral-connector-execution-seam.md",
+      "bytes": 6189,
+      "sha256": "AE8BB38CF4EAFDA8E5EF6F9CB891FF2D2B1C643000E446AB265DB7AB3A8CC194",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0024-connector-capability-completion.md",
+      "bytes": 5730,
+      "sha256": "CBF28A62D7DCE94FF4353BE07D793D9826D08125C004D7128E46F983F6A1D536",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0025-authorized-signing-slots.md",
+      "bytes": 4183,
+      "sha256": "DDEB586F929A4FADF2B29D9B1CF17138CB7DCE9083BD7B4BF074C15E92FCAB53",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0026-authorized-typed-composed-soap-request-composition.md",
+      "bytes": 4559,
+      "sha256": "0438EBF6FDC8C588CD33B3EA28A9092F9A7B18CC881AEF3DA068C6F1056BDFD0",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0027-authorized-published-operation-contract.md",
+      "bytes": 5946,
+      "sha256": "5D8032A27C33EC22085FCF62F18C70ECB6AF4CE1479BA85B1CF0F8475CEFCFA1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0028-bounded-jwt-signing-certificate-key-usage.md",
+      "bytes": 3867,
+      "sha256": "F3A3FFDB5CD7379F602485DF4D46A33687532D2739043EF0670DF74CBE3ED6B6",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0029-local-pkcs12-provider-for-offline-labs.md",
+      "bytes": 4716,
+      "sha256": "B45A2F7B2538C3E6F560001D964078D3EE6FA9589A3344CEB4DC18F70857F142",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0030-fse2-bounded-problem-response-diagnostics.md",
+      "bytes": 8002,
+      "sha256": "E7BBE1C5451F984D447B7AB22EE4D5DABE40CDA3DBB083F0621993A393A28030",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0031-fse2-officialtest-operational-source-and-provisioner.md",
+      "bytes": 5990,
+      "sha256": "D611D670138CF55D980B46093282741E526A653A41E47FC9357782A1FC1BC5C3",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/0032-durable-connector-workflow-context.md",
+      "bytes": 5239,
+      "sha256": "D16EFF6E923B6063FA84F4B3F5299F21972A014C2F96954802C4B284A792B4A3",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/adr/README.md",
+      "bytes": 2904,
+      "sha256": "6246FA1A4E25615E85D342DAC19A045E1509BCCA5A94EA1275BA651D9CABC93F",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/api/broker-ipc.md",
+      "bytes": 4877,
+      "sha256": "DA10E7A69D8DA4A9EDDCD77EABD19C24083135B37FF1A823D2A7B893E259897D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/api/gateway-api.md",
+      "bytes": 4260,
+      "sha256": "2A49E0DFA074DF973297B5C18E5E2839957A6D05F3E49C0A237C1654A83FCF20",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/api/gateway-openapi.yaml",
+      "bytes": 82322,
+      "sha256": "00A7CDA1EDCF1A953275078BE0F5CADAA4002E3A5E21853A513CDAD0FC99BBE7",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/api/runtime-wire-codes.json",
+      "bytes": 8171,
+      "sha256": "B6A603284A2965A67A9ABFC6CBA96E988D94064FEBAD6C9B9D23274720DEDCF5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/architecture/component-diagrams.md",
+      "bytes": 7639,
+      "sha256": "55A422F30A52412A65489D6678E37E324E9E40EB7A5483BDB94291401DD5E559",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/architecture/connector-runtime-auth-contract.md",
+      "bytes": 14617,
+      "sha256": "4B5FAEA4F7DC95F1A727899693D27462678F498FFA3B82772575EE1C12EB777A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/architecture/direct-gateway-access.md",
+      "bytes": 4042,
+      "sha256": "10043EC25A4AC5CB33231C5F10CA87B320F1D4D1C0B0918B95EA9F5F9BD07D81",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/architecture/executive-architecture.md",
+      "bytes": 6183,
+      "sha256": "3D71C05815B7F04E204DEF6E8643B85A3615027C3493F6A4B3CFFA2AB9B231F7",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/architecture/m2-gateway-architecture.md",
+      "bytes": 5288,
+      "sha256": "75452E2BC495EADB1107F55065DE1F8A40E5EB50677C5E28A399AC46B3474239",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/architecture/m3-production-like-vertical-slice.md",
+      "bytes": 5578,
+      "sha256": "9FDC1FC667ADA915BA96E43854AB71DCBFF7313DB9267B4CF1AE58136D7953C3",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/architecture/m5-admin-ui-and-provider-boundaries.md",
+      "bytes": 5659,
+      "sha256": "D8DA85357CCBECDBFAF3339166A20B7AC8F110F7EEF935504626E9BE2E9E15AE",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/architecture/sequence-diagrams.md",
+      "bytes": 6395,
+      "sha256": "67339BA50DF563C7CA7D8AFE1B2D77674F16A8F0650AE14FD7377764C550CDCA",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/architecture/system-architecture.md",
+      "bytes": 9639,
+      "sha256": "835DE93E061A509444B079B6BF28605B722DC8421E867754418C71D96CC55934",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/assumptions.md",
+      "bytes": 1907,
+      "sha256": "C47B90DE5795398EA33674E66E8569F7689628C33B2FD397B14ED07A58261FA8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/connector-development/README.md",
+      "bytes": 2030,
+      "sha256": "A5CB232903DBFD68B103825ABF7E31A2B29B8CD9BFF6334F520385E6D2788870",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/connector-development/golden-path.md",
+      "bytes": 2962,
+      "sha256": "B34925D75BF0AAF7771D5B7D8AA390A1D4E8AD27CB8F767A37EE5C7E79DE5FFB",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/connector-development/minimal-connector-anatomy.md",
+      "bytes": 2735,
+      "sha256": "5D20A58CF8248E33FD46E5C38C10D2F6A6E215469C6AA2D052CB1A2AA845F321",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/connectors/connector-cli.md",
+      "bytes": 4378,
+      "sha256": "80D9A7AF568822ECC44D119000ACB32004EC29E5C37B2195DC257590ABA34C43",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/connectors/connector-definition.schema.json",
+      "bytes": 23028,
+      "sha256": "8A1E300D7A64B53A5DF1691C1F07067D6B84CCA68E60CD6FD20D97BFD66C1A37",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/connectors/connector-sdk.md",
+      "bytes": 1880,
+      "sha256": "46C415B6A14DC276A948697965CF8801BE548BBD27F9D7031CD49FF4070EA10A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/connectors/connector-specification.md",
+      "bytes": 3862,
+      "sha256": "F120C686430CE181B36BBA52A4F0830F2A31F9AD8D4F95AA9509C75BBD4AA111",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/connectors/examples/LICENSE.md",
+      "bytes": 350,
+      "sha256": "79B6514EF6FE3368C040EBD70A022D70E5AE3F1A38AE8FFB816DCF8056CF9CEC",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/connectors/examples/managed-connector.example.json",
+      "bytes": 2156,
+      "sha256": "040970A59ADAE81A038DC188D12EC6E8CC871C0B69F1912378E03CB0B2D0CA60",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/connectors/examples/sample-secure-service.connector.json",
+      "bytes": 1192,
+      "sha256": "3188AA507873C345BBFC399C9036FDE4440F8355B07AE1CDC7529C69D2A7F06A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/connectors/examples/secure-layer.example.json",
+      "bytes": 1805,
+      "sha256": "0AAB971CFE394D7DE82A366251F5AE1CEE381309A0DB43E1CA441E84095CF019",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/connectors/healthcare/M6-IMPLEMENTATION-PLAN.md",
+      "bytes": 14038,
+      "sha256": "CB024785F2BC1C5430F25252ED93D50DAC2BD3FC2FC025462A24D4EE742B0745",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/connectors/healthcare/README.md",
+      "bytes": 2894,
+      "sha256": "DBD4C3C001E8A544F009127EFFCC4374A382F126CB2ADF0360FF72E87C9A1CE8",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/connectors/healthcare/auth-primitives-required.md",
+      "bytes": 15690,
+      "sha256": "AA338804E23B79B778ABFA547B2C7AD3CE64D33FBA2CCD903FAD249C7F7AD42E",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/connectors/healthcare/execution-location-matrix.md",
+      "bytes": 6971,
+      "sha256": "A91C213FBBCC54F544A6DCCC2DD11D4CDDC93F38C7D4E9D30998EBDB254572D1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/connectors/healthcare/fse2/OFFICIALTEST-VALIDATE-CDA-RUNBOOK.md",
+      "bytes": 17109,
+      "sha256": "087463331DDC8632B4020FEFFDA4A287E736DD88A7F806B2AB7EAA8BFC2D2FD3",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/connectors/healthcare/fse2/README.md",
+      "bytes": 7899,
+      "sha256": "869752FEDF479FB7324A4E748DBCBC6DC190A895E573D627665956C626F66864",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/connectors/healthcare/fse2/current-spec.md",
+      "bytes": 14965,
+      "sha256": "A364EA3BF462171198609DA338A762D1E10C3ED33A61FC61D18FBE75B06C2534",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/connectors/healthcare/fse2/fse2-officialtest-operational-plan.schema.json",
+      "bytes": 2865,
+      "sha256": "18FA4FC9EB3106FA1A1E17A465F7619C013E3FD67E326827803DC601BAED5E64",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/connectors/healthcare/fvg-pkce-jwt/spec.md",
+      "bytes": 9861,
+      "sha256": "FEC0E95D5AC2802EB95168B3DD1D1E713BD9EB37B3C4250DE4B15FAD0554E2F7",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/connectors/healthcare/integration-inventory.md",
+      "bytes": 14415,
+      "sha256": "8EBE63C12CBF0554BC1D4A1F719D695488556A8857B97F552EB0AFA0D312F037",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/connectors/healthcare/lombardia-oauth-helper/spec.md",
+      "bytes": 9728,
+      "sha256": "67AB5521C1743D90E007DCF7FBA06571AF3273F99DD46CF47EE83FC6FBB5CB07",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/connectors/healthcare/protocol-matrix.md",
+      "bytes": 5716,
+      "sha256": "D031B95C6E5B7E45EC16DE587A39FDADC9B51A93DC4381227B2564859F56DDF2",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/connectors/healthcare/provenance.md",
+      "bytes": 4842,
+      "sha256": "15677E1397B8FA323EA93493ECCF3B582A1B39ABA3534F73CFA5F91DE856D4D2",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/connectors/healthcare/regional-eprescription/README.md",
+      "bytes": 10397,
+      "sha256": "280CDAA2DA76555B6E66AF150023660D56F5AC738C5D08FD4BEEDD2D09097116",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/connectors/healthcare/sogei-basic-session/spec.md",
+      "bytes": 9976,
+      "sha256": "B1177C20C304AEC19E2E14EF7D7219AA886E0ABEE92434948554CE1C35A9C493",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/connectors/healthcare/umbria-mtls-jwt/spec.md",
+      "bytes": 9613,
+      "sha256": "B6BBE80975C3E2A08B74C4FAA2EC24775790E3207DC541610C9783D81ACA49AA",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/data/database-schema.md",
+      "bytes": 9802,
+      "sha256": "F47C0883FE98D656A06326630875642FEB05AAC8C172720A3C3FC225521D7540",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/deployment/deployment-architecture.md",
+      "bytes": 9103,
+      "sha256": "FB599DFB5F794724B9044546B68FE06B59F57BB5BE96FCA8E1F6F0D11CC9B3A1",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/diagrammi/ER diagram.svg",
+      "bytes": 32865,
+      "sha256": "135899477AAFD5914D68C598786C3618FE240B7B384ACC416CEA860AF4F56D2A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/diagrammi/admin-plane.svg",
+      "bytes": 26760,
+      "sha256": "2FD264ECA81CFFC05EEF44F6F67D0B4A43B60CE2E1CF245BDAC77F6A065B161F",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/diagrammi/azure-deployment.svg",
+      "bytes": 27566,
+      "sha256": "0DC1E3F991D03AA67100508FBA32764B0E09ADE91B91E346595690EFF9EF073E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/diagrammi/broker-components.svg",
+      "bytes": 23581,
+      "sha256": "2F39CF08C66088BF3DE9881F6E229B1B1C5B8BA15D2C228EDBA168E9D085C505",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/diagrammi/connector-runtime.svg",
+      "bytes": 23758,
+      "sha256": "F6BFC18E82649B60F2390247229D31A65B3DF8813A2FCA1224810A78A029DCBC",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/diagrammi/gateway-components.svg",
+      "bytes": 27934,
+      "sha256": "6F3A650C23FB62F480815C370461D11201DF08981DDB2CE864DCFCFF4F8F0890",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/diagrammi/sequenze/Enrollment.svg",
+      "bytes": 28300,
+      "sha256": "A5DD693A3C0AEC65075E4FCCD4C700B5A05FE6255D1B7E5E80428911FCF2C376",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/diagrammi/sequenze/HMAC-tramite-broker.svg",
+      "bytes": 27223,
+      "sha256": "75514E7B3188FF147061A76F3E8ACA8E1410490A9824D2C4F7972EB2A5B871E4",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/diagrammi/sequenze/Managed Connector.svg",
+      "bytes": 29988,
+      "sha256": "C21ECD993F380EBD060A140C65E2F8301166D30016A3A5C0241DBE47B1B04486",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/diagrammi/sequenze/OAuth browser locale e token exchange.svg",
+      "bytes": 32081,
+      "sha256": "EFDFB54355772573371483F3084903C7BC833B562AC80B3CF290EC04A1856DDA",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/diagrammi/sequenze/Pubblicazione Connector.svg",
+      "bytes": 29432,
+      "sha256": "4CFCFCA0C1704E8088836F687ACC4367BFF10A21A6EB8A895D1289541CE90452",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/diagrammi/sequenze/Revoca Installation.svg",
+      "bytes": 29386,
+      "sha256": "C9B2D923FADA02A2D3A891A02256E71DD41FE956E9FDD65AC2391C0FF0FCB1FD",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/diagrammi/sequenze/Rollback Connector.svg",
+      "bytes": 28939,
+      "sha256": "F8A7D0671301E82B28A53CE2154EE0CC7ED94D689BD938090BE2262471EA3F7E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/diagrammi/sequenze/Secure Layer pass-through.svg",
+      "bytes": 28898,
+      "sha256": "582EB7D802CB9EA173B3219EBF0410F546E127BE157E4214F6DBE1E85CE00996",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/diagrammi/sequenze/Smart card locale.svg",
+      "bytes": 28400,
+      "sha256": "1DF3DF4AC01E539324AFFDEBAA9F33EBE928357411860CADD67304CCB606CAE0",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/diagrammi/sequenze/cifratura-dato-locale.svg",
+      "bytes": 28310,
+      "sha256": "1332BCA4F749629A65CB2C1C5069AAC8984ACF5CE61EF64EEC87885F4B0C573B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/diagrammi/sequenze/mTLS-centralizzato.svg",
+      "bytes": 29985,
+      "sha256": "F19FC1E648653039780B8BFB553916570E99E6A601CD98F41DFB447A85E47E59",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/diagrammi/sequenze/protezione-segreto-locale.svg",
+      "bytes": 28849,
+      "sha256": "DF8753D1202D12D7D398E0565B1285A1CD923BC8CAB6839FD8DABC00D7B0D286",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/diagrammi/system-context.svg",
+      "bytes": 24963,
+      "sha256": "FF3357A4532944E3145CEADE07B2FF51D2ECD3DB37278F58926DAD59B45A518E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/images/admin-dashboard.png",
+      "bytes": 37854,
+      "sha256": "830709800F9C7AD25471E861B2BB32A6B2DF8E5838CDF1528693CEE4B3819DCF",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/images/sip-architecture-overview.png",
+      "bytes": 1609151,
+      "sha256": "C2145BC7B8EB4106FCA0EE58B66C78CDFC7F4F98BE85417CF10CADC072CAA3A2",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/input-analysis.md",
+      "bytes": 2830,
+      "sha256": "20214C63E96D78243AD26758E94F71E716FC0EC941A32D7CA0A7F06B3ACC64E8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/legal/OPEN-SOURCE-LICENSE-DECISION.md",
+      "bytes": 1830,
+      "sha256": "63312D0BA9D9B52D4F5F4C5352940CAB49D82082453D3E6D779BE95F5B50C43A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/migration/legacy-migration.md",
+      "bytes": 4636,
+      "sha256": "B417BBE340D4E38C5B8BB84C28AAA63369273FF4DFC42D55BB8D35B6D71DC09D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/operations/ALPHA-GOLDEN-PATH.md",
+      "bytes": 5567,
+      "sha256": "AABCC0C568F38FD32BDE327F1B32290280875EFCD6E3AEB9499FE2F15704BF80",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/operations/FSE2-LOCAL-PROVIDER-RUNBOOK.md",
+      "bytes": 7059,
+      "sha256": "58EEA817CA74CE868121450F75C0AA4BB34D516F341C30799708CCE9636B7993",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/operations/M0-M1-LIVE-MATRIX-RUNBOOK.md",
+      "bytes": 6490,
+      "sha256": "A8462FFF57C3991E2C1F6A72F3A922A8187E887CFEC2B6CB34E98C23050AD512",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/operations/M2-GATEWAY-RUNBOOK.md",
+      "bytes": 5261,
+      "sha256": "A713BFAACB714605DC9864CB49F46E35697646388701BC43D62C2E5169B0796E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/operations/M3-E2E-RUNBOOK.md",
+      "bytes": 3150,
+      "sha256": "2EBA16469FA4ECB83566653E96D6F0D8EA8A4AF32E53219B624A0B99A628D972",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/operations/M3A-SPLIT-HOST-RUNBOOK.md",
+      "bytes": 13026,
+      "sha256": "35FB61443C3273BD3639EA2A75A995B01823BA6094C44FB3678A4F821E236D75",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/operations/M4-QUICKSTART.md",
+      "bytes": 1217,
+      "sha256": "2AC9E777408DB29503F1056BEE551EB62EEFD82CA12151BF5A7ED23E50763A14",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/operations/M5-ADMIN-QUICKSTART.md",
+      "bytes": 6626,
+      "sha256": "4529AAAD594C4F36D34A84225F654B677C498EA13A64DEDCCEFCDEA0421B5DBE",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/operations/observability.md",
+      "bytes": 3806,
+      "sha256": "F6E67088E5F67EEE3D4F5584C880E715AA26580652547F657248D8337BEC571E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/releases/0.1.0-alpha.1.md",
+      "bytes": 3953,
+      "sha256": "F5297EF8E719173921027C344920F12C7E1627F6EB8A3E491672A7B1C22292E4",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/requirements/requirements.md",
+      "bytes": 6001,
+      "sha256": "AE4631F60FE95A96F1843D1BC3CBB5ECA617BC74D1F281F0D8636601B6A33286",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/security/cra-nis2-adoption.md",
+      "bytes": 24801,
+      "sha256": "35CA91C843273E7CDFD6B648B2077ED642C6D32BBC0C57C5CD4EC6E631C0BCE3",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/security/security-model.md",
+      "bytes": 10902,
+      "sha256": "6D97123A044069EDAE25EED16BC09AC3215D0C6CCD5ABD35E4D59AF526D626BA",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/security/threat-model.md",
+      "bytes": 89266,
+      "sha256": "A30DB6837DAAB708DB9541E1D7A18958CCD42E4046540EF1E89E5672932DEFA4",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/testing/FSE2-IMPLEMENTATION-REPORT.md",
+      "bytes": 36699,
+      "sha256": "D20EDB5C11382F90296260C3AE1D8C163862779AC9FDD55CA4B7200F44669D0F",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/testing/FSE2-RESUME-GATE-REPORT.md",
+      "bytes": 7271,
+      "sha256": "B081D8A2B59E1AC34DF816B049933FF29C725A79AF7434F89B72C9EDA9E6CEB5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/testing/HEALTHCARE-WAVE1-REGIONAL-EPRESCRIPTION-REPORT.md",
+      "bytes": 8356,
+      "sha256": "440A68E9CA9E9B67BE4EB7299CAD2C1502AD3AE2C30DF7AF32E488634777D358",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/testing/M2-IMPLEMENTATION-REPORT.md",
+      "bytes": 3703,
+      "sha256": "0A68BACE37B79A66DE626C112F6CECE28343694310E83C048177987E22D0AB7A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/testing/M3-EVIDENCE-SCHEMA.md",
+      "bytes": 1391,
+      "sha256": "79E8951C7BE23E19E1917DD8867FD357D22409CBEB885650A0E6759DE766F984",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/testing/M5.5-IMPLEMENTATION-REPORT.md",
+      "bytes": 3589,
+      "sha256": "1EC0715CD88AA33DAAAC741E7DFBB7EA1611C3DC10567EBFBBD0AE7B3F7EA3FD",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/testing/M6-SOAP-AUTH-IMPLEMENTATION-REPORT.md",
+      "bytes": 6128,
+      "sha256": "AC368087B96FDE561E6CBB77989DA7A3B96DC7CB783224B6E5559DB1FE1D567F",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/testing/WAVE1-TYPED-SESSION-HANDSHAKE-REPORT.md",
+      "bytes": 18435,
+      "sha256": "85EFC057B57DD40F8CE36786682F78E14DB73BA89D06305F089727499530009E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/testing/first-vertical-slice-report.md",
+      "bytes": 1534,
+      "sha256": "F7DB2A9110DCCE1059B7847821862A674E538103807B5704C45D588607BE7D7E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/testing/test-strategy.md",
+      "bytes": 8640,
+      "sha256": "D99DAF0F9EECA290B9449F067C0D28A74FE87BE5878965CCE4BA4771BF8249CD",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/traceability/auth-phase2-wave1-oauth.md",
+      "bytes": 4340,
+      "sha256": "F867BBA71CE4CF1EB8A08A6B8426896394C8A1EDDC1E8586D5FFCC9A7952DF2A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/traceability/requirements-traceability.md",
+      "bytes": 115244,
+      "sha256": "CF769344B4B02EC1ADB1E740BFA4AD86AB25E7EB3435FB3DD112BD6DE20C26F6",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/user/README.md",
+      "bytes": 2506,
+      "sha256": "45935AFBC21D2FB3A94E44513DBA925C9A0586F2B735D7BAE9A76920397718A0",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/user/admin-guide-maintenance.md",
+      "bytes": 5588,
+      "sha256": "809E0BF11D3B57F5F8A81C4C652412B04276C2D632E9E1021858D665809B97C7",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/user/administration.md",
+      "bytes": 5896,
+      "sha256": "C1137B11E3577A711EE2FE50C97AAE69112522487A1ADD51C35FCE647315D029",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/user/evaluation.md",
+      "bytes": 8597,
+      "sha256": "538E2979148F113D764C2C53029A26328DDEF939A11B39DC2B7ECE4147817426",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/user/fse2-officialtest.md",
+      "bytes": 10754,
+      "sha256": "1D58A676D72A464B9EF4C5E479CD8D88740879E5DE18B9FDC80DDCB71510BFA0",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/user/fse2-validation-status.md",
+      "bytes": 10802,
+      "sha256": "A0AA556241F3685B9FCB0817EC57D507247F94F955658D27FCA8A1F464AB3FC2",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/user/guided-connector-onboarding.md",
+      "bytes": 5846,
+      "sha256": "CDE8FBC6850A2269C4BC1399108C88073B7C4D5B1916EDD7FC5446E2B8CC73DA",
+      "origin": "exact-source"
+    },
+    {
+      "path": "docs/user/known-limitations.md",
+      "bytes": 4108,
+      "sha256": "965D8A6BB9C71CF8001EF48D4B859AC5C0F234C64048DD673D19C7901E6D8497",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/user/local-broker.md",
+      "bytes": 27925,
+      "sha256": "E5F0AD183D447E90E6B072764F7B687F69CB680CB3D03780EEA0D930C384D6E1",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/user/local-pilot.md",
+      "bytes": 3281,
+      "sha256": "81B1118C3960CFF5E0E8D93758BBA7C63D2B2298B92A5D7A2FCD6AB421A1CF7C",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/user/quickstart.md",
+      "bytes": 2442,
+      "sha256": "73E03AB69B1E43499F9E33F6A83A6E55705F78CC623D8796E4ADA1773E8FE3D1",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "docs/user/troubleshooting.md",
+      "bytes": 5660,
+      "sha256": "999EB8F9950F1868E849A2ECADDA6CCD6CA383C1312E9824DA9E589CABA07E04",
+      "origin": "institutional-documentation"
+    },
+    {
+      "path": "eng/Acquire-Fse2T03FrozenDataset.ps1",
+      "bytes": 3477,
+      "sha256": "55F6962EF8D8156A9ADEAA2A90C2E04BFC603AA512AFF62950C91C3DF431343D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/AlphaReleaseContainerArchive.psm1",
+      "bytes": 12889,
+      "sha256": "6292582315827B6A955CBA7CFC8C6327D4E525515CC82CEBFD2682978236F6C9",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/AlphaReleaseEvidenceContract.psm1",
+      "bytes": 12433,
+      "sha256": "23B721C6B6C6492A31B727262C226B807DFF3FFB1275723823C7414A695D1428",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Assert-NamedTestResult.ps1",
+      "bytes": 860,
+      "sha256": "067309DBD361110D3200695846B89C1AD6AEB5A47D2B6A5C188A2E676D0D6C8B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Build-AlphaReleaseArtifacts.ps1",
+      "bytes": 19523,
+      "sha256": "D9676BF38A56D530D5665F048D0FDEED2252579DBE6206778B90F3633CB1278C",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Build-LocalBrokerPackage.ps1",
+      "bytes": 6471,
+      "sha256": "07F68338F7124EDBAC1736D2639E02B8472F9BA0D50BE9A8909B1D4FB09A4066",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/CoreExportInventory.psm1",
+      "bytes": 5633,
+      "sha256": "38BA5BCFCA6B77B310627FF2414184DA3F065234CFB14E894CD396FC6CECAC4B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Export-OpenSourceCore.ps1",
+      "bytes": 10587,
+      "sha256": "23FB810DABE8E8E3AA2891BFF8AAC4DBDE786AA56122D425722C7E8BB1987240",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/LicensePolicy.psm1",
+      "bytes": 3696,
+      "sha256": "1EE0308B43A6E53236263FE0D65D028EFC4A5C30B5C500C10F16FFCF7A8962C8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Test-AlphaReleaseArtifacts.ps1",
+      "bytes": 50158,
+      "sha256": "C393EFD01C317405579D8FA9AFA78B5ACADCC0074E1FD21F04241F864B2E5FA7",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Test-AlphaReleaseContainerBinding.ps1",
+      "bytes": 25468,
+      "sha256": "4D0FA502311EAF3997A352BBB816D73DD6BC448D356BE4DA37C253E465C0BAED",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Test-AlphaReleaseContainerTarInspection.ps1",
+      "bytes": 9037,
+      "sha256": "2A1E052771ED5C3B2A74641412610C6BBBB848B6E7ADF2D0133D08BF8D8F3210",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Test-AlphaReleaseEvidence.ps1",
+      "bytes": 5539,
+      "sha256": "12BCF304CCB11C7C4C317C302FB834EBA6FA514DA1A46D093880F7CE6379A5BA",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Test-AlphaReleaseEvidenceConsistency.ps1",
+      "bytes": 25975,
+      "sha256": "225FC22AC2503C273EBA1913EEEF0D759B1DFD9B6BD3DF35B01A1581EAD81906",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Test-AlphaReleaseSetBijection.ps1",
+      "bytes": 21625,
+      "sha256": "2818DF661077078A4C1C9D7C6CCA87EC08EF97532B923DADF84564824E21B300",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Test-CoreExportInventoryDeterminism.ps1",
+      "bytes": 6048,
+      "sha256": "337C2EB2C1DC685027A33B99357EAD9E33BB040CDBC2A79644B850136BC701A5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Test-DcoSignoff.Tests.ps1",
+      "bytes": 7344,
+      "sha256": "17D3A0B2F1B7F8AF14DAB385C8BE49EA4B908E9F8F4ABBBA798343A6878D342E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Test-DcoSignoff.ps1",
+      "bytes": 4338,
+      "sha256": "E4302FB7A021521D08AB8D01504B4E608F55D5635E5A06AD0178BD00D822F7F6",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Test-LicensePolicy.Tests.ps1",
+      "bytes": 12347,
+      "sha256": "C871181F7F60FEA060BE345D686C2EEBA0F4F344B37B9A64B6A7269C5DD9D680",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Test-LicensePolicy.ps1",
+      "bytes": 10438,
+      "sha256": "1DF7C8C33B4AE65A3FC1CFD428A9BBF38F09EF317D3E65F7235FC3ADB90FAE70",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Test-LocalBrokerAdopterAdministration.ps1",
+      "bytes": 12825,
+      "sha256": "8D190F3F9DB69BB7E05BECC7A899A9EDF0D7C96B60D5D8BA6122F4DB506E6858",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Test-LocalBrokerCredentialAdoption.ps1",
+      "bytes": 20768,
+      "sha256": "E7DA4C261B9B307021AC5EA0E79C8D04585D95B392B7700768148AF8870D5274",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Test-LocalBrokerPackage.ps1",
+      "bytes": 3168,
+      "sha256": "086082EEA1B5B92C8167DEAE783C25214DD7585F9FF5ED01E56AC2486FC61CC1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Test-LocalBrokerWindowsDelivery.ps1",
+      "bytes": 17585,
+      "sha256": "6528BE7C5273809460BB4CA62CFA23D2BCEAF38FBABC8F192C33514DEB4D1CE4",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Test-NamedTestResult.Tests.ps1",
+      "bytes": 2051,
+      "sha256": "B38253289C5B5C7EE20004821CA47B03F66A811F899E799135956487BEED1532",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Test-OpenSourceCoreInventory.ps1",
+      "bytes": 4626,
+      "sha256": "7F1A891E554C6B735CEDCF44C24EC5E704DA1EC9FE4B3F3920F83E24AB9AC318",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/Write-AlphaReleaseEvidence.ps1",
+      "bytes": 8579,
+      "sha256": "302DF5560931015C4F72010473B6A523D7C8FD0E97DB983918201A688D73108B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/build.ps1",
+      "bytes": 611,
+      "sha256": "8BB16BF1605C22EF00DC089ABBEC43F9136DF40766170BBAB537B3252D81AAA3",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/generate-sbom.ps1",
+      "bytes": 10298,
+      "sha256": "CD4AFE17A4271DF3681D02F83DFD64A28BF30B2837A746E5FBB2F82F328F89CC",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/open-source-core.allowlist",
+      "bytes": 4107,
+      "sha256": "B1D294EC722EE385A1D0290A4F00F68F777CA9D57D5CD193C938EB603BCFAC80",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/scan-secrets.ps1",
+      "bytes": 1974,
+      "sha256": "D6A243460B78A79F297D6928209515922A812743AE4051144C4251945D0D22BA",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/test-m3-operator-handoff.ps1",
+      "bytes": 4541,
+      "sha256": "C34D12C5893CD0E8F198C9D3DE14B416C9C7DB2555FB1D30A4B5CD4B615DF2CF",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/test-m3-split-firewall.ps1",
+      "bytes": 3173,
+      "sha256": "044BDC3F7B85164F2AE4FEAC44ADB7BDAC6F4F799C9F34130F0B260387FA53D6",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/test-m3-split-network.ps1",
+      "bytes": 6709,
+      "sha256": "30279024CC10331E5DF7C61BC79956313964FD5A0D991B4360BB2B89FC831923",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/test-sbom-modes.ps1",
+      "bytes": 1748,
+      "sha256": "779D51065CC121A8C0AB28E38B14424658C79146BA59C9913434095AEFC243E8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/test.ps1",
+      "bytes": 648,
+      "sha256": "E77B9B8D8E6E8E69783290FF9E25B6F8AB18676EF55E672543B7FAFD76679B8D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/validate-container-base-images.ps1",
+      "bytes": 26592,
+      "sha256": "57569FD9C2CCD9678387FFE323C76D9A3AEAD20BA199C96CEEAFF06BCD4FF059",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/validate-docs.ps1",
+      "bytes": 1589,
+      "sha256": "6B3B5822FF3FDA32DF5C621008593F075CBECDA5306402BA9CF0D3E9267A6FE6",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/validate-sbom.ps1",
+      "bytes": 2111,
+      "sha256": "E55A8DC5B511C585E239EBEFCDEBD494B409ABEE5FF3DE30C2BD78BF412E06E9",
+      "origin": "exact-source"
+    },
+    {
+      "path": "eng/validate-tls-hardening.ps1",
+      "bytes": 3140,
+      "sha256": "955F114BF07304D8722B4FF03BF510A443C19809016E6EFA7374E7F311D1FD69",
+      "origin": "exact-source"
+    },
+    {
+      "path": "global.json",
+      "bytes": 110,
+      "sha256": "11AAE2E9B38F121A0709899ED81BE66C74F8B6E03C448381B707197E4E81D7CE",
+      "origin": "exact-source"
+    },
+    {
+      "path": "packs/deployment/azure/Directory.Packages.props",
+      "bytes": 604,
+      "sha256": "4AE987F301425D889F2F98A09BF02A228B10E6E1F892517E06771098DA65179B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "packs/deployment/azure/Dockerfile",
+      "bytes": 1054,
+      "sha256": "9E0270C2B4E3669BC5281419C1AE5962C5292B3CF0EDDD43C1358A02A1A621D3",
+      "origin": "exact-source"
+    },
+    {
+      "path": "packs/deployment/azure/README.md",
+      "bytes": 1787,
+      "sha256": "200642F0181C7EAE36A1513A4630E6231CFA483811AD9DCB0A9461954603F04B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "packs/deployment/azure/src/Providers.Azure/AssemblyInfo.cs",
+      "bytes": 114,
+      "sha256": "DF57EC6B8AE8706ADE47E2FA1BAB24BABA452CDC3A21C2E16D1D8CA6C6C8E88D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "packs/deployment/azure/src/Providers.Azure/AzureProviderPack.cs",
+      "bytes": 5481,
+      "sha256": "EBEA79BA6D5EB17FF34FC54732343E3CBD17D91C24522C1D0A504DEF03597D7B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "packs/deployment/azure/src/Providers.Azure/Providers.Azure.csproj",
+      "bytes": 518,
+      "sha256": "44C8B74AD922EEE5B7283C153281DDAD1FAE2FF1E2686977D2F217A1A49EEFBF",
+      "origin": "exact-source"
+    },
+    {
+      "path": "packs/deployment/azure/src/Providers.Azure/packages.lock.json",
+      "bytes": 6425,
+      "sha256": "4869E564E36F729092BC4132DFF95C283887068CF8E9869C182C20FE53253B4E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "packs/deployment/azure/tests/Providers.Azure.Tests/AzureProviderBoundaryTests.cs",
+      "bytes": 7722,
+      "sha256": "8D16F326C64B4803DD4E66EB2C7E33D69708F01D41E6EB9F1B611A06118AAB64",
+      "origin": "exact-source"
+    },
+    {
+      "path": "packs/deployment/azure/tests/Providers.Azure.Tests/Providers.Azure.Tests.csproj",
+      "bytes": 588,
+      "sha256": "2710532A91FC919966BB3663806535D78A660BB625D30E32676C5242E9AE035F",
+      "origin": "exact-source"
+    },
+    {
+      "path": "packs/deployment/azure/tests/Providers.Azure.Tests/packages.lock.json",
+      "bytes": 12794,
+      "sha256": "2A368BB91755108396C6E7DD91C81B8703D9604300C10DE8F30AD258C3849F05",
+      "origin": "exact-source"
+    },
+    {
+      "path": "packs/deployment/local-pkcs12/Directory.Packages.props",
+      "bytes": 457,
+      "sha256": "1B7FE9660D192310B397230723FA020E3E7DD3F5AA9112C6D0C794831BEF2ED5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "packs/deployment/local-pkcs12/Dockerfile",
+      "bytes": 2045,
+      "sha256": "3AA6D49D1797E9DD4B86C2F68D71E6636F33C081D51559583ABB05BEB15DE403",
+      "origin": "exact-source"
+    },
+    {
+      "path": "packs/deployment/local-pkcs12/README.md",
+      "bytes": 774,
+      "sha256": "6132574B377C5F0239E73D71FA7F98B13E2448457CF07355FC5BE3CC62367BD6",
+      "origin": "exact-source"
+    },
+    {
+      "path": "packs/deployment/local-pkcs12/src/Providers.LocalPkcs12/LocalPkcs12Provider.cs",
+      "bytes": 32938,
+      "sha256": "3412FB8F90530539EBE629CF24EA29A10337F94338C8D29569C979F469C9360C",
+      "origin": "exact-source"
+    },
+    {
+      "path": "packs/deployment/local-pkcs12/src/Providers.LocalPkcs12/Providers.LocalPkcs12.csproj",
+      "bytes": 413,
+      "sha256": "D4E2901D2F3F1BAA0B74E8BE4515BA276F31A98588AD92D7F5A17A445AF29E99",
+      "origin": "exact-source"
+    },
+    {
+      "path": "packs/deployment/local-pkcs12/src/Providers.LocalPkcs12/packages.lock.json",
+      "bytes": 152,
+      "sha256": "2830A35D1456F8783D0F4AC8A77F45BD37AE9DBE9E9AD425A499AE93A3683A4D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "packs/deployment/local-pkcs12/tests/Providers.LocalPkcs12.Tests/LocalPkcs12ProviderTests.cs",
+      "bytes": 25715,
+      "sha256": "A74CCAEF48D001FF96171FE6ABFC0B13E1540F7CBF4DD478328825E525EE3D99",
+      "origin": "exact-source"
+    },
+    {
+      "path": "packs/deployment/local-pkcs12/tests/Providers.LocalPkcs12.Tests/Providers.LocalPkcs12.Tests.csproj",
+      "bytes": 713,
+      "sha256": "63F1924518734A2BDAFF4113C235557E4604C7ACEC2E1A7B07FF7D42369585B7",
+      "origin": "exact-source"
+    },
+    {
+      "path": "packs/deployment/local-pkcs12/tests/Providers.LocalPkcs12.Tests/packages.lock.json",
+      "bytes": 6814,
+      "sha256": "10D534B42A2913A2AF6A27687F67461E7A415C01EA5144048B22FB7B75C074B9",
+      "origin": "exact-source"
+    },
+    {
+      "path": "samples/DirectGatewayClient/DirectGatewayClient.csproj",
+      "bytes": 322,
+      "sha256": "9202E1C1029D42E1A7907E4F6B5014E99DFE7DE70B134DA4D444D138EF37A000",
+      "origin": "exact-source"
+    },
+    {
+      "path": "samples/DirectGatewayClient/GatewayApiContracts.cs",
+      "bytes": 2681,
+      "sha256": "FBD4B8A6AB272AE729F8F0788136219C3CFFEB0A1BD2D6F6077FC436C059ADB9",
+      "origin": "exact-source"
+    },
+    {
+      "path": "samples/DirectGatewayClient/Program.cs",
+      "bytes": 7748,
+      "sha256": "06945EF97260259BBB317C789F71C263D9838448AC863BA7CD655741640F4EFE",
+      "origin": "exact-source"
+    },
+    {
+      "path": "samples/DirectGatewayClient/README.md",
+      "bytes": 2857,
+      "sha256": "4BFA5800327DA598F45138F74AC36C62393297A1ADBC4AF21BC01E03BC6AB7D4",
+      "origin": "exact-source"
+    },
+    {
+      "path": "samples/DirectGatewayClient/packages.lock.json",
+      "bytes": 61,
+      "sha256": "03EEADC5EF377C17F787AB65F41FB4C8A9C936BB7F7F4171111FDEEC8A81CB46",
+      "origin": "exact-source"
+    },
+    {
+      "path": "samples/LocalBroker/CredentialExample.cs",
+      "bytes": 8753,
+      "sha256": "740EA5A50075B54A38E71326FB10EC1409999F263A809C59302BE4498728BF06",
+      "origin": "exact-source"
+    },
+    {
+      "path": "samples/LocalBroker/LocalBroker.csproj",
+      "bytes": 425,
+      "sha256": "EE3E8F1B3B213924BD9F61BC88E9295CFFD15871D58838761B1A8100550E6EF1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "samples/LocalBroker/Program.cs",
+      "bytes": 6707,
+      "sha256": "8DFFFA6929AEEBC5BCBECE41C4708153248D26DC468ED47C97383CAA5AEFB921",
+      "origin": "exact-source"
+    },
+    {
+      "path": "samples/LocalBroker/README.md",
+      "bytes": 496,
+      "sha256": "83E5298E51A5690945801CA685C0C8C2A3B7EB40D491BB37F9EDB3C6BB61623D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "samples/LocalBroker/packages.lock.json",
+      "bytes": 330,
+      "sha256": "F3113908E28659F535DB7FC6BB4EE51FCF7E6FE7615A2D64E7E014A3A15941A7",
+      "origin": "exact-source"
+    },
+    {
+      "path": "samples/LocalBrokerAdopter/LocalBrokerAdopter.csproj",
+      "bytes": 370,
+      "sha256": "A3C8E768619EA282FC06C3CC84863DDF4FBFBFB71E5DCD51B2BC86EFBFE5A8FB",
+      "origin": "exact-source"
+    },
+    {
+      "path": "samples/LocalBrokerAdopter/Program.cs",
+      "bytes": 4165,
+      "sha256": "2DCC6E7E19636AD7BBE92FD00F0DF580F1B740E553E754AF393D7138092C8F5F",
+      "origin": "exact-source"
+    },
+    {
+      "path": "samples/LocalBrokerAdopter/packages.lock.json",
+      "bytes": 330,
+      "sha256": "F3113908E28659F535DB7FC6BB4EE51FCF7E6FE7615A2D64E7E014A3A15941A7",
+      "origin": "exact-source"
+    },
+    {
+      "path": "sdk/dotnet/Broker.Sdk/AssemblyInfo.cs",
+      "bytes": 153,
+      "sha256": "AEB63DC035D24BCBF6F057312EAA0BCFFBCCD8DE2FF88EB9EC7BDE6A33B522C2",
+      "origin": "exact-source"
+    },
+    {
+      "path": "sdk/dotnet/Broker.Sdk/AssemblyMarker.cs",
+      "bytes": 148,
+      "sha256": "9758E5F7C2B1C1F38456E64DC69475AA6BC1A6C9667B74059C0D144E30922F62",
+      "origin": "exact-source"
+    },
+    {
+      "path": "sdk/dotnet/Broker.Sdk/Broker.Sdk.csproj",
+      "bytes": 1435,
+      "sha256": "AC2A5E6B89206EECFA87300CCAF2EB5F3CD5F921F22747A9B3436983BC8FC7CF",
+      "origin": "exact-source"
+    },
+    {
+      "path": "sdk/dotnet/Broker.Sdk/BrokerClient.cs",
+      "bytes": 8456,
+      "sha256": "8175853E25A88270EFEFE7D097DC96EFC965997E49CD622F674A5515DE00D010",
+      "origin": "exact-source"
+    },
+    {
+      "path": "sdk/dotnet/Broker.Sdk/NamedPipeServerIdentity.cs",
+      "bytes": 5880,
+      "sha256": "80C31A3BAFB8A1FA3D1237E1337C16EFE7CE5CE46E41D6CC3DED63A6759469D1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "sdk/dotnet/Broker.Sdk/packages.lock.json",
+      "bytes": 3959,
+      "sha256": "647671CBF795048145549C19C7829BBE50FBDEA1F5EACAF9849AA0945455CFDB",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/.gitignore",
+      "bytes": 109,
+      "sha256": "B1B252C5663BD9AB8359B9E74FD458A766EF390BDA34A1F1700987646ED93EB1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/.npmrc",
+      "bytes": 38,
+      "sha256": "71959FEF5DB640861068AFAD0B9E009D17BFBE391987451A34E14190DF61125E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/eslint.config.js",
+      "bytes": 617,
+      "sha256": "10EFBD4F50CA5E55EC35DDD655D2E7C3ACF6640519FA52ABBD3B93D33CCCDC1A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/index.html",
+      "bytes": 422,
+      "sha256": "602AB0A7C4E38FA8E6A69D901DB5F76729C47A4571ABB15FCE074B539A3F4C64",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/package-lock.json",
+      "bytes": 201540,
+      "sha256": "5F464482393B126ECC31D4748F738D4EA00B58F495B0BBDF3E96D710DD43164F",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/package.json",
+      "bytes": 2290,
+      "sha256": "3E41B5A6507E9462E74DD550DA5AC8BBDD1E32298498EF176871EB469DD8F790",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/playwright.config.ts",
+      "bytes": 791,
+      "sha256": "D2B5F46372CA4C4FF5A088491F8129BF48AB9581BF9E6235E90253D04FAB3F3A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/playwright.fullstack.config.ts",
+      "bytes": 573,
+      "sha256": "A5DC623754BCA6E2EC44C9F2C7A620B0474C0E084D5C6EEA59FD32438A27642B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/scripts/check-runtime-negative.mjs",
+      "bytes": 635,
+      "sha256": "8A2276ED5AA908FD53272E011E159DB3CACD0F2B6CAF7CA80D66BCD88A64CC89",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/scripts/generate-runtime-contract.mjs",
+      "bytes": 5299,
+      "sha256": "F9E0A65037CEACC822E545E67710273763047A80B479798BB6FEBC8D6E8ED382",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/accessibility.test.tsx",
+      "bytes": 724,
+      "sha256": "D78602672554E14B7E69199FD4DD8FC09C59A720B3D4AD3DAC9FB8CDCF5C6825",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/admin.test.tsx",
+      "bytes": 6406,
+      "sha256": "DACCD6609E6E37484AC863604135E3BD730A6A138B6E8A6F9F5B358EA44BCFC5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/api/client.test.ts",
+      "bytes": 1916,
+      "sha256": "C40C6131DA8B9642DD8D7387327CD8C37E5A4D8B1640FC44BDE47539DC5EBB92",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/api/client.ts",
+      "bytes": 16192,
+      "sha256": "B63A07A92940F6B22AE269387D944E598568740C3E80D9EE7F4494E3EBE22E8B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/api/schema.d.ts",
+      "bytes": 117730,
+      "sha256": "A916CB8F9DC2553363EA012E7A5376FA5A24EB790BF6145E4B7B292FF177F18D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/app/App.tsx",
+      "bytes": 3100,
+      "sha256": "AAD32189294BBCCCC13FF3EBBD9481FC33B7C8F6BD54FB3A549E53B72840CCFF",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/auth/LoginPage.tsx",
+      "bytes": 1266,
+      "sha256": "1DAE702BF112DB35B48872842360813A1646C6669A528DEEE3511007982E13E2",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/auth/SessionContext.test.tsx",
+      "bytes": 1248,
+      "sha256": "41D597082C49CAE80ADFC098A50B244F002BE6BC3A3330A7478AF7A50A51A089",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/auth/SessionContext.tsx",
+      "bytes": 1817,
+      "sha256": "31A0AB5AE4A5A259CF41095FAA9EE45E006691E85146998D73C47D0BC1804D1B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/components/ActivationHandoffDialog.tsx",
+      "bytes": 2381,
+      "sha256": "7BA5BE450D2D02771145EC007C7FD3CDB6590E6A71BC35CD2ECA7475F2CEF2D9",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/components/AsyncState.tsx",
+      "bytes": 1528,
+      "sha256": "0A073FE59FE3A453055A6E5B79DBFFE52BBB0485B398CE9B928C4786E20930BB",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/components/ConflictComparison.tsx",
+      "bytes": 1536,
+      "sha256": "65297CFB595E843D678CBBA1F9AAFFDF26AEFB322F7324F03FC834D3F525E3E0",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/components/DataTable.tsx",
+      "bytes": 971,
+      "sha256": "8805CEC7614E26106C4D1DD9366C956ED6C45A623A486BD585A054A54DA0331A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/components/InstallationKindSelector.tsx",
+      "bytes": 1136,
+      "sha256": "3F586083E033ADBEA767319EFDC69DCC6ED8BD77E11D4A5BE29451BCBE3B0937",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/components/PageTitle.tsx",
+      "bytes": 555,
+      "sha256": "3BC48CA71DDDBBA71A0094587BA43317EA3BA7B6237C27CDCFC3810C099E1469",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/components/PagedSelector.tsx",
+      "bytes": 3682,
+      "sha256": "CA6038BCC5BF1CDDB50EDE48811DCE941CEB1743F2641687529569A623C51415",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/components/PaginationControls.tsx",
+      "bytes": 920,
+      "sha256": "8C2EB526830549187086841F38EE0DE12265B6E021BAE7D3101985F2BFA46489",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/features/connectors/ConnectorsPage.tsx",
+      "bytes": 13294,
+      "sha256": "14DFB076A06F181C1F5D822D797BD8B6868FFFDE1A7D67BC33D0815AFC5836F6",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/features/connectors/canonicalJsonDiff.test.ts",
+      "bytes": 783,
+      "sha256": "7AEAA8C891832D87BEE8467C228AA31800E7CC2E15032D77353269D6CD2802B6",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/features/connectors/canonicalJsonDiff.ts",
+      "bytes": 1835,
+      "sha256": "5A8DE4201A1D480CC573EC2A8BB654A7C9337103CD978511BCF9743E08621ACE",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/features/connectors/connectorDefinitionValidation.test.ts",
+      "bytes": 1780,
+      "sha256": "1C389D7C04ED76814B379F315C923DAACED1E063A00447C8925141FC3BF6C24E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/features/connectors/connectorDefinitionValidation.ts",
+      "bytes": 735,
+      "sha256": "19F1B669D151712B4E6B6AFEED04A535801EE60B581C8BB699095E8EDEFDC752",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/features/dashboard/DashboardPage.tsx",
+      "bytes": 1904,
+      "sha256": "DAC2ACB8EBBB60F8B25A355BEAEDF12A8DAA676B3D0DD589DFFBA29A4AEF4812",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/features/documentation/DocumentationPage.tsx",
+      "bytes": 3936,
+      "sha256": "30C43DD73513F1B13D2781DF2F420212DA59A9F16FBF5C8E1E21FCA26287D066",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/features/integration/ApprovalsPage.tsx",
+      "bytes": 13421,
+      "sha256": "2D501D897F130A504B18DE30406A0CB41EC223E489E0D37E1DF41D111BD72EB2",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/features/integration/BindingsPage.test.ts",
+      "bytes": 1887,
+      "sha256": "8F01E476E026FB7AABAE3F0A912D53DBBEDADBD0B0AC5D381023395EAEACD404",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/features/integration/BindingsPage.tsx",
+      "bytes": 9919,
+      "sha256": "F28A5D4FCCE0AACD0F02AB97007845DC6CB5A3555CE4C6E515D80227DA025A8E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/features/integration/GrantsPage.tsx",
+      "bytes": 4985,
+      "sha256": "137F59A92ADF424444BC248028418F46482AB621022F2DC4F28E4BDA0CFF96D8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/features/onboarding/GuidedOnboardingPage.test.tsx",
+      "bytes": 20316,
+      "sha256": "B5F00F98021C8220DDE9EBA6F7BFAAB1710E4498902B93BB5C0809B5A9A321C3",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/features/onboarding/GuidedOnboardingPage.tsx",
+      "bytes": 35262,
+      "sha256": "AB8DC872BF250BDCDB441ECCC8A9DE87CC6B31F805A0C52E45AAF8E2ADFDAD12",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/features/onboarding/useDirectorySearch.ts",
+      "bytes": 344,
+      "sha256": "2ACF0D89382178D5E6954659C17C6AF62809AEBDA2C46C104BA1D90B110DE540",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/features/operations/HealthPage.tsx",
+      "bytes": 137,
+      "sha256": "0912D4323BF483D87775D069C5B14CFEBFBEF3E08D6F0AA8BC9AB95FFB725FD6",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/features/operations/TenantDataPage.tsx",
+      "bytes": 4973,
+      "sha256": "68197B069E5FEA7CA9E48DC1A7EB42BE8E4A281C3926F3806CADB314B63DB4F8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/features/resources/ApplicationsPage.tsx",
+      "bytes": 7910,
+      "sha256": "01207AEABEB7B0E6FC775671A4D14B29F888050A3EA982CFCA9AB18F461761A6",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/features/resources/InstallationsPage.tsx",
+      "bytes": 6828,
+      "sha256": "5A69870D62BFAA9C0ECCAE601EC05F831154CAA918EB284D0AF78D1E80ADE4C2",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/features/resources/TenantsPage.tsx",
+      "bytes": 5593,
+      "sha256": "8AA36AB60ACD8435A243C8AA41CAC5850F66B3D3B712EC0B83670B48397A83F8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/features/security/AccessPage.tsx",
+      "bytes": 5197,
+      "sha256": "30728536CCEF9CD5546554692DF0A3831CF3B53A9D6BEE28EADAC6C454398342",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/i18n/adminGuide.en.ts",
+      "bytes": 35607,
+      "sha256": "BC7FC1B52E01D1374D1C55BACB98D97510D5E4FF00AEEDFA2C6A87CF04FB8755",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/i18n/dateTime.test.ts",
+      "bytes": 972,
+      "sha256": "AA98520418159CB6BDC4061E4A03482A0143CA1A2448DA2D649CA0363AE35AB6",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/i18n/dateTime.ts",
+      "bytes": 854,
+      "sha256": "9955695DE0D44873E370F09CE32F978B51EBEABA3F9A33357E553B2A5339AF71",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/i18n/en.ts",
+      "bytes": 19833,
+      "sha256": "F3E8404C50D8BF29794666DC751EC2DB58FCBEDABBF7A91372B815C8A3C15BC5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/i18n/i18n.test.ts",
+      "bytes": 839,
+      "sha256": "AC2882194F75236AAB50A7544F36D6F150FC869FB7403FF8260CCF800012410F",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/i18n/index.ts",
+      "bytes": 644,
+      "sha256": "7C37CA8091E5E6346ACF18DF55F9D60D85EDEFA2CDC5045BBA8DF16EBF6AC3D9",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/i18n/it.ts",
+      "bytes": 21129,
+      "sha256": "2471AAF8F6243A6C21CBF8A93189C098A85668BBB3C680F8D0E6B780C7DB3C8B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/i18n/runtimeContract.generated.ts",
+      "bytes": 8332,
+      "sha256": "B2ACBF1BF091305CD96C1D92EFDD08AC94A0B33EB0C4622842B481F3F276C9CA",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/i18n/runtimeValues.test.ts",
+      "bytes": 1537,
+      "sha256": "8A0ACFEEB1F7013A3A1E35068C302E56D2BD117358E8EA7E66CEC7A2BA3A0E41",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/i18n/runtimeValues.ts",
+      "bytes": 5102,
+      "sha256": "16C92DAE4A0C5D52072F725A484B5ABC5056E4214D8B7D58E4CBA3AC27D13625",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/layouts/AdminLayout.tsx",
+      "bytes": 6138,
+      "sha256": "BD75067FA526EDA89E3F248F7D7ED9750E9EE4AC2C52B04D2092B500847034E8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/main.tsx",
+      "bytes": 979,
+      "sha256": "FB8AE2D3DF0782B9EAC72B5B72E12F71DEE52233BC6CED685C8D984436BFA8E5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/navigation/DirtyStateContext.tsx",
+      "bytes": 2385,
+      "sha256": "7F00892E6EC1434B98180D3F6FCE9B0C3B2C354E4F57C3E6C61A16A73ACB2D3C",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/test/setup.ts",
+      "bytes": 234,
+      "sha256": "D861C45F88BD694EEFDE50B385D410E52E104A7C08D80923FB672048B628BBF8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/src/theme/ThemeContext.tsx",
+      "bytes": 3620,
+      "sha256": "59E6BC53E8B2BCA4851C5EC0DD5172D785268FDEE59AD436A87E049FF5024AE5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/tests/admin.spec.ts",
+      "bytes": 55582,
+      "sha256": "DBF21BF327245E3A19E2C6990205BF6FEC1DFCE6B6E61C523AE611F54AADA1EB",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/tests/capture-sanitized-screenshot.mjs",
+      "bytes": 1598,
+      "sha256": "E792D05E43A862A6E904558C57FF617A39104C50BAEEB13BD49C9D3AB670CABB",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/tests/documentation.spec.ts",
+      "bytes": 3840,
+      "sha256": "5B0AE8A4CFFD3FCC2C09C22C3219DAC7CD58A11476493FCE124B4B292555CB2D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/tests/full-stack/admin-full-stack.spec.ts",
+      "bytes": 30937,
+      "sha256": "6335DBA3ACBC9A5D2BA0FC37BE04676F7EFAA4FBA5F9DE458BFF88FC9C107D3D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/tsconfig.app.json",
+      "bytes": 569,
+      "sha256": "B6C0C9CD28B18C660933EBA6A379BE41A72B5D7559C41642A5618E2812E63DD1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/tsconfig.json",
+      "bytes": 107,
+      "sha256": "E8D6F7B50828DB3953E21C7E92584F9206B3CD2551B4012507372AFBB7FE9CE3",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/tsconfig.node.json",
+      "bytes": 262,
+      "sha256": "AEB48A731B8651B0C87D4DEBDA35C4E8CBFDB003EF0525A2FFDF97CB4F460D3A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/unit-tests/documentation.test.tsx",
+      "bytes": 2097,
+      "sha256": "3F80DC60C47E425F56F8E74E923BDAD99468FD2308F2AB955B38C9EE32604B1C",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/unit-tests/i18n-hardcoded.test.ts",
+      "bytes": 1744,
+      "sha256": "E0C510E382408F07ABB014B36995F25774F6C45F4C676F60C6F57A56BCD51BC5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Admin/Admin.Web/vite.config.ts",
+      "bytes": 617,
+      "sha256": "4718B777C89B1AC05FF9A4D9D1F5B78A91C3B3C235D85C77D214A8F8935A1A56",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Authentication/CertificateSigning/AssemblyInfo.cs",
+      "bytes": 189,
+      "sha256": "E8E8D429CDBAF8AF529227BE672159CB3508EDA1C274DB91AAA4C967C47514F2",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Authentication/CertificateSigning/Authentication.CertificateSigning.csproj",
+      "bytes": 546,
+      "sha256": "92BFFF9731547BC15A6A43212AC0FE07F42216AABF8B3BFCAC9D96AA307665D3",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Authentication/CertificateSigning/AuthenticationPolicyDigest.cs",
+      "bytes": 4388,
+      "sha256": "D5320A0A352E19D9A6C48C95259D1C5B326FE1D20A5E7105C62577F4C8E601EF",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Authentication/CertificateSigning/BindingPolicy.cs",
+      "bytes": 10932,
+      "sha256": "EF6E3395744548F96A33E37958B81E9A6F77ACD9FDBEE923F17A4921DE37D2B8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Authentication/CertificateSigning/Contracts.cs",
+      "bytes": 25137,
+      "sha256": "DC05BA4DEAD18FDF3B2D0B3094E81B79F2ADC3255E280C963A487EDC0B370777",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Authentication/CertificateSigning/MutualTlsTransportContracts.cs",
+      "bytes": 2074,
+      "sha256": "090DEFA432ADC93A65043C46E7FA43CAC53F25E3BBBDD6026C70EF78133FF175",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Authentication/CertificateSigning/PurposeBoundMutualTlsSender.cs",
+      "bytes": 14558,
+      "sha256": "60D455D18BECE0D54917CB3340BCE0060AAB620551598692879D2EC3010DED0E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Authentication/CertificateSigning/Rs256JwtSigner.cs",
+      "bytes": 33314,
+      "sha256": "304E7D9EC8247A06DD57C570D5447FF5CC906A18FAC699B10E1CC099C09910E1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Authentication/CertificateSigning/packages.lock.json",
+      "bytes": 152,
+      "sha256": "2830A35D1456F8783D0F4AC8A77F45BD37AE9DBE9E9AD425A499AE93A3683A4D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Core/AeadDataProtector.cs",
+      "bytes": 4721,
+      "sha256": "4A7DD00FFA073901971F235350F733BB5877FBC44CCDE109B43F9DCFD5A16D6E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Core/AssemblyMarker.cs",
+      "bytes": 142,
+      "sha256": "ECD62D8DF3D0BEE17586DC3F6D82278BFAFFBF2EA7E02F24C681EF03416C974E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Core/Broker.Core.csproj",
+      "bytes": 398,
+      "sha256": "E4DC8105C05A27EA36621D78AF2ADD3E4531E8637612BE7539AF34CBA1A59860",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Core/BrokerAbstractions.cs",
+      "bytes": 3675,
+      "sha256": "23DF9546C202E5C00FC8A12FC7E167244C778FE4A244697BE81203EF7101AC9B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Core/BrokerApplicationService.cs",
+      "bytes": 6896,
+      "sha256": "43E0C1BD8BD7A7A1CC5E102C52C39ADBF178DB3D0656BEBB86A2E5904725A9C2",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Core/packages.lock.json",
+      "bytes": 139,
+      "sha256": "0E54155C5DD68C327536359DC9E70F6517095E9287A76D842D72107EEEFC62C1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Infrastructure.Windows/ApplicationAuthorization.cs",
+      "bytes": 12876,
+      "sha256": "8D8CB629C26A8F6A287CADC6665560A92CF37D9FAAB5DB2D7B5EEFCB9292D653",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Infrastructure.Windows/AssemblyInfo.cs",
+      "bytes": 153,
+      "sha256": "AEB63DC035D24BCBF6F057312EAA0BCFFBCCD8DE2FF88EB9EC7BDE6A33B522C2",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Infrastructure.Windows/AssemblyMarker.cs",
+      "bytes": 185,
+      "sha256": "7FD8AF40FB42CF2AB7E5581348576D3F082545C6019F41B5A34A905EDE8CAFAE",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Infrastructure.Windows/Broker.Infrastructure.Windows.csproj",
+      "bytes": 600,
+      "sha256": "7EDBEAAF0B8602A7C15D04BFA5BFC0862B22DEE3405994F868AF3B3F3C3A32AC",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Infrastructure.Windows/BrokerOptions.cs",
+      "bytes": 4075,
+      "sha256": "1279E9A55B76DD024FBA95C0577451FD2F09C0743C615CD496ECC8BFF6158DFD",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Infrastructure.Windows/BrokerRequestDispatcher.cs",
+      "bytes": 5959,
+      "sha256": "2E685651E6DB51EB43AD8ADBA9FBBAD6D83E089237E239230FCE4A759E34255B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Infrastructure.Windows/NamedPipeBrokerServer.cs",
+      "bytes": 17930,
+      "sha256": "DD169DF1BCF1F8130C7A812F614BCF678B5A33361BC03983AB707AEDD5915F2F",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Infrastructure.Windows/ProductionGatewayInvoker.cs",
+      "bytes": 39476,
+      "sha256": "172D829928671F6A9D23CC721B9ED374F2E93D5F69260C10C026CBD9E1F66EB3",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Infrastructure.Windows/WindowsProcessSecurity.cs",
+      "bytes": 3852,
+      "sha256": "07CA938CE51EFA5B53B447C0C20EB80A5DC32A1D569E4CCC58BEE2CDEDC78484",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Infrastructure.Windows/WindowsStorage.cs",
+      "bytes": 11730,
+      "sha256": "414CBE0CAE8B1E0D7DDAF72A5D34E49578131231E12FBA330156604695BB1FB9",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Infrastructure.Windows/packages.lock.json",
+      "bytes": 593,
+      "sha256": "B18EEDC5CED8334ED79FEDFF390A002AE3B21300FF7E976CC3CB851D61865D08",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Service/Broker.Service.csproj",
+      "bytes": 606,
+      "sha256": "7830C25B8D2D64C7E80E46DEAC6F99031328610877B10E2DB009202805915A50",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Service/BrokerWorker.cs",
+      "bytes": 1168,
+      "sha256": "D33B17138A4D301E353A74906C9A133A4ACEB8285B4DA7041FD36B3FCDD57822",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Service/Program.cs",
+      "bytes": 3816,
+      "sha256": "834BE732BCED16785C7D196063A6BFC98FD4D0904D389D8B14189833E12145C2",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Service/appsettings.json",
+      "bytes": 513,
+      "sha256": "66A40038AC9A9E157DC08905C11E9C2F72EFB6BDD6FA86A4B3FA548E1D8BEF30",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Broker/Broker.Service/packages.lock.json",
+      "bytes": 15492,
+      "sha256": "5ADE337FD6E4973F98AFC8576927F9B80E62E7F8E2C391DEF7439ADA2B1CF156",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/ConnectorPacks/Healthcare/Healthcare.FSE2/Definitions/fse2-officialtest-validate-cda.connector.json",
+      "bytes": 4844,
+      "sha256": "3003DBF9F9D00353C3AF6508BCC2564BD109F3A1AFD9C981E40AF41BDBD3FD4B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/ConnectorPacks/Healthcare/Healthcare.FSE2/Fse2Connector.cs",
+      "bytes": 45127,
+      "sha256": "AF69AC5CA1AEF0EA1D680C27BAE9ACD2C406135CD0848459C38170778371B26B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/ConnectorPacks/Healthcare/Healthcare.FSE2/Fse2Contracts.cs",
+      "bytes": 14669,
+      "sha256": "C139634DB356602BC12052B148C9C8D035AAAAC39CBF72673D811DD67DDC70DB",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/ConnectorPacks/Healthcare/Healthcare.FSE2/Fse2CurrentSpec.cs",
+      "bytes": 7955,
+      "sha256": "DB5C3FFE2AA2748A3018F7C3F0A1780508B67902365ABD1192B558E12B8044AE",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/ConnectorPacks/Healthcare/Healthcare.FSE2/Fse2Identifiers.cs",
+      "bytes": 17095,
+      "sha256": "1513DCA99D1E58FF2F3AECAE4053CFDC0E887F970C82DDBB6E9A30E6FC1E2099",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/ConnectorPacks/Healthcare/Healthcare.FSE2/Fse2OfficialTestOperationalization.cs",
+      "bytes": 38041,
+      "sha256": "355C8787EC4A740FB0BA3F5BD40E49F717E3762EFD8CF7A56D48E4AC0C507E17",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/ConnectorPacks/Healthcare/Healthcare.FSE2/Fse2OperationCatalog.cs",
+      "bytes": 10450,
+      "sha256": "D1B19C0F63CDBFCFEDE3AE8F51A4DE187F5CEF18DB93B20A0D797A2FA3CB93CA",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/ConnectorPacks/Healthcare/Healthcare.FSE2/Fse2PublishedProfile.cs",
+      "bytes": 15590,
+      "sha256": "476759805B2945BEC4DAD5288DBE21AE23FCCB31BF87BA08EDBFBE981934FE71",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/ConnectorPacks/Healthcare/Healthcare.FSE2/Healthcare.FSE2.csproj",
+      "bytes": 726,
+      "sha256": "D6B13045E2DE73133B384E54960BABBF66211D5628D083EB7AF7FD3DD3688F7F",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/ConnectorPacks/Healthcare/Healthcare.FSE2/packages.lock.json",
+      "bytes": 1576,
+      "sha256": "B037DAFF3EE2809527B07EEF19E085DF413B365639A8EB3BD66E0EAD5B881230",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/ConnectorPacks/Healthcare/Healthcare.RegionalEPrescription/AssemblyInfo.cs",
+      "bytes": 113,
+      "sha256": "82DF8AD452B6B93E6E5536BDF881762816ADBEFD07CAB15A81716772952E0D6B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/ConnectorPacks/Healthcare/Healthcare.RegionalEPrescription/Healthcare.RegionalEPrescription.csproj",
+      "bytes": 457,
+      "sha256": "97A86CF818831135484F0390A368BADEFE54224EA08F740C5C720CA3861540CF",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/ConnectorPacks/Healthcare/Healthcare.RegionalEPrescription/PublishedRegionalEPrescriptionConfigurationSource.cs",
+      "bytes": 10489,
+      "sha256": "58B18572C9970501C0E37C2198F38389F8057A4AB77466EF56A1FD5F9A8995FA",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/ConnectorPacks/Healthcare/Healthcare.RegionalEPrescription/RegionalEPrescriptionContracts.cs",
+      "bytes": 12369,
+      "sha256": "87A30A5274BAB279DEF5D9243B9AD3D23D519274A6B5F249B591ED385AC4ADC6",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/ConnectorPacks/Healthcare/Healthcare.RegionalEPrescription/RegionalEPrescriptionRouting.cs",
+      "bytes": 28526,
+      "sha256": "6860F8B7A03A80201DAE58F884CA1E7BB67BD9788E7A723A17A24FCD5D153F56",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/ConnectorPacks/Healthcare/Healthcare.RegionalEPrescription/RegionalProfileReadiness.cs",
+      "bytes": 1222,
+      "sha256": "ED0D448053ED7F2D4E9FBD75BD1B4F703103CCF8AF75ACA1214690BD20A3A312",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/ConnectorPacks/Healthcare/Healthcare.RegionalEPrescription/packages.lock.json",
+      "bytes": 1576,
+      "sha256": "B037DAFF3EE2809527B07EEF19E085DF413B365639A8EB3BD66E0EAD5B881230",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Api/AdminAuthentication.cs",
+      "bytes": 12513,
+      "sha256": "EFD69F9E7CFB5007080CF828C7D4565B77700FA5ACEACEAE15AF932958798BD9",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Api/AdminContracts.cs",
+      "bytes": 4909,
+      "sha256": "95416119D0098E89B22A1711B7963DFE00934318FCE0AC71D1574D3499954A54",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Api/AdminRateLimiting.cs",
+      "bytes": 18263,
+      "sha256": "0BD4015464B7D82771A11E58F5635A551174DBDB059A8910DE7D448EEAED41E1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Api/AssemblyInfo.cs",
+      "bytes": 100,
+      "sha256": "75B726EE9647D7E5F8798BE7738C065136C9CEEAAD570A62F722F05C294A3619",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Api/AuthorizedVerticalCapabilityRuntime.cs",
+      "bytes": 49776,
+      "sha256": "83DA6F92024F14009D865972183E441CB3F15899A7D0BEE68AE3C9735C47F5CC",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Api/ConnectorExecutionModuleLoader.cs",
+      "bytes": 18564,
+      "sha256": "DCBF8E65CCFC458B9F01ACEEACA62D0467E8F34AFB7EA793DED0AD3DAB9E71CD",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Api/Dockerfile",
+      "bytes": 1838,
+      "sha256": "FBCE477C9A32DC9560B0097C5F29BFACF1727CC3FB441B61C9259DEC92B10DBA",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Api/Gateway.Api.csproj",
+      "bytes": 985,
+      "sha256": "259DD4D27CEBC54F1041CA6CFCF8EAA24A07EA274A479CB31CB47507EEB9A86A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Api/GatewayHostOptions.cs",
+      "bytes": 11859,
+      "sha256": "CC8F0F3058B3124F6F293EFE6B420B8F56C16FD909067CBCD52489B24A103F5F",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Api/GatewayLog.cs",
+      "bytes": 874,
+      "sha256": "33DCEFCD9827CF3AEA98C78AE9F56640404B6C9F01FD9E971D0C9E1950ECBB75",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Api/Program.cs",
+      "bytes": 105280,
+      "sha256": "159F757344470535F8BEAFC745DB7E6D60EEC251109F428253098AEF8BB5C68E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Api/SyntheticTypedSessionAdapters.cs",
+      "bytes": 5717,
+      "sha256": "43E09C0F93C58119C47BB22277130C6F2E945398D12B3F51A909B84574BD328D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Api/appsettings.json",
+      "bytes": 183,
+      "sha256": "F20D259966D44F94E51EC92CC065C24DB17C89BD9121DA3F69A7BC42DAE3511F",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Api/packages.lock.json",
+      "bytes": 6174,
+      "sha256": "247398E105995A498F5E4753375B2C50801C4A74D8420799B1C2AEE727E9E090",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Application/Abstractions.cs",
+      "bytes": 18136,
+      "sha256": "8BAC2D7BE36CFCB55A8D2E915FB4608645745352074244E48D3166BE7DBD033B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Application/AdminAdministration.cs",
+      "bytes": 23220,
+      "sha256": "736C80D08E35D8CCD4F1A0BC2BEA585B506E37308DB9552766BCBBE327FCE7E3",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Application/AssemblyInfo.cs",
+      "bytes": 539,
+      "sha256": "C452D588BBA689F9947E90A2306461CBFDA38D127D5B4D83C14283754C401078",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Application/AuthorizedGatewayInvocation.cs",
+      "bytes": 3196,
+      "sha256": "8C9C3125B00E474D922BDFA39905DB0989ACA39F0ABF2EC20D23503A97CD1A8D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Application/AuthorizedPublishedOperationExpectationContracts.cs",
+      "bytes": 21444,
+      "sha256": "B0E37BE09554039EF482618E42B77B69A7A75CC68C12A7849930C28C972FDEAB",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Application/AuthorizedVerticalCapabilityContracts.cs",
+      "bytes": 8636,
+      "sha256": "C5BEA6582BCB8FEC210D8DF80BC056ABA374A2B82240C350372F5A40F6154D46",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Application/Base64Url.cs",
+      "bytes": 894,
+      "sha256": "8AAFADAB57ADC4740D181F891AA64BD66B036E187EA3F74A57391AE0A0931B63",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Application/ConnectorConfiguration.cs",
+      "bytes": 84625,
+      "sha256": "798DD39198CB52546D7CE340E741CC8B8538650702A259F55DAF4117966E2EDA",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Application/ConnectorExecutionContracts.cs",
+      "bytes": 43900,
+      "sha256": "AF306F08F5F7A16E222D47EC11162DC87231A733BE728969E119A09AD5879BFA",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Application/ConnectorWorkflowContextContracts.cs",
+      "bytes": 11860,
+      "sha256": "108360B3D1C4221CE6E400A1EF11ABFAF99ADEAE9BA05683D04FF174ECC6D9D2",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Application/EnrollmentServices.cs",
+      "bytes": 16971,
+      "sha256": "BF4C38695BD98249506649BC838BD42D93F540A3E6B96A7C469C3DD44CEFE394",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Application/Gateway.Application.csproj",
+      "bytes": 948,
+      "sha256": "A8AE214F7DC043CAA3CC2C8270DB9B5484970B715ADF1A6AE3C20DA768C8E811",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Application/GatewayContracts.cs",
+      "bytes": 11054,
+      "sha256": "A627DF1F60425956F5EC2E09066792464311952916494C63F704C0D1603D8A7B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Application/OperationServices.cs",
+      "bytes": 27696,
+      "sha256": "0C0CA1D808C4ABDBA7FFFCCEB911A76EBA6CA1A19681F33316EFAD27DE446585",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Application/PublishedConnectorCatalog.cs",
+      "bytes": 10671,
+      "sha256": "A900D5934ABF79F8D7BF41FA19E2F64B45F2A5B16F930B2CD5A25083A3A7F9A5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Application/PublishedConnectorExecutionAuthority.cs",
+      "bytes": 7110,
+      "sha256": "3A50DB4F6FB5436D349008971C62812F2B2E4967F84E7EA8EB3249F107944BEF",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Application/PublishedConnectorMutationAuthority.cs",
+      "bytes": 6166,
+      "sha256": "FF071BA9EE3C84790C02AC377E8EE5E5A11EA1BCC8D7EB4C836D143907D27002",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Application/PublishedPathTemplate.cs",
+      "bytes": 6750,
+      "sha256": "A6AAB546573E1DC1D95F664FB91D6108F147A79B46B653604C895C55063389AC",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Application/RuntimeIdentityService.cs",
+      "bytes": 6162,
+      "sha256": "35892C560249AB1336182DD6B80607EBF6CE83A7D9CF36DA51F9D4370190F788",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Application/RuntimeWireCodes.cs",
+      "bytes": 20594,
+      "sha256": "32FFA1DFDAA82374FD1FCA56CC6C84FCF7FAA9D9A45B1D0186950D3C2F4A50DA",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Application/packages.lock.json",
+      "bytes": 1278,
+      "sha256": "35E4524348DA4AEF57FAEC19B99D5D90DF35A35A2E1930631AC4F1F3B66DD9CC",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Http/AssemblyInfo.cs",
+      "bytes": 304,
+      "sha256": "7174EE1511005A0276D5A0C2034EB812CB8DEEF244E6EF4979F273560474496B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Http/Gateway.ConnectorRuntime.Auth.Http.csproj",
+      "bytes": 511,
+      "sha256": "21F3F432512E68692020385F37D60EC5664114580643A1D5057D3B16DC7FFBC5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Http/Http/InteractiveChallengeStore.cs",
+      "bytes": 10808,
+      "sha256": "29C39DBD59A0ABC11CEF94D0E99DE0D6304ADB6EC63904B0E4052E62FC913B86",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Http/Http/RestrictedEndpointPolicy.cs",
+      "bytes": 2195,
+      "sha256": "6006F9162705BEE42E0F8C391766A14EE7E2A6BEA89D171A3254075096940DA3",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Http/OAuth/OAuthAuthorizationCodeClient.cs",
+      "bytes": 43705,
+      "sha256": "089A29EE084623174EC8E90B11D6D7FD001CE2D0A22C7CAB91909DC3DAD0244A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Http/OAuth/OAuthContracts.cs",
+      "bytes": 22025,
+      "sha256": "39BB7DFB9DB35A1CD20FE0AB624D23720BCE7F0F1A2B3791094513DBF32D1362",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Http/OAuth/OAuthFailures.cs",
+      "bytes": 445,
+      "sha256": "3F1F2CFABD2718D7500B4854F6048F74B93BC21300089E45619E9B7CAE47A344",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Http/OAuth/PublishedOAuthAuthorityResolver.cs",
+      "bytes": 15254,
+      "sha256": "EB02E5C69F35E4BD6EACCCE45B8D1C23E4C305AB2E609F9AF2341B2CBECDCA2B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Http/OpaqueSessions/OpaqueSessionHttpClient.cs",
+      "bytes": 7975,
+      "sha256": "E132DB9337C07C1F3A81F82F11F4C1146056A69C9467B7BF3EECF3AD0CBD81D7",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Http/OpaqueSessions/OpaqueSessionHttpContracts.cs",
+      "bytes": 14905,
+      "sha256": "E2C82ED19457F699110953604EB52ED16D10A00D331CC8A84641FDF1AFB2639A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Http/OpaqueSessions/OpaqueSessionHttpExecutionStrategy.cs",
+      "bytes": 4044,
+      "sha256": "3D6686D1C8547A2CF353383ADB0EEF0A5B94EB36EA937E8CEA5282A4064F96A4",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Http/OpaqueSessions/PublishedOpaqueSessionAuthorityResolver.cs",
+      "bytes": 15702,
+      "sha256": "B7AE5A59C24168005041EE213922860F100C9BE4B49D59E4E94933CB33D41A8C",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Http/packages.lock.json",
+      "bytes": 1576,
+      "sha256": "B037DAFF3EE2809527B07EEF19E085DF413B365639A8EB3BD66E0EAD5B881230",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/AssemblyInfo.cs",
+      "bytes": 217,
+      "sha256": "5F51DED2F168A3AC86B63552CF5D9C98B5F228AFFB996D8237148E449E0374DF",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/AuthorizedConnectorBindingInputs.cs",
+      "bytes": 4477,
+      "sha256": "EDCEFC8340E2D0EDCFAA65833E317C24D8AD64CC99531275F93B60EF41379A92",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/AuthorizedConnectorCapabilityDispatcher.cs",
+      "bytes": 6431,
+      "sha256": "9F1FBBE05697F5232806F1518C8B8BE90A1C8F0769870B957505FCED3CDA39DF",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/ComposedSoapAuthenticatedClient.cs",
+      "bytes": 10407,
+      "sha256": "696D9BE54E98A24015431C8ED804A65118CCA71DEAF34D58CA6A606273EFB485",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/ComposedSoapDispatchContracts.cs",
+      "bytes": 6449,
+      "sha256": "F738158F8161AC725E3BF6A1A0DDD6B719D1B7B2F815B25D804FB9C7FF89F6BC",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/ComposedSoapExecutionStrategy.cs",
+      "bytes": 8117,
+      "sha256": "6164F13696433A1FA2E9BABEC44AA05D44E337973CA7A1D850FB93FFD3243138",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/CoreOwnedAdapterXmlWriter.cs",
+      "bytes": 5055,
+      "sha256": "5D185A982EF67D124F32F972B750D8AF40CE86CE05F98B0BAE8FCB230AC3A5FB",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/Gateway.ConnectorRuntime.Auth.Soap.csproj",
+      "bytes": 626,
+      "sha256": "D79DF1CB5026A6CDDC288B1252366FA168CFA877C540445B0811A1C91B128D15",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/PublishedComposedSoapAuthorityResolver.cs",
+      "bytes": 15340,
+      "sha256": "788196C7DA19D6B98B445100CC380C4ED9EBCEEB2FC8A0F89E86607D5BF89C23",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/PublishedTypedSessionHandshakeResolver.cs",
+      "bytes": 25829,
+      "sha256": "97894B1FF214DAE3282B51EC072AC50EE3B68E6AD9D7C3333A3FDC40416C04A1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/ServerBoundBasicAuthentication.cs",
+      "bytes": 2910,
+      "sha256": "1B91296D0D504C76B1ACE415B709E6810EBA12B390FEB29374B27C7486366974",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/SoapAuthContracts.cs",
+      "bytes": 19808,
+      "sha256": "52A7DEE37BCB18CCD5DEA77C3E885D052364E2EE8519942D89B39798F4BC570D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/SoapSessionCache.cs",
+      "bytes": 20150,
+      "sha256": "CD150085072EB939DA35323CA1976F5338E05E26C47DC107FCCBB4EDD0FB548B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/SoapSessionClient.cs",
+      "bytes": 41893,
+      "sha256": "36F1CB162933B60F86E9AEBC2E22E038450BEBD60082CFA30A7A2710F65A1A35",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/SoapXmlBoundary.cs",
+      "bytes": 23030,
+      "sha256": "8C915D5E0D5253703C0D7D4DC706B8B8F46FEEBF7410B0BDACDEC9EDC8FE00BE",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/TypedComposedSoapRequestComposer.cs",
+      "bytes": 3440,
+      "sha256": "4A01BF345EE30C97F0A5CB9994F01A840EB9B304EC90E07ED93FE2CBB186BC4D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/TypedComposedSoapRequestContracts.cs",
+      "bytes": 8484,
+      "sha256": "1838BFE4CA3CB419A5D0CFACDBDB1248F9AB1E093680FAEC2EB80EB0E89AE2C3",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/TypedComposedSoapRequestXmlBoundary.cs",
+      "bytes": 7267,
+      "sha256": "1E03B848BCC2BBB8B3185AEDDE371EB7518CECB21D7F990416FB51C053F154B0",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/TypedSessionHandshakeContracts.cs",
+      "bytes": 31938,
+      "sha256": "D74D39B204600D1F896AA724DE99244CE8AA528FCF201C478F19DAA4FE2E38E4",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/TypedSessionHandshakeRuntime.cs",
+      "bytes": 5129,
+      "sha256": "527F08CFD7044C00E44DB3D3021D0677B22720069D40AC606E23CF34A8C87546",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/TypedSessionHandshakeXmlBoundary.cs",
+      "bytes": 14798,
+      "sha256": "EBC2044DF3930D07395B7A0811B770A5A393807BE79D851D751F949099EAB4B7",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.ConnectorRuntime.Auth.Soap/packages.lock.json",
+      "bytes": 1842,
+      "sha256": "1CE5732A495E8BB4FC605109278BEC2FCCA657C53CC15A602D55E7EA12ABDE32",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Domain/Gateway.Domain.csproj",
+      "bytes": 263,
+      "sha256": "37F5CDFFB94B6E72E228FDAB213F395F7545A18D6C083DA53523670547130915",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Domain/GatewayRecords.cs",
+      "bytes": 20302,
+      "sha256": "6DE274FDE1D1CD5987C27ED3B99258EE0D2A44BCD7A71D42432A4F53CEB86A0C",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Domain/packages.lock.json",
+      "bytes": 61,
+      "sha256": "03EEADC5EF377C17F787AB65F41FB4C8A9C936BB7F7F4171111FDEEC8A81CB46",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/AdminDirectoryFilter.cs",
+      "bytes": 555,
+      "sha256": "A54997D718713B58A07979FF0F5047DA740012D0504F51B113464B967CE47661",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/AdminPostgresDataSource.cs",
+      "bytes": 8705,
+      "sha256": "AB61CF2DD2AF6337D386478A1552E9C627C392108DE8C2862BCC5C525F9CB7E8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/AssemblyInfo.cs",
+      "bytes": 164,
+      "sha256": "0052A0C3379DA22BFC0B139DECE08136D4EBE43BCD8F23B8B02FDC50075CEEAE",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/CachingSecretProvider.cs",
+      "bytes": 3089,
+      "sha256": "F1FED032AA03FD0F5F973D7FD648994B0CCF0DE4E34763908AD12EE2102E8137",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/CertificateSigningTransport.cs",
+      "bytes": 2378,
+      "sha256": "33CB8DF5775D9731F2FEC649B06FB59947D0050FF5C0F110DBEC9DCA4068854A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/Gateway.Infrastructure.csproj",
+      "bytes": 720,
+      "sha256": "F63A142FA8BAEFCA1004869E660E5E8A2D36145A6CF7517610B1AFB624460BEF",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/GatewayAuditFailureDiagnosticsStorage.cs",
+      "bytes": 4725,
+      "sha256": "D8B1BB94AB3AB540E8534863C690958FB6027ECFB85499F8019A59D241FD0F01",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/InMemoryAdminDirectoryStore.cs",
+      "bytes": 6559,
+      "sha256": "D472FCE9201E80518F43CB9FF57F2E718137EC1FADCE5163B1F5AD9AEBBFDDE1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/InMemoryAdminSecurityStore.cs",
+      "bytes": 12059,
+      "sha256": "CC3C0A617BF7745E176284203CDD3D73C450FA294DA0DD6A18A99498D5CD97B8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/InMemoryAdminSessionStore.cs",
+      "bytes": 3828,
+      "sha256": "06B7221350C5E69161D922C405AE652C167960D65CFBC169B1A999E1A4995634",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/InMemoryConnectorConfigurationStore.cs",
+      "bytes": 32431,
+      "sha256": "B5A967D63AE77EBD6295B7DF3AE35F41326C68EE706929884F8D2A213AB1F832",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/InMemoryGatewayRegistry.cs",
+      "bytes": 24853,
+      "sha256": "66B1DC73720EF77970AA684F86952412E86F8F928A5481E902E4610187ADB824",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/Persistence/Migrations/0001_gateway_m2.sql",
+      "bytes": 16663,
+      "sha256": "182CC690E16BB986638A4B52EE1554A4B540A8E58FD673F2111A79D194C66A98",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/Persistence/Migrations/0002_connector_configuration_m4.sql",
+      "bytes": 3552,
+      "sha256": "9D991B0E4E8268D47C32121DECE2D3593B183623059BB17F4A82A479DC8D322C",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/Persistence/Migrations/0003_admin_ui_m5.sql",
+      "bytes": 2883,
+      "sha256": "F527C6747ED2AB0FC984B28986CBEA2AF8175AE61C4FDFEAD848B8CD4F0034CB",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/Persistence/Migrations/0004_approved_binding_versions_m5.sql",
+      "bytes": 1801,
+      "sha256": "3081D5F6A399A4512AA87D7296DCF9558D088F798E272D9487F944292A3B04DE",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/Persistence/Migrations/0005_admin_sessions_m5.sql",
+      "bytes": 878,
+      "sha256": "DF8FA1BAA88AE7F4F11AE9EDE15B51C961021D316D50D6D14930E4AC04317CE6",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/Persistence/Migrations/0006_admin_role_revocation_m5.sql",
+      "bytes": 208,
+      "sha256": "0EE328AC73AE80AD3B295799BBCF1FD6A4BB02FC26A3159CB6510CF02272D737",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/Persistence/Migrations/0007_binding_bundle_immutability_m5.sql",
+      "bytes": 3232,
+      "sha256": "EC3B4E9A85FB050A1FDFC16E4E7B89042A7A6D93972CA46DF2BCEA2AE51FEE4A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/Persistence/Migrations/0008_provider_resource_catalog_m5.sql",
+      "bytes": 3207,
+      "sha256": "9C3ED60348B6B161C271A63C306500EC5628E5F049238520B5639BB8DC387E6E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/Persistence/Migrations/0009_runtime_locator_resolution_m5.sql",
+      "bytes": 5415,
+      "sha256": "92D2A5826CF348C676EB619C8A75F5F267C0C15E074617DDD700B885324A80F1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/Persistence/Migrations/0010_operation_scoped_locator_m5.sql",
+      "bytes": 5389,
+      "sha256": "8DEA12DF50270E871D717C101B422FAB9E66198E4AAD5D9C40997055BC56C3A2",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/Persistence/Migrations/0011_direct_installation_m55.sql",
+      "bytes": 2530,
+      "sha256": "62D79829F1B3DF072E563A415B9380053227C6BCCA774C70C113DA372BC977C1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/Persistence/Migrations/0012_connector_capability_locator_scope.sql",
+      "bytes": 5899,
+      "sha256": "6F77D7EC57CCCA5FD68A6C37DF89536AC881276B340D934FE08ADEB85D797202",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/Persistence/Migrations/0013_authorized_signing_slots.sql",
+      "bytes": 6228,
+      "sha256": "5AF2DF3FC69BB24D63BCAF1C17C30EDF4758DD8CAFC8EC18D7574B13C45D797C",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/Persistence/Migrations/0014_typed_composed_soap_request_inputs.sql",
+      "bytes": 6531,
+      "sha256": "A526B35B568EA5030369D69A8B0A89B16B8606BFFD2B444013F97AB9A3DDE9E2",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/Persistence/Migrations/0015_bounded_audit_failure_diagnostics.sql",
+      "bytes": 2676,
+      "sha256": "B6B30EA6587B814BEC14A6D618A9B496C4921EC126EE1E322DCBBC4132A462C4",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/Persistence/Migrations/0016_bounded_audit_failure_code_allowlists.sql",
+      "bytes": 1310,
+      "sha256": "AE99883AAB9532FE5B3D2C78BD4B19A978E669D404493A32234F930D32D7D1D9",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/Persistence/Migrations/0017_event_tables_append_only.sql",
+      "bytes": 503,
+      "sha256": "E467E069AFBA05118E8CB8899C7565E2EFEC4011DD853AA330105F860166650C",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/Persistence/Migrations/0018_connector_workflow_context.sql",
+      "bytes": 3109,
+      "sha256": "775273C2DAA723286C818407E003CA9815D863AA5C9AED702AF52684571954E5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/Persistence/Migrations/0019_connector_workflow_successor.sql",
+      "bytes": 1290,
+      "sha256": "14157F4F5C1DCE6CAA3213C6C6CFA1378EF3527FF5029BEAA44C46CF70C8B85E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/PostgresAdminDirectoryStore.cs",
+      "bytes": 17965,
+      "sha256": "E74A0F9FEB948273C97ED62AD1B58A8ACE6C951A3E9153E1CB4A113897E2E663",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/PostgresAdminSecurityStore.cs",
+      "bytes": 27166,
+      "sha256": "BE7387DB79657F665E9C4327B89594E0E62BD5D86415FA8E5BA1396BEA85FDD6",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/PostgresAdminSessionStore.cs",
+      "bytes": 5740,
+      "sha256": "D4229C982DB4E468AB7E23D3CC5C4D0ECF80BD8B33FFB6E7C07B7AE1A4BF6181",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/PostgresConnectorConfigurationStore.cs",
+      "bytes": 78142,
+      "sha256": "E3320DA582DEC49C8AC2941D78604D8E2A1547F0036445FCB5BBA23A58BFE0AA",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/PostgresConnectorWorkflowContextStore.cs",
+      "bytes": 12406,
+      "sha256": "588F31176DB77AA40EF758651D958567721679542395279E75328DC34AA298E8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/PostgresGatewayRegistry.cs",
+      "bytes": 45497,
+      "sha256": "282E44D25F2FC28C7AF4A1C8F95FB67E6F810B149587D3366B0800C896501809",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/RestrictedTransport.cs",
+      "bytes": 14869,
+      "sha256": "58AA626D42A0EEDD688EE76F700B7DEC54EAB260F36D91235224A736ABEC15F8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/RuntimeInfrastructure.cs",
+      "bytes": 3880,
+      "sha256": "0F9A42938C95CFE0614928E7B6A7587E78F176030B558B3ECE1EEE8BDB632635",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Infrastructure/packages.lock.json",
+      "bytes": 2707,
+      "sha256": "E94E73E22DBE2089192615D833B4D0DFB1764A0B08C725FE5B7BB540F809EE23",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Migrations/Dockerfile",
+      "bytes": 1093,
+      "sha256": "B0F3B8AAB6D1B7C0EEE7849F20973069BD8A6C08D5F95E93092E27B33C18B269",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Migrations/Gateway.Migrations.csproj",
+      "bytes": 537,
+      "sha256": "C3783D59DF9DF9A6E5444E718E5865B1827CB3ADCBB47354804F5E044D9E9354",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Migrations/Program.cs",
+      "bytes": 2568,
+      "sha256": "1037DA6F6059468060921E6081F405E427334F36A0B14A8E14F9172F7E839D03",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Gateway/Gateway.Migrations/packages.lock.json",
+      "bytes": 995,
+      "sha256": "64612DC0BA27404EC14411E62A2B5BF31CDCFAC7481DE672242334A5713F2D92",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Providers/Abstractions/ProviderContracts.cs",
+      "bytes": 9801,
+      "sha256": "ABE34A3970F8BC833B8AE652C4979988C26771F86E6BB6DCAB5B8A0B26361494",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Providers/Abstractions/Providers.Abstractions.csproj",
+      "bytes": 279,
+      "sha256": "17854DF9A023F71665254C5F50F117FFA860FE902B5518866ED9862E7F5556DE",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Providers/Abstractions/packages.lock.json",
+      "bytes": 61,
+      "sha256": "03EEADC5EF377C17F787AB65F41FB4C8A9C936BB7F7F4171111FDEEC8A81CB46",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Providers/Synthetic/Providers.Synthetic.csproj",
+      "bytes": 383,
+      "sha256": "D5562201B1A9ED483D59F08285F9204D8A5E07C9389B97B44D4B861AEF8CACB7",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Providers/Synthetic/SyntheticAuthenticationMaterial.cs",
+      "bytes": 7867,
+      "sha256": "56F87EFA6F89F1141162752ED1B7CCB18B9DA5A9DC5435A6E0B2A2A08A83F6C2",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Providers/Synthetic/SyntheticProviders.cs",
+      "bytes": 15682,
+      "sha256": "9297BDFCE09629A12EB3222B4D005E4899B0485EA6FA5765A18C70C19F4E6EFA",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Providers/Synthetic/packages.lock.json",
+      "bytes": 152,
+      "sha256": "2830A35D1456F8783D0F4AC8A77F45BD37AE9DBE9E9AD425A499AE93A3683A4D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Shared/SecureIntegration.Contracts/AssemblyMarker.cs",
+      "bytes": 141,
+      "sha256": "C3A815F8D5613BAFF176FC0D5A3FA8AC7FAAE4913C8B6483E07277835335F8C9",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Shared/SecureIntegration.Contracts/IpcProtocol.cs",
+      "bytes": 12241,
+      "sha256": "180E4976280186F500BFE293A5C5E726BEC6A1043F4B69865FC97EBA919F90DA",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Shared/SecureIntegration.Contracts/SecureIntegration.Contracts.csproj",
+      "bytes": 472,
+      "sha256": "C72E178B71D2ED0A43FE94E8DC53BE104E5C8CA8FFCD6E5FF8A1E7EDF28A0EBA",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Shared/SecureIntegration.Contracts/WireContracts.cs",
+      "bytes": 9726,
+      "sha256": "5E725E80ACBF4C5F0AF5501DD490BFF7713A7647236818BBE8D66D01F86DAF49",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Shared/SecureIntegration.Contracts/packages.lock.json",
+      "bytes": 3726,
+      "sha256": "D485AB97E826821EA52D8A87E6D720CCBC4A298A502D7EF74BCA12B761CB54D3",
+      "origin": "exact-source"
+    },
+    {
+      "path": "src/Shared/Security/BoundedJwtClaimValidation.cs",
+      "bytes": 4247,
+      "sha256": "C611666FCC87605359C71C5AA10AA1A5E6D5451C83E7C48928C17872EB03C7CF",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/architecture/Architecture.Tests/AdminOpenApiParityTests.cs",
+      "bytes": 10737,
+      "sha256": "A0942CA6EDB1F33D1C19DE34765FEC3260EF2A1731518B7520A13C66C0E304C6",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/architecture/Architecture.Tests/AlphaReleaseArtifactTests.cs",
+      "bytes": 20265,
+      "sha256": "E16263DBF187169D22A7483E72148F4061EC2F14B440FA8FD00F5755C85749C8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/architecture/Architecture.Tests/Architecture.Tests.csproj",
+      "bytes": 538,
+      "sha256": "5EB5992D3789576AEE1792A779BCB24DE8079C13417C1836A5B64F0E1B89FFE5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/architecture/Architecture.Tests/CiSecurityTests.cs",
+      "bytes": 2708,
+      "sha256": "52D6B6235D0E86BD23B1A3ACA1737065271776DFCAEAACD370C0CB42B34447A1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/architecture/Architecture.Tests/ConnectorExecutionSeamBoundaryTests.cs",
+      "bytes": 30228,
+      "sha256": "77C836B29793F29A294403C75DF575B71ED75AA4188E72DA1C5A752EB3BB216C",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/architecture/Architecture.Tests/HealthcarePackBoundaryTests.cs",
+      "bytes": 18541,
+      "sha256": "A124DDACBD0571B5F093B3D2E63D4EF76CCAE6943FEE60762D34838EAF1F46F4",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/architecture/Architecture.Tests/HttpOAuthBoundaryTests.cs",
+      "bytes": 7960,
+      "sha256": "A90222D013B3707B888A9CA77CA84DF5C7D7AC27F0F9D9A48B81E7A3AC563F29",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/architecture/Architecture.Tests/ProviderBoundaryTests.cs",
+      "bytes": 13747,
+      "sha256": "FFDEE066435668F27739E000063AF66B3A8182E1C0D636DF4F13A22B5E7D218C",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/architecture/Architecture.Tests/ProvisionerSecurityTests.cs",
+      "bytes": 1917,
+      "sha256": "EB8C67E64DFD95CE86603AF46E25CEDB8C91011F4C1E791ACEBA37B7616C34F1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/architecture/Architecture.Tests/SoapAuthBoundaryTests.cs",
+      "bytes": 12981,
+      "sha256": "FAB102C8F9284EE40D43349AC4D98E26CFE0F684FF4623117FACB8463C4D2A19",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/architecture/Architecture.Tests/packages.lock.json",
+      "bytes": 6351,
+      "sha256": "31688FB3C92D90944F9F987703651045A71B5E771C0C51776A4C6AE3C79451F1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/characterization/healthcare/README.md",
+      "bytes": 2070,
+      "sha256": "A910329ECD52EECE8A2FD7554F0BA6447A196C79FFA6FB2A674CDE971041D6C2",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/characterization/healthcare/fvg-pkce-jwt/jwt-claims.json",
+      "bytes": 440,
+      "sha256": "1E516288A4116F1D98AB1215CD4FC53A70063C8781E896C0FE18852A077279DF",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/characterization/healthcare/fvg-pkce-jwt/oauth-error.json",
+      "bytes": 299,
+      "sha256": "D9CC5122596467BE49A000D3D3F9BAB8A9374C186D789077BD681410C079BB6A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/characterization/healthcare/fvg-pkce-jwt/pkce.json",
+      "bytes": 535,
+      "sha256": "3CE52A74BFB93BF84EB56E118F20B6F6B8CFCC9783A6F4D28CDB1B23239D1FD3",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/characterization/healthcare/fvg-pkce-jwt/token-response.json",
+      "bytes": 397,
+      "sha256": "7D89614640F81F624BFFE6A6FB12942F1E8E9E168D555C5A0E2CE3448799F2FB",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/characterization/healthcare/lombardia-oauth-helper/helper-session.json",
+      "bytes": 622,
+      "sha256": "A569EE225AC2A0BE2877890100917B04E215C7D2B1D5DF90ACD78CAF5ABD93B5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/characterization/healthcare/lombardia-oauth-helper/token-expired-error.json",
+      "bytes": 394,
+      "sha256": "E187FBBD75E8FBE9489DC90AB8E5DECC33C1CFA96323D43452A6E2C1D1E70BF0",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/characterization/healthcare/lombardia-oauth-helper/token-response.json",
+      "bytes": 472,
+      "sha256": "A9E2083D36BB063173719B90BD1370D9FEC0B0AB842E3F60D82C134EEE35FB0A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/characterization/healthcare/sogei-basic-session/login-accepted.xml",
+      "bytes": 435,
+      "sha256": "27E6983F099596D16CDD997077494EBFB30227546BFBA5E86F5B4370DEE546F4",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/characterization/healthcare/sogei-basic-session/login-request.xml",
+      "bytes": 462,
+      "sha256": "573ED836BEE2D95F0B81DDA0FD88A1AD8372B16C3C18853CF0D36663C31BAA86",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/characterization/healthcare/sogei-basic-session/session-expired-fault.xml",
+      "bytes": 923,
+      "sha256": "185CFCDDB56BA07E4E83914E710626A2D0EA59CC5C6F8A4191FD64AD3E4AD97A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/characterization/healthcare/sogei-basic-session/session-reference.json",
+      "bytes": 464,
+      "sha256": "35651EAE701593FCC7228B722140C80535B0D550CCD7501F6E1F5FD167B604CC",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/characterization/healthcare/umbria-mtls-jwt/access-token-claims.json",
+      "bytes": 713,
+      "sha256": "EE2455F5DA3879290A4586FC571890813E42A6E4AA1EAC376B34BDCE7CAB69DD",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/characterization/healthcare/umbria-mtls-jwt/certificate-metadata.json",
+      "bytes": 1247,
+      "sha256": "C41F61F4C3F4A72DC1F7E87F8560D60E1D3FBDCA2C3DCAD34443F86749E789C5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/characterization/healthcare/umbria-mtls-jwt/jwt-expired-error.json",
+      "bytes": 346,
+      "sha256": "7F6E451DF542C87138212A3AAA55126890BF7C9B2E66F6E67C76D70B23D0AD02",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/characterization/healthcare/umbria-mtls-jwt/mtls-error.json",
+      "bytes": 458,
+      "sha256": "67A0A3F0EFA5E7BC91EC9389DAC9AFEDD6E4EB7A97A89F0351DE0D1B564E4D9F",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/characterization/healthcare/umbria-mtls-jwt/signature-claims.json",
+      "bytes": 718,
+      "sha256": "1648724B1C482355715D02846689BB2648CE95170A1BEAA36946AB2BA51968B6",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/characterization/healthcare/validate-fixtures.ps1",
+      "bytes": 9595,
+      "sha256": "D72EA44F992A4F2F9CF2F6CF1850A96650AC8180DDF1D246BE8A228474CBD943",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/e2e/VerticalSlice.Tests/BrokerGatewayContinuityTests.cs",
+      "bytes": 35202,
+      "sha256": "3D1AD0B224A6E2A959038500B527DE201D4D69454CBED6D7A9ED392D87862919",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/e2e/VerticalSlice.Tests/FixedGatewayHttpInvoker.cs",
+      "bytes": 2929,
+      "sha256": "E9CB16C64E814ED2AABF152228F7E7961A3F692258399EB5A771D34A061DAF4A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/e2e/VerticalSlice.Tests/SecureLayerVerticalSliceTests.cs",
+      "bytes": 28447,
+      "sha256": "E19CE0400D47C634AF825B0227731A93F962C20D763EA8DBD1126EB1E9100383",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/e2e/VerticalSlice.Tests/VerticalSlice.Tests.csproj",
+      "bytes": 1199,
+      "sha256": "64018B3F8B814512F5D6F3704A6FCF463CA39D80E71CD5FA15992FC4CBC26B21",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/e2e/VerticalSlice.Tests/packages.lock.json",
+      "bytes": 10177,
+      "sha256": "D50BDE02878D655836C9BD7553EEA3D0F5FB5F7B960CB13D92C73D9CC5C48A95",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Broker.Integration.Tests/Broker.Integration.Tests.csproj",
+      "bytes": 799,
+      "sha256": "6277AFDF7F67C19BDF2CA84C43CCCC854FF88E2244980C856453E5782A4F1C1B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Broker.Integration.Tests/LocalBrokerLifecycle.Tests.ps1",
+      "bytes": 34963,
+      "sha256": "30EDACF41894BB9F2460EA41488F172983BCD436D51B43ECB4FB54753F05C04A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Broker.Integration.Tests/StandaloneBrokerTests.cs",
+      "bytes": 17823,
+      "sha256": "DE43500804D8408386CE54270C810254A3410DCFEC084F42C4F82A2DBD24DD9E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Broker.Integration.Tests/WindowsBrokerIntegrationTests.cs",
+      "bytes": 68479,
+      "sha256": "B3854A43099E3F3AA567BBC7E9367632EAEF6E68D40300195D85F9F889172580",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Broker.Integration.Tests/packages.lock.json",
+      "bytes": 7825,
+      "sha256": "E3DE04C4F32C167B516301FC9C14E1AC6876975F27CEB014B5B30167CE9656EE",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Gateway.Integration.Tests/AdminApiSecurityTests.cs",
+      "bytes": 154083,
+      "sha256": "2AFA95E0EFB5829B9881D645C59DA11787709FB0A499857B1C59E3C65158C2A3",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Gateway.Integration.Tests/AdminOidcProtocolTests.cs",
+      "bytes": 13538,
+      "sha256": "6086C2CAE11A6115FDF2840568480671282F1995B29C25977720E078EE4BEA05",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Gateway.Integration.Tests/AdminRateLimitingIntegrationTests.cs",
+      "bytes": 27410,
+      "sha256": "B38B88BF0EC0B9D541CAC20C89555FE035695D0AC8ADD1107A458BCD7354AF3A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Gateway.Integration.Tests/AuthorizedVerticalCapabilityHostedIntegrationTests.cs",
+      "bytes": 99579,
+      "sha256": "72FA6C2E9BC74FFF4B204EAEC802432C948C8B71F372C71C500F2FFF10CEF60B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Gateway.Integration.Tests/CapabilityLifetimeRemediationTests.cs",
+      "bytes": 25086,
+      "sha256": "2793A6F641D544E5DA0E129AD5712D1F1618841B93C58E23511AC479849FCB31",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Gateway.Integration.Tests/ConnectorExecutionSeamHostedIntegrationTests.cs",
+      "bytes": 73493,
+      "sha256": "6641803993D98CF2C44300EF929B41E889F058D099A9CA71A9C7A08FEECE8DB7",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Gateway.Integration.Tests/ConnectorRuntime/Auth/OAuth/OAuthRealHttpIntegrationTests.cs",
+      "bytes": 59744,
+      "sha256": "BF7DF7A46893FEE6511B07E89572424ACB949395DDFEE474E8B4DA8939D8E14E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Gateway.Integration.Tests/ConnectorRuntime/Auth/Soap/ComposedSoapRealHttpIntegrationTests.cs",
+      "bytes": 26991,
+      "sha256": "C81760170AC6B7B96111EC4D1CC827D8A3338B6C96FB3A3A6C139E52BA77020E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Gateway.Integration.Tests/ConnectorRuntime/Auth/Soap/OpaqueSessionHttpRealIntegrationTests.cs",
+      "bytes": 21955,
+      "sha256": "E8100E3EB8700225AC1581C2B6088867667E544AEF491756AEEF7D5ADCFDC01A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Gateway.Integration.Tests/ConnectorRuntime/Auth/Soap/ProductionComposedSoapRuntimeIntegrationTests.cs",
+      "bytes": 26512,
+      "sha256": "5097C8775F0FD202FB6895AB13E060238D88A6C93E7C2259FCA930854CFB0CFA",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Gateway.Integration.Tests/ConnectorRuntime/Auth/Soap/SoapRealHttpIntegrationTests.cs",
+      "bytes": 20776,
+      "sha256": "E88C30F967FB33690F99D12004F6EB90AE7168F96D014DFFC3BB010E3311DFDE",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Gateway.Integration.Tests/ConnectorRuntime/Auth/Soap/TypedSessionHandshakeRealHttpIntegrationTests.cs",
+      "bytes": 41111,
+      "sha256": "57A24949A62DDCE5A51CC91C285ED3C7942C2B5B9C5DE3AADAB2A6AD2C20C3D5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Gateway.Integration.Tests/ConnectorWorkflowContextPostgresTests.cs",
+      "bytes": 35870,
+      "sha256": "53CC3F856093330D4566F9AC517EF5783796E1143C18C0D1DF367398D07265E8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Gateway.Integration.Tests/Gateway.Integration.Tests.csproj",
+      "bytes": 2132,
+      "sha256": "81AC094E98B90C688455C0B89E15D0F2117A08C5D362723CF3D8DFEB29DD42DC",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Gateway.Integration.Tests/GatewayApiTests.cs",
+      "bytes": 13522,
+      "sha256": "564A9C86946FBE87E7CDD3F1DA884EC11C96B8EDDAD3283FDE038059CA775B82",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Gateway.Integration.Tests/PostgreSqlIsolationPolicyTests.cs",
+      "bytes": 1803,
+      "sha256": "783447B17F1C01557E78AA4A61F0602DC77DF574DDB310E283E180F4D415F2AF",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Gateway.Integration.Tests/PostgreSqlSharedDatabaseGroup.cs",
+      "bytes": 367,
+      "sha256": "77C1E64520F414622E1E6FD54B1E8839ADA5B66E8082761FF6621AD339F329B0",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Gateway.Integration.Tests/PostgresIsolationTests.cs",
+      "bytes": 179985,
+      "sha256": "BE100142FBA674C9EB92BBFF0D422C90020B9169092CB704F7ED780C241BE030",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Gateway.Integration.Tests/TestConnectorWorkflowContextStore.cs",
+      "bytes": 4281,
+      "sha256": "E588A476BEB4AB9CF5D3F57A7DD7D0D176AC5ED3B37B8379E4787422E5DB65A8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Gateway.Integration.Tests/TypedSessionHandshakeHostedIntegrationTests.cs",
+      "bytes": 76389,
+      "sha256": "AF5298C5D9B31E4EA522EFFA5D7155F0642811FB8AA07E76320BD6CDF5B9F308",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Gateway.Integration.Tests/packages.lock.json",
+      "bytes": 29229,
+      "sha256": "2BA893EE9B5409600E6305A1F41044BE0200C1BFA4FC90F56ED16270303C5AAA",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Healthcare.FSE2.Integration.Tests/Fse2DurableWorkflowCorrelationIntegrationTests.cs",
+      "bytes": 33917,
+      "sha256": "E48115024382D4F2063F2B7C193F272FA8DB1A4060AA922DE73525B5C30E4DB6",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Healthcare.FSE2.Integration.Tests/Fse2OfficialTestProvisionerAuthorityIntegrationTests.cs",
+      "bytes": 93065,
+      "sha256": "1FB2AD3D7556EE487B22ADFC468069233E375F0DA13F50A789B379BA22408ECB",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Healthcare.FSE2.Integration.Tests/Fse2OfficialTestProvisioningIntegrationTests.cs",
+      "bytes": 35522,
+      "sha256": "A0DF5C0E01D04874DDDE5C20C12743986F24DDC07604D1A2D7ACAD4F1D13B7C0",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Healthcare.FSE2.Integration.Tests/Fse2OrganizationHostedIntegrationTests.cs",
+      "bytes": 228351,
+      "sha256": "60D2F1CDD49048DBD1478CE01EE095F7DC890DE0753C7A8BFBA68A18D2AF797C",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Healthcare.FSE2.Integration.Tests/Fse2PilotTests.cs",
+      "bytes": 7999,
+      "sha256": "F691D670A9FB6D333D4C9B866C109E1D02DE6D67613E01E53E61B90146F23477",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Healthcare.FSE2.Integration.Tests/Fse2ProvisionerResumabilityIntegrationTests.cs",
+      "bytes": 33909,
+      "sha256": "A8F4DF7B66E24B9A751DA36EBDA8050CB303E3CA9151C5A34FF7887F14A0B361",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Healthcare.FSE2.Integration.Tests/Fse2T03FrozenDataset.cs",
+      "bytes": 27955,
+      "sha256": "BDC1ACB18136A23C15DB5098EB039C22999DEBE9E7B3D7C56AC61C359A8C8B20",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Healthcare.FSE2.Integration.Tests/Fse2WorkflowPublicationSequenceIntegrationTests.cs",
+      "bytes": 14882,
+      "sha256": "9B7A9F1CD931643DCA8231B5FA8150C6F45A58A2DAAB00D8F5F5528C8D94720F",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Healthcare.FSE2.Integration.Tests/Healthcare.FSE2.Integration.Tests.csproj",
+      "bytes": 1405,
+      "sha256": "5B7C6C6963790B1B738FD7D0FD94AFC7FA6DB00D632C7057D576940877581181",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/integration/Healthcare.FSE2.Integration.Tests/packages.lock.json",
+      "bytes": 16966,
+      "sha256": "692B68A0D11727F84854A0C2C22794F5D274589BEAEA481707B79634E259B78E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/support/Synthetic.ConnectorExecutionCrossModule/Synthetic.ConnectorExecutionCrossModule.csproj",
+      "bytes": 580,
+      "sha256": "E7619DC214A7C1CA99E9A9983E5ECA0680543546F4EC0A931B33E533222DB3B8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/support/Synthetic.ConnectorExecutionCrossModule/SyntheticCrossModuleDependencyModule.cs",
+      "bytes": 1631,
+      "sha256": "107CDBA5FC6C52334B3E54DC2D9D36BE10D514FBFE1DE032D983A27469ECA439",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/support/Synthetic.ConnectorExecutionCrossModule/packages.lock.json",
+      "bytes": 1785,
+      "sha256": "14288E4E1A28E8F2769D3B3E8A5D271FBE8A858F7C12EA2C63704A5C667936E1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/support/Synthetic.ConnectorExecutionDependencyModule/Synthetic.ConnectorExecutionDependencyModule.csproj",
+      "bytes": 455,
+      "sha256": "5912702891A87FEE4786CC361EE4CCD829D529D9190596FAE6B6D4B9CD9670C2",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/support/Synthetic.ConnectorExecutionDependencyModule/SyntheticDependencyOwnerModule.cs",
+      "bytes": 2113,
+      "sha256": "AF48719B86382BB9C965E41359BDE2B8602860A5D2A9B516591A61EC0EE354A4",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/support/Synthetic.ConnectorExecutionDependencyModule/packages.lock.json",
+      "bytes": 1576,
+      "sha256": "B037DAFF3EE2809527B07EEF19E085DF413B365639A8EB3BD66E0EAD5B881230",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/support/Synthetic.ConnectorExecutionModule/Synthetic.ConnectorExecutionModule.csproj",
+      "bytes": 568,
+      "sha256": "98FD653DC9A0005F97151C940AFF81D1FE2F00021467A3811F60A3975E60C72A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/support/Synthetic.ConnectorExecutionModule/SyntheticExecutionModule.cs",
+      "bytes": 68579,
+      "sha256": "210BCFA5FAB3562C1689A973739391F915F87D3B24D00173EA5D803C16A35A72",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/support/Synthetic.ConnectorExecutionModule/packages.lock.json",
+      "bytes": 2187,
+      "sha256": "9835EBE67A49F8815AB2BC921AD1DBD3C0506A55603A1CF850D21C3D6F632017",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Authentication.CertificateSigning.Tests/Authentication.CertificateSigning.Tests.csproj",
+      "bytes": 1046,
+      "sha256": "4595D84D2659FD06FCEBBF731F3862C591C63EF6BBDA38A2FB0503AF7B04E243",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Authentication.CertificateSigning.Tests/JwtX509ExtensionSecurityTests.cs",
+      "bytes": 36537,
+      "sha256": "4A3CB49ECF840E4600DE205446801EB0165AADFE3D9F5E7387BC48B5FB2919D5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Authentication.CertificateSigning.Tests/MutualTlsSecurityTests.cs",
+      "bytes": 42199,
+      "sha256": "8CB699DBCC4FC20B4AB072BB9AA0CDE23E90ADE742F76347F6A84F387F547A48",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Authentication.CertificateSigning.Tests/ProviderCertificatePublicMaterialImmutabilityTests.cs",
+      "bytes": 7471,
+      "sha256": "480CA944EE25C78D43D6D79DD50BB75DFE6603364B2A7EA486FF81FAB27BB0C4",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Authentication.CertificateSigning.Tests/Rs256JwtSecurityTests.cs",
+      "bytes": 32485,
+      "sha256": "83A928C8BA1D14863EBBACEB04034518331C847EE485E49832E52C4D5DA7DC5C",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Authentication.CertificateSigning.Tests/TestSupport.cs",
+      "bytes": 13271,
+      "sha256": "C6D2AE5F3B90BE4D90E1A898795D4133BE0D3895BFCF32050ABE16E5FFC9593E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Authentication.CertificateSigning.Tests/TrustedRuntimeClaimValueSecurityTests.cs",
+      "bytes": 20961,
+      "sha256": "A1D3AB511CD9886E633101ACE5F9C822FF4CC6E092F323B3AD2C2199740ECA5E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Authentication.CertificateSigning.Tests/packages.lock.json",
+      "bytes": 9860,
+      "sha256": "C1C8B0E8ABAA81F2DBA58143A1DA0A30A8CD040039C7394BE11D5851722554B5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Broker.Core.Tests/AeadHardeningTests.cs",
+      "bytes": 3749,
+      "sha256": "8E5BC9EA507DF358CC4489BF21D44CBDEBEF3223291F79F2E903E4EE8A943A01",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Broker.Core.Tests/Broker.Core.Tests.csproj",
+      "bytes": 577,
+      "sha256": "795EB90E43E40E71695A98823FEC190F7B06CB2584230D76CA220CD425B8C784",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Broker.Core.Tests/BrokerCoreTests.cs",
+      "bytes": 7499,
+      "sha256": "BEC1DA904AF4F92ADAF62621A246079C176D0975B9DC714797BED2EF19D512DE",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Broker.Core.Tests/IpcProtocolTests.cs",
+      "bytes": 3896,
+      "sha256": "9DDC7E777E8C7434A3607A1962F6922D2E13542F83AF829CF6B9EA9A35C8E253",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Broker.Core.Tests/packages.lock.json",
+      "bytes": 6835,
+      "sha256": "C047837C6473D55296C22DB82845D2755B51F2AF5E243A07A391A5E066CEC849",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Gateway.Unit.Tests/AdminConcurrencyTests.cs",
+      "bytes": 3242,
+      "sha256": "0B5EAD9CB57706A321E30DBC271F409E2B3A72DCAB71C1D94BDD6A1170978C11",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Gateway.Unit.Tests/AdminPaginationTests.cs",
+      "bytes": 7979,
+      "sha256": "B9B4842EF70F674F088A34A1F89D554FE44D8E7C81926ED31B85E7A3D1D85563",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Gateway.Unit.Tests/AdminSecurityTests.cs",
+      "bytes": 30378,
+      "sha256": "8E6B4CC8DBACB431B4C6D24AFDE935AC3417FE76152BF1D9A780265ECAA8E400",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Gateway.Unit.Tests/AlphaGoldenPathContractTests.cs",
+      "bytes": 13269,
+      "sha256": "2DBF67488A5DD618CA4B32E73246100F3B0C20D7F65091D5051C74EF52C8B722",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Gateway.Unit.Tests/AuthorizedPublishedOperationContractTests.cs",
+      "bytes": 9355,
+      "sha256": "F93B2FC652CC4AAF5478AE7A338E4F8952F76479CDA3820BF30F53CCD70568FA",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Gateway.Unit.Tests/ComposedSoapDispatchTests.cs",
+      "bytes": 30919,
+      "sha256": "906EDB2F97C383FF4C982F200CC1345A081BDB90C20F17EBCD884BE709A6FC1C",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Gateway.Unit.Tests/ConnectorCapabilityCompletionTests.cs",
+      "bytes": 21589,
+      "sha256": "E0FC861DC3E0156BD36FED131D1DE3BC700741F9C8895102C96A7A21E457AA94",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Gateway.Unit.Tests/ConnectorConfigurationTests.cs",
+      "bytes": 105418,
+      "sha256": "8742DBB887D7F1E544CC5D410C622E05C1AFD974C2CDD811535B0BBF52ADBBB7",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Gateway.Unit.Tests/ConnectorRuntime/Auth/Http/InteractiveChallengeTests.cs",
+      "bytes": 6703,
+      "sha256": "F8DC494F1A6404AD3A1D14D732CDCF649363494FF04EBCD664EA7F0F682D349E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Gateway.Unit.Tests/Gateway.Unit.Tests.csproj",
+      "bytes": 1537,
+      "sha256": "274DB1C62E87202655BF6FE326004F51725A60B56860EF85A336E80E373CF791",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Gateway.Unit.Tests/GatewaySecurityTests.cs",
+      "bytes": 49539,
+      "sha256": "67FA211F26FC71DFD656B2886A6984E3EB73ACA60B4EA8E0E8D4B7264D5FD81D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Gateway.Unit.Tests/OpaqueSessionHttpProjectionTests.cs",
+      "bytes": 24890,
+      "sha256": "0D28C9F4DAD5EC29498A655DA63FCFD2783F5C985CD135509132D0E1D4ECF82A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Gateway.Unit.Tests/RestrictedTransportDiagnosticTests.cs",
+      "bytes": 10698,
+      "sha256": "31756A241154EFAAF9B95C518702F12F4F3D8A63D5F5C11964307EAAEE39E992",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Gateway.Unit.Tests/RuntimeExecutionStrategyTests.cs",
+      "bytes": 47085,
+      "sha256": "1D421E4AABD8BD36F6063523E532B8012067E58D6ADECBB117B9295E7FEAF7DB",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Gateway.Unit.Tests/SecretCacheRetentionTests.cs",
+      "bytes": 5061,
+      "sha256": "4A151564461B558F01D5E6925D8B6BDA56C71366FB79690E6DF9A9DB7DE52249",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Gateway.Unit.Tests/SoapAuthenticationTests.cs",
+      "bytes": 41258,
+      "sha256": "18FA7AFD0462B371CC7C2BB8210008B5324E3FFB7892DE69C05207F9DCDD1E4B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Gateway.Unit.Tests/TypedSessionHandshakeTests.cs",
+      "bytes": 70138,
+      "sha256": "5726BD08164DE513CA11A82362EE5E55596BD509BE185A2EC6C864CC4F6E5967",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Gateway.Unit.Tests/packages.lock.json",
+      "bytes": 10471,
+      "sha256": "2511B4A529EC755D0A6E70A122DEBDBCBB3106B841E513E104231A5521604F19",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Healthcare.FSE2.Tests/Fse2CurrentSpecTests.cs",
+      "bytes": 13400,
+      "sha256": "2E6D895FA97B041CA101161CE9DB4F2A26F714067967E81968881ABC874F505B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Healthcare.FSE2.Tests/Fse2FoundationTests.cs",
+      "bytes": 44227,
+      "sha256": "C839B34B05A25985FC83EF0B26C3D21C8E398C9773B38BB061889C9D20105DA6",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Healthcare.FSE2.Tests/Fse2OfficialTestOperationalizationTests.cs",
+      "bytes": 23978,
+      "sha256": "E3053D9E8C9A3B36F67E77C89310C5A898A368371F9F7AC67E00B51A6A8E7577",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Healthcare.FSE2.Tests/Healthcare.FSE2.Tests.csproj",
+      "bytes": 708,
+      "sha256": "5892BC8036FE2447CFEBB0DAD8F44F14479CEC54C8D0E11F55E6B7485CE41297",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Healthcare.FSE2.Tests/packages.lock.json",
+      "bytes": 8301,
+      "sha256": "F1A1C28FF057B6D97A9BEDDE32A2A4860B3A3D3C09E48B5502FEAE4D9C1E975F",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Healthcare.RegionalEPrescription.Tests/Healthcare.RegionalEPrescription.Tests.csproj",
+      "bytes": 867,
+      "sha256": "7C8F5C9300CF9630BE0E242D95C6E2FE58E5AE5246198F4A9A45EBF50AEB381B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Healthcare.RegionalEPrescription.Tests/RegionalEPrescriptionFoundationTests.cs",
+      "bytes": 39021,
+      "sha256": "68AD5A88659494DE1EC25E185EA623E2C8E70571C0377E5177D42BBD71E1EBF6",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Healthcare.RegionalEPrescription.Tests/SyntheticRegionalServerTests.cs",
+      "bytes": 8563,
+      "sha256": "DA9E891BFB85275AA51DAA1996BDB48DE6A1093B8080364205C22137F0AD8969",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tests/unit/Healthcare.RegionalEPrescription.Tests/packages.lock.json",
+      "bytes": 8318,
+      "sha256": "6775BA02FCFAD8220E2639066077990C76E3E5083D5AAAF74E24C13AF64728DF",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/alpha/Invoke-AlphaContainerDotNet.ps1",
+      "bytes": 9532,
+      "sha256": "C528329C166F6970FAA1F81092FAAD68B02A9EEE2EA7CA600081830403B4D6BD",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/alpha/Invoke-AlphaGoldenPath.ps1",
+      "bytes": 47608,
+      "sha256": "DA740B8B76CF07E31D3D9739E74A7E28D85B2D837B2DDFC6EA16C83E88DF10F8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/alpha/Test-AlphaGoldenPath.ps1",
+      "bytes": 27870,
+      "sha256": "676B8B9ED66F9FF73E55794A2D2D9C75D56FB3BDFF8D347EF5E7F55D918058A1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/connector-cli/Connector.Cli.csproj",
+      "bytes": 401,
+      "sha256": "D992BD08730760140DBF2009745E5796854566CEF937F59CFE9D7BC27DDDF6F9",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/connector-cli/Program.cs",
+      "bytes": 7530,
+      "sha256": "FE72A5A7318602872471CD0A9AA176E48352D001DE9CBF21798D7EFC20C1D03E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/connector-cli/packages.lock.json",
+      "bytes": 1576,
+      "sha256": "B037DAFF3EE2809527B07EEF19E085DF413B365639A8EB3BD66E0EAD5B881230",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/connector-provisioning/Connector.Provisioning.csproj",
+      "bytes": 289,
+      "sha256": "C2EFE7813656CD381EFC92C8A241C82338CD8DC5F351FC88C2BF5798DF2A134E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/connector-provisioning/ConnectorProvisioningStateMachine.cs",
+      "bytes": 13578,
+      "sha256": "2A9C1073AC2760D8533F7737998C486CAE452270B996AC9B820C415CBA2CA22F",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/connector-provisioning/packages.lock.json",
+      "bytes": 61,
+      "sha256": "03EEADC5EF377C17F787AB65F41FB4C8A9C936BB7F7F4171111FDEEC8A81CB46",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/fse2/Fse2PathPolicy.psm1",
+      "bytes": 18735,
+      "sha256": "21CA4CAD22A8828D793E1A44942328340ACDC7D6ED69A81B81720BAED786AA74",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/fse2/Invoke-Fse2LocalProviderLab.ps1",
+      "bytes": 13244,
+      "sha256": "BF14769E612BFDAD60495B42EBE6D07AD6F4B1A3D44A83B245C22D2EC398D03A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/fse2/Invoke-Fse2ValidationStatus.ps1",
+      "bytes": 8908,
+      "sha256": "27EEF9A1A8565239AEE85A4060E0A91D9A722188E965EB1B16C098E2B9378D13",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/fse2/New-Fse2LocalPkcs12Material.ps1",
+      "bytes": 24466,
+      "sha256": "DB4D2424C5F9905AC84B8A6EE7EEFBDD34C82042E44DE1ACCE82ACD35F7EFAF8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/fse2/OfficialTestProvisioner/Fse2FailureEvidenceReducer.cs",
+      "bytes": 6423,
+      "sha256": "2BA3D8D8DD06123543CB84F6CCD0052924C9D3C9272FA49CB12BBC450919C5C4",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/fse2/OfficialTestProvisioner/OfficialTestProvisioner.csproj",
+      "bytes": 672,
+      "sha256": "EE81E056C35D8C86F01FA004ED839886A0ACA49A6AE36C025C3FECD0D674D1C7",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/fse2/OfficialTestProvisioner/Pilot.cs",
+      "bytes": 24468,
+      "sha256": "5ACAEC0AA23B8A2DD6ABA987DA2796281368878BDAD326E8797AEDC59791207E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/fse2/OfficialTestProvisioner/Program.cs",
+      "bytes": 63410,
+      "sha256": "DBF02441B902A05E9C33ADE341871FAD65B548A3F7F60D15D45DE1FA8A1C5AC1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/fse2/OfficialTestProvisioner/packages.lock.json",
+      "bytes": 1887,
+      "sha256": "B14C70944267ACD356B8DE4ABA3FB34E3B1D334E1EC2CC2A74D0B7735D56C808",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/fse2/ProviderProbe/Program.cs",
+      "bytes": 4643,
+      "sha256": "6E6A5854F81E8118806FCF0EA58DF9868BE1A4E46C955983B525A10FC4F3A9B9",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/fse2/ProviderProbe/ProviderProbe.csproj",
+      "bytes": 474,
+      "sha256": "EB115F670B2B964F517D9DE125F5042ECDCCC4920B0825A47C0003DBC6696542",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/fse2/ProviderProbe/packages.lock.json",
+      "bytes": 341,
+      "sha256": "D7D543043E3DA58079B6AA788D14123FBEDC360D8103BE9F2BF269D031FEF0C9",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/fse2/Test-Fse2ComposeConfiguration.ps1",
+      "bytes": 4647,
+      "sha256": "8DC558F8E41E1D8A3F24297E44C133D286EC47F2CF951319CE17B0F40B17A9FD",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/fse2/Test-Fse2LocalPkcs12Material.ps1",
+      "bytes": 36373,
+      "sha256": "6FC31241551F400FF66A2D9288267D9D83A4BBE03988F2C35E52E73BE9E6F5CE",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/fse2/Test-Fse2PathPolicy.ps1",
+      "bytes": 8828,
+      "sha256": "1DD5E9DAA8E35A550AC1D396E35D0CFDD0BED538BEB1771640177E185D35F359",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/fse2/Test-Fse2ValidationStatusCleanup.ps1",
+      "bytes": 9777,
+      "sha256": "CFB2BAFD1A339CF7575E1400F0C9F81082C089FC8543C706EEDE9EBFFA848DCC",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/fse2/officialtest-pilot.example.json",
+      "bytes": 330,
+      "sha256": "22D8DCCDB356DD343192F2F77C4050E37ECA7FD5A1C6E5C1069B356CE9F713C2",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/live-matrix/Install-LiveBroker.ps1",
+      "bytes": 12535,
+      "sha256": "881F432A3DF4E4302D808B7091930B49529492030E9BE8C2720A2EFAF8658082",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/live-matrix/Invoke-LiveMatrix.ps1",
+      "bytes": 3827,
+      "sha256": "2196FBE243FB5D650F4912DA3A9954B6681859D2E8A911B085ED703D4112FB5A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/live-matrix/Invoke-PostReboot.ps1",
+      "bytes": 6439,
+      "sha256": "C1616D0EFD8FB292504C140277EF884BFE45E1DF038F8634A69D5E81D068FECF",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/live-matrix/Invoke-PreReboot.ps1",
+      "bytes": 10887,
+      "sha256": "2E21E54342EDF063DDF26CB2EBA13867810967CE13E91C80782366B0BA89D6A2",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/live-matrix/LiveMatrix.Common.psm1",
+      "bytes": 25048,
+      "sha256": "127DD06F94B631AF9EBE7659803AFFC79A98B5A92FD44DFA7F7908729573B04D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/live-matrix/New-EvidenceBundle.ps1",
+      "bytes": 3272,
+      "sha256": "FC32018661E2523B4B495BFD4FCDAA61CD197B597507AF4DC01FB07638F3DE4E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/live-matrix/README.md",
+      "bytes": 2033,
+      "sha256": "372DDCE29AEB1D8043BBD74E707C43069FD1898D30519D33FC5279CCBD88B91E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/live-matrix/Remove-LiveMatrix.ps1",
+      "bytes": 3578,
+      "sha256": "BDACC075E7753A0AE27FC16ECAD7684EFB559A22680CB1E08590747A36D11250",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/live-matrix/Test-Prerequisites.ps1",
+      "bytes": 3717,
+      "sha256": "188F749B3888E611AB2707B2ABCE64895C61127A7CAAD44FFE3441A154A33B8B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/live-matrix/Update-RequirementEvidence.ps1",
+      "bytes": 1953,
+      "sha256": "48F6EDA854F41B8405E20B7E3B83CE201D543965DA0A15A3E62A3991B47DE968",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/live-matrix/probe/LiveMatrix.Probe.csproj",
+      "bytes": 629,
+      "sha256": "124F39BEA371E991F596ED5C6E02DA09A24A786F046064EF50550F1884AF767D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/live-matrix/probe/Program.cs",
+      "bytes": 23858,
+      "sha256": "C4B969A1BC9F67A7DDA48FAA0D3D755B82D971E619E39D73B76080E4F035B43F",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/live-matrix/probe/packages.lock.json",
+      "bytes": 592,
+      "sha256": "B3F1C25CC34DBD724FB271868DF3774E61737E0B3838AC9B9B4D1457818BA1B5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/FixtureGenerator/FixtureGenerator.csproj",
+      "bytes": 306,
+      "sha256": "5030190814974E35A2B32C3C591EB77446298A6C90432634DF98FD024E7DF36C",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/FixtureGenerator/Program.cs",
+      "bytes": 8225,
+      "sha256": "6A81193682E1D699251840EFE66B61BD6E0B30DD199725212DF01C0372646124",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/FixtureGenerator/packages.lock.json",
+      "bytes": 61,
+      "sha256": "03EEADC5EF377C17F787AB65F41FB4C8A9C936BB7F7F4171111FDEEC8A81CB46",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/Invoke-M3A.ps1",
+      "bytes": 14374,
+      "sha256": "374B5361760E045F276B5F21B8E2DDC123F921B4346266F78CF75BCBDA94071A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/LegacySimulator/LegacySimulator.csproj",
+      "bytes": 437,
+      "sha256": "2D6BAB9E3C2AFFEAB02B1CA91F408705B4E4BAE7AAC665B64CB50F4E8767CE0F",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/LegacySimulator/Program.cs",
+      "bytes": 2786,
+      "sha256": "9CD247BE54AE699FE94DC9460C8AF849285F53EB6412AC2FEC2259305E081D0A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/LegacySimulator/packages.lock.json",
+      "bytes": 322,
+      "sha256": "44E353D0AA562E3EF6D3C9BF9EF34596402327223A32025D21BD47F1E5653261",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/Provisioner/Dockerfile",
+      "bytes": 2559,
+      "sha256": "49BDC28FDA83BDF156D28F9A2149647133C93022C3C4831E488875B554CBD8B5",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/Provisioner/Program.cs",
+      "bytes": 29628,
+      "sha256": "09D8EBD69DD0428E5D750E34BB1698A3CB25353B17CAA18FDBDFD505007199A7",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/Provisioner/Provisioner.csproj",
+      "bytes": 865,
+      "sha256": "37EA7810D08DA1C9CFCCD52B72F67D207F1DD64E882FFE958BC492A1910B5D6B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/Provisioner/packages.lock.json",
+      "bytes": 3143,
+      "sha256": "20E325AA0D42377EC119F8DFF74BABE4B3D088DD44DDFAFC7075968738AD7000",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/SecurityDriver/Program.cs",
+      "bytes": 20947,
+      "sha256": "C38A9E17B569933C6E9278F65A1EB88E384B80C9B9E862DD17DB7015300D632E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/SecurityDriver/SecurityDriver.csproj",
+      "bytes": 373,
+      "sha256": "47AA2B123786E50DCA63B0F3DC861AAF8A0BE23EAADB8437CD74927C4760314E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/SecurityDriver/packages.lock.json",
+      "bytes": 995,
+      "sha256": "64612DC0BA27404EC14411E62A2B5BF31CDCFAC7481DE672242334A5713F2D92",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/SyntheticVault/Dockerfile",
+      "bytes": 1014,
+      "sha256": "12BC1EDDB87BFEE10B5ECEE2E0973EC9D4A0A0870745F4E97EA2053F6FBD3FC1",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/SyntheticVault/Program.cs",
+      "bytes": 2813,
+      "sha256": "2825223B68C01A0523622C41530C262E26AAD6A7731D73F3FEF98211D85C04A0",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/SyntheticVault/SyntheticVault.csproj",
+      "bytes": 273,
+      "sha256": "F5DBA0BB6B6CFA292D501205B5A9F18A0B4B0533A0405B71E04D0934992AC2C0",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/SyntheticVault/packages.lock.json",
+      "bytes": 61,
+      "sha256": "03EEADC5EF377C17F787AB65F41FB4C8A9C936BB7F7F4171111FDEEC8A81CB46",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/VendorMock/Dockerfile",
+      "bytes": 966,
+      "sha256": "D61DA380655AB23ECA49E3629BA530AEFD976E22F1BDDC93DE65F46BE80F1D2E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/VendorMock/Program.cs",
+      "bytes": 4288,
+      "sha256": "910E199D41EEC980AB3D2DDA2957098E3C4E18918707BE732019B911B360C630",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/VendorMock/VendorMock.csproj",
+      "bytes": 265,
+      "sha256": "72D281B9FBF3E1500AB75674C756983B7019589ED825FFB93ECC4F74D0F0368B",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/VendorMock/packages.lock.json",
+      "bytes": 61,
+      "sha256": "03EEADC5EF377C17F787AB65F41FB4C8A9C936BB7F7F4171111FDEEC8A81CB46",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/split-host/Invoke-M3ASplitHost.ps1",
+      "bytes": 41219,
+      "sha256": "737CC9583B3C6BDC1BD148FEB8F2C07B6FD51BEFB0ADB1AFB2CD98A7E96680C8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/split-host/Invoke-M3ASplitVm.ps1",
+      "bytes": 27145,
+      "sha256": "D4BF08B3234DB51BCF61EC329E689FC2A17C89EFECDB7147AE8611A83BFB422D",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/split-host/Invoke-M3ASplitVmOperator.ps1",
+      "bytes": 9190,
+      "sha256": "D97DE2C457E1D079CE5647356C6642E81FC8CFFC533E1CFFA05301C861E228D8",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/split-host/M3ASplitFirewall.psm1",
+      "bytes": 2587,
+      "sha256": "322BF634E23DEA1507D37463FCBECCC55168D8972207AD06224C6BD8CF829CDC",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m3/split-host/M3ASplitNetwork.psm1",
+      "bytes": 27176,
+      "sha256": "43D2D9201ECDCADC4AF4139353D5BC1AEF7B36EA34C0D5D56BE9B1B886ADCA66",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m4/Invoke-M4Quickstart.ps1",
+      "bytes": 4981,
+      "sha256": "29DF3BDF82032646D0F3E41E9E59EEAE0785EA4A4ECBE574B96756DD3A670A6C",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m5/Invoke-M5FullStack.ps1",
+      "bytes": 6232,
+      "sha256": "1510ED9F81749FFD4285DAF39C63E216DA029798A18B5D3B96387CD35E001F9E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m5/Invoke-M5Quickstart.ps1",
+      "bytes": 18646,
+      "sha256": "9D73D550012FD29EF33DBD9D866D3B03C32772E7B805C8ED17F73CACAF41CAAD",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m5/Test-M5QuickstartSafety.ps1",
+      "bytes": 13707,
+      "sha256": "E968CBD65808A92A4393F3BCAFB8A3CDFEBBE7225E0AAD56C154FD953B060F8A",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m5/check-frontend-licenses.mjs",
+      "bytes": 1314,
+      "sha256": "20FDB01D70C0517992AE4C33BEA04DB14D0B98B2792DA99D174E38D892DDB743",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m6/SyntheticOAuthServer/Program.cs",
+      "bytes": 14300,
+      "sha256": "4F8304B01831229C6D9F6C3EED3EDFCACDBF8EAD372337619CD13EB8FD7A0C6E",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m6/SyntheticOAuthServer/SyntheticOAuthServer.csproj",
+      "bytes": 322,
+      "sha256": "87243FD9C9ADA8BEF89216393740032964816E016A52200334B60A9542BCD877",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m6/SyntheticOAuthServer/packages.lock.json",
+      "bytes": 61,
+      "sha256": "03EEADC5EF377C17F787AB65F41FB4C8A9C936BB7F7F4171111FDEEC8A81CB46",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m6/SyntheticOpaqueSessionServer/Program.cs",
+      "bytes": 6422,
+      "sha256": "0DA620FEA3ECBED4740B1D16DA49507048FA1CCF6B3C5464AF06C2B2C5547440",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m6/SyntheticOpaqueSessionServer/SyntheticOpaqueSessionServer.csproj",
+      "bytes": 301,
+      "sha256": "FAD82824864F152B5EBAC434013AF06237737C0880990B2A21EE067E29214622",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m6/SyntheticOpaqueSessionServer/packages.lock.json",
+      "bytes": 61,
+      "sha256": "03EEADC5EF377C17F787AB65F41FB4C8A9C936BB7F7F4171111FDEEC8A81CB46",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m6/SyntheticSoapServer/Program.cs",
+      "bytes": 31205,
+      "sha256": "7260DC2197D3D6EDC118EB596B5E882A0150B369D7EE8BFF3C251CB69E448E48",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m6/SyntheticSoapServer/SyntheticSoapServer.csproj",
+      "bytes": 283,
+      "sha256": "580E7BB1BDF782A932B51476187CE6431B0CDC26AB8BF8D60801930E36FAEFDE",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/m6/SyntheticSoapServer/packages.lock.json",
+      "bytes": 61,
+      "sha256": "03EEADC5EF377C17F787AB65F41FB4C8A9C936BB7F7F4171111FDEEC8A81CB46",
+      "origin": "exact-source"
+    },
+    {
+      "path": "tools/testing/Invoke-PostgreSqlIsolationQualification.ps1",
+      "bytes": 11637,
+      "sha256": "AA7502FF0A82CAF78A6917FD4343D15A2C340B86BFB8EEE5DA6D6302DE90EEF3",
+      "origin": "exact-source"
+    }
+  ]
+}

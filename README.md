@@ -20,6 +20,10 @@ production qualification.
 
 This is ApoCert's curated source distribution. See the [changelog](https://github.com/ApoCert-it/secure-integration-platform/blob/main/CHANGELOG.md)
 and [source provenance](https://github.com/ApoCert-it/secure-integration-platform/blob/main/SOURCE.md) for this snapshot and its verification limits.
+The 14 Sep 2026 update uses exact Core source `2c2ff27`; the separately tested
+Windows evaluation package remains `10a1300`. Start with [Evaluate SIP](docs/user/evaluation.md)
+for the separate paths, integrity checks and recovery. This is unsigned alpha
+evaluation software; source publication does not create a new binary release.
 
 Start with the [architecture overview](#architecture-overview) or
 [run the Core locally](#running-the-core-locally). Continue with
@@ -248,6 +252,11 @@ identity/policy before forwarding authorized operations to the Gateway. The serv
 stores its local material using Windows protections, including DPAPI/CNG, and uses
 its own Installation for remote access. It does not receive vendor credentials.
 
+The package includes supported administrator commands to register, inspect, update
+and revoke a named .NET application, plus a distinct adopter sample. The
+[package guide](deploy/windows/README.md#register-your-own-net-application) keeps
+administrator setup and ordinary-account invocation explicit.
+
 The Broker therefore adds a local application/service boundary to the Gateway's
 controls. It also requires service management, process policies, ACLs and local
 identity recovery. It is not a universal adapter for every language: MSI and C ABI/COM
@@ -329,6 +338,10 @@ against the [schema](docs/connectors/connector-definition.schema.json). Deployme
 associates resources through Admin APIs, grants operations and follows validation,
 proposal, distinct approval and publication. The
 [onboarding guide](docs/user/guided-connector-onboarding.md) describes that workflow.
+Its searchable selectors use bounded server-side pages and stable identifiers;
+the ready state requires both Published configuration and Active enrollment.
+The 10,000-tenant API/PostgreSQL regression establishes search correctness and
+authorization cases, not production throughput or a browser capacity benchmark.
 
 A compiled module is needed only when existing primitives cannot express the protocol.
 It must use the authorized context and bounded Core capabilities without adding

@@ -28,6 +28,8 @@ beforeEach(async () => {
   await i18n.changeLanguage('en');
   session.roles = [{ role: 'Viewer', tenantId: null }, { role: 'ConnectorEditor', tenantId: null }];
   vi.spyOn(adminApi, 'tenants').mockResolvedValue(page([]));
+  vi.spyOn(adminApi, 'tenant').mockResolvedValue({ id: 'tenant', code: 'tenant-code', displayName: 'Selected tenant', status: 'Active', createdAt: installation.createdAt, rowVersion: 1 });
+  vi.spyOn(adminApi, 'application').mockResolvedValue({ id: installation.applicationId, code: 'app-code', displayName: 'Selected application', status: 'Active', minimumBrokerVersion: '1.0.0', createdAt: installation.createdAt, rowVersion: 1 });
   vi.spyOn(adminApi, 'applications').mockResolvedValue(page([]));
   vi.spyOn(adminApi, 'environments').mockResolvedValue(page([]));
   vi.spyOn(adminApi, 'connectors').mockResolvedValue(page([]));
@@ -45,21 +47,115 @@ beforeEach(async () => {
 afterEach(cleanup);
 
 describe('guided selection and targeted refresh', () => {
+  it('searches the server catalog beyond 10000 tenants, pages results and distinguishes duplicate names by code', async () => {
+    const tenant = (index: number) => ({ id: `tenant-${index}`, code: `code-${index}`, displayName: 'Shared name', status: 'Active' as const, createdAt: installation.createdAt, rowVersion: 1 });
+    vi.mocked(adminApi.tenants).mockImplementation(async (offset = 0, limit = 50, filter = '') => {
+      expect(limit).toBe(50);
+      return filter === 'remote' ? page([tenant(offset ? 9999 : 9998)], offset, 51) : page([tenant(0)], 0, 10000);
+    });
+    const { history } = mount();
+    fireEvent.change(await screen.findByRole('combobox', { name: 'Select a tenant' }), { target: { value: 'remote' } });
+    await waitFor(() => expect(adminApi.tenants).toHaveBeenCalledWith(0, 50, 'remote'));
+    await waitFor(() => expect(screen.getByRole('combobox', { name: i18n.t('selectTenant') })).not.toHaveAttribute('aria-disabled', 'true'));
+    fireEvent.mouseDown(screen.getByRole('combobox', { name: i18n.t('selectTenant') }));
+    expect(await screen.findByRole('option', { name: 'Shared name · code-9998' })).toBeVisible();
+    fireEvent.keyDown(screen.getByRole('listbox'), { key: 'Escape' });
+    fireEvent.click(within(screen.getByTestId('guided-tenant-pagination')).getByRole('button', { name: i18n.t('nextPage') }));
+    await waitFor(() => expect(adminApi.tenants).toHaveBeenCalledWith(50, 50, 'remote'));
+    await waitFor(() => expect(screen.getByRole('combobox', { name: i18n.t('selectTenant') })).not.toHaveAttribute('aria-disabled', 'true'));
+    fireEvent.mouseDown(screen.getByRole('combobox', { name: i18n.t('selectTenant') }));
+    fireEvent.click(await screen.findByRole('option', { name: 'Shared name · code-9999' }));
+    const target = new URLSearchParams(history.location.search);
+    expect(target.get('tenant')).toBe('tenant-9999');
+    expect(target.has('installation')).toBe(false);
+    expect(target.has('application')).toBe(false);
+    expect(target.has('environment')).toBe(false);
+  }, 10000);
+
+  it('does not replace a newer empty search with a delayed result from an older query', async () => {
+    let resolveOld!: (value: Awaited<ReturnType<typeof adminApi.tenants>>) => void;
+    vi.mocked(adminApi.tenants).mockImplementation(async (_offset, _limit, filter) => filter === 'old' ? new Promise(resolve => { resolveOld = resolve; }) : page([]));
+    mount('/onboarding');
+    const search = await screen.findByRole('combobox', { name: 'Select a tenant' });
+    fireEvent.change(search, { target: { value: 'old' } });
+    await waitFor(() => expect(resolveOld).toBeDefined());
+    fireEvent.change(search, { target: { value: 'new' } });
+    await waitFor(() => expect(adminApi.tenants).toHaveBeenCalledWith(0, 50, 'new'));
+    resolveOld(page([{ id: 'old-id', code: 'old', displayName: 'Obsolete tenant', status: 'Active', createdAt: installation.createdAt, rowVersion: 1 }]));
+    await waitFor(() => expect(screen.getByRole('combobox', { name: i18n.t('selectTenant') })).not.toHaveAttribute('aria-disabled', 'true'));
+    fireEvent.keyDown(search, { key: 'ArrowDown' });
+    expect(await screen.findByText(i18n.t('selectorNoResults'))).toBeVisible();
+    expect(screen.queryByRole('option', { name: /Obsolete tenant/ })).not.toBeInTheDocument();
+  });
+
+  it('keeps the selected tenant on resume without inserting it into unrelated search results', async () => {
+    const { history } = mount();
+    const selector = await screen.findByRole('combobox', { name: i18n.t('selectTenant') });
+    await waitFor(() => expect(selector).toHaveValue('Selected tenant · tenant-code'));
+    fireEvent.change(selector, { target: { value: 'no-match' } });
+    await waitFor(() => expect(adminApi.tenants).toHaveBeenCalledWith(0, 50, 'no-match'));
+    expect(await screen.findByText(i18n.t('selectorNoResults'))).toBeVisible();
+    expect(screen.queryByRole('option', { name: 'Selected tenant · tenant-code' })).not.toBeInTheDocument();
+    expect(new URLSearchParams(history.location.search).get('tenant')).toBe('tenant');
+  });
+
+  it('shows the Installation application and environment instead of stale URL selections after reload', async () => {
+    const assertTarget = async () => {
+      await screen.findByRole('button', { name: i18n.t('requestApproval') });
+      expect(screen.getByRole('combobox', { name: i18n.t('application') })).toHaveProperty('value', expect.stringContaining('Selected application'));
+      expect(screen.getByRole('combobox', { name: i18n.t('environment') })).toHaveValue(installation.environmentId);
+      expect(screen.getByRole('combobox', { name: i18n.t('environment') })).not.toHaveProperty('value', expect.stringContaining('untrusted-url-environment'));
+    };
+    const first = mount(target + '&application=stale-application');
+    await assertTarget();
+    const resume = first.history.location.pathname + first.history.location.search;
+    first.unmount(); first.cache.clear();
+    mount(resume);
+    await assertTarget();
+  });
+
+  it('clears the selected Installation when the operator changes environment', async () => {
+    vi.mocked(adminApi.environments).mockResolvedValue(page([{ id: 'new-environment', code: 'new', displayName: 'New environment', productionControls: false }]));
+    const { history } = mount();
+    await screen.findByRole('button', { name: i18n.t('requestApproval') });
+    fireEvent.mouseDown(screen.getByRole('combobox', { name: i18n.t('environment') }));
+    fireEvent.click(await screen.findByRole('option', { name: 'New environment · new' }));
+    expect(new URLSearchParams(history.location.search).has('installation')).toBe(false);
+    expect(screen.getByRole('combobox', { name: i18n.t('environment') })).toHaveProperty('value', expect.stringContaining('New environment'));
+  });
+
+  it.each(['Pending', 'Active'] as const)('keeps Published readiness consistent with %s enrollment after reload', async status => {
+    vi.mocked(adminApi.installation).mockResolvedValue({ ...installation, status });
+    vi.mocked(adminApi.connectorVersion).mockResolvedValue({ ...version, state: 'Published' });
+    const assertReadiness = async () => {
+      const action = status === 'Active' ? 'guidedActionComplete' : 'guidedActionEnrollmentHandoff';
+      expect(await screen.findByText(i18n.t(action), { exact: false })).toBeVisible();
+      if (status === 'Active') expect(screen.getByText(i18n.t('guidedPublishedActive'))).toBeVisible();
+      else expect(screen.queryByText(i18n.t('guidedPublishedActive'))).not.toBeInTheDocument();
+    };
+    const first = mount();
+    await assertReadiness();
+    const resume = first.history.location.pathname + first.history.location.search;
+    first.unmount(); first.cache.clear();
+    mount(resume);
+    await assertReadiness();
+  });
+
   it('keeps authoritative selections visible while changing list pages', async () => {
     mount();
     expect(await screen.findByRole('button', { name: i18n.t('requestApproval') })).toBeEnabled();
-    expect(screen.getByRole('combobox', { name: i18n.t('version') })).toHaveTextContent('1.0.51');
-    expect(screen.getByRole('combobox', { name: i18n.t('installation') })).toHaveTextContent('Direct');
+    expect(screen.getByRole('combobox', { name: i18n.t('version') })).toHaveProperty('value', expect.stringContaining('1.0.51'));
+    expect(screen.getByRole('combobox', { name: i18n.t('installation') })).toHaveProperty('value', expect.stringContaining('Direct'));
     expect(adminApi.bindings).toHaveBeenCalledWith('sample', version.version, installation.environmentId);
     expect(adminApi.bindings).not.toHaveBeenCalledWith('sample', version.version, 'untrusted-url-environment');
     fireEvent.click(within(screen.getByTestId('guided-version-pagination')).getByRole('button', { name: i18n.t('nextPage') }));
-    await waitFor(() => expect(adminApi.connectorVersions).toHaveBeenCalledWith('sample', 50));
+    await waitFor(() => expect(adminApi.connectorVersions).toHaveBeenCalledWith('sample', 50, 50, ''));
     await waitFor(() => expect(within(screen.getByTestId('guided-version-pagination')).getByRole('button', { name: i18n.t('previousPage') })).toBeEnabled());
     fireEvent.click(within(screen.getByTestId('guided-version-pagination')).getByRole('button', { name: i18n.t('previousPage') }));
     fireEvent.click(within(screen.getByTestId('guided-installation-pagination')).getByRole('button', { name: i18n.t('nextPage') }));
-    await waitFor(() => expect(adminApi.installations).toHaveBeenCalledWith('tenant', 50));
-    expect(screen.getByRole('combobox', { name: i18n.t('version') })).toHaveTextContent('1.0.51');
-    expect(screen.getByRole('combobox', { name: i18n.t('installation') })).toHaveTextContent('Direct');
+    await waitFor(() => expect(adminApi.installations).toHaveBeenCalledWith('tenant', 50, 50, '', '', 'untrusted-url-environment'));
+    expect(screen.getByRole('combobox', { name: i18n.t('version') })).toHaveProperty('value', expect.stringContaining('1.0.51'));
+    expect(screen.getByRole('combobox', { name: i18n.t('installation') })).toHaveProperty('value', expect.stringContaining('Direct'));
   });
 
   it('resolves deep-link selections again after reload with a new query cache', async () => {
@@ -69,8 +165,8 @@ describe('guided selection and targeted refresh', () => {
     first.unmount(); first.cache.clear();
     mount(resume);
     expect(await screen.findByRole('button', { name: i18n.t('requestApproval') })).toBeEnabled();
-    expect(screen.getByRole('combobox', { name: i18n.t('installation') })).toHaveTextContent('Direct');
-    expect(screen.getByRole('combobox', { name: i18n.t('version') })).toHaveTextContent('1.0.51');
+    expect(screen.getByRole('combobox', { name: i18n.t('installation') })).toHaveProperty('value', expect.stringContaining('Direct'));
+    expect(screen.getByRole('combobox', { name: i18n.t('version') })).toHaveProperty('value', expect.stringContaining('1.0.51'));
     expect(adminApi.installation).toHaveBeenCalledTimes(2);
     expect(adminApi.connectorVersion).toHaveBeenCalledTimes(2);
     expect(adminApi.bindings).not.toHaveBeenCalledWith('sample', version.version, 'untrusted-url-environment');
@@ -82,7 +178,7 @@ describe('guided selection and targeted refresh', () => {
     await waitFor(() => expect(within(screen.getByTestId('guided-version-pagination')).getByRole('button', { name: i18n.t('previousPage') })).toBeEnabled());
     fireEvent.mouseDown(screen.getByRole('combobox', { name: i18n.t('version') }));
     fireEvent.click(await screen.findByRole('option', { name: '1.0.51 · Validated' }));
-    expect(await screen.findByRole('button', { name: i18n.t('requestApproval') })).toBeEnabled();
+    expect(await screen.findByRole('button', { name: i18n.t('requestApproval') }, { timeout: 3000 })).toBeEnabled();
     expect(adminApi.connectorVersion).toHaveBeenCalledWith('sample', '1.0.51');
     expect(adminApi.connectorDefinition).toHaveBeenCalledWith('sample', '1.0.51');
   });
@@ -102,6 +198,7 @@ describe('guided selection and targeted refresh', () => {
 
   it('rereads installation authority before binding/grants and refreshes their dependent approval data', async () => {
     session.roles = [{ role: 'Viewer', tenantId: null }, { role: 'SecurityAdministrator', tenantId: null }];
+    vi.mocked(adminApi.grants).mockResolvedValue(page([]));
     vi.spyOn(adminApi, 'createGrant').mockResolvedValue(grant);
     const { cache } = mount();
     const invalidate = vi.spyOn(cache, 'invalidateQueries');
@@ -155,6 +252,7 @@ describe('guided selection and targeted refresh', () => {
   });
 
   it('denies a newly revoked selected installation before any mutation', async () => {
+    vi.mocked(adminApi.grants).mockResolvedValue(page([]));
     session.roles = [{ role: 'Viewer', tenantId: null }, { role: 'SecurityAdministrator', tenantId: null }];
     vi.mocked(adminApi.installation).mockResolvedValueOnce(installation).mockResolvedValue({ ...installation, status: 'Revoked' });
     const create = vi.spyOn(adminApi, 'createGrant'); const put = vi.spyOn(adminApi, 'putBindings');

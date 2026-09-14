@@ -554,3 +554,18 @@ registration idempotency does not resend publication. This remains offline quali
 The final M0/M1 snapshot, including nonautomated items, is in `docs/reviews/M0-M1-REQUIREMENTS-TEST-EVIDENCE.md`.
 
 Every `TM-*` in `security/threat-model.md` must link to one or more `SEC-*` tests before the milestone introducing that surface. A new adapter/auth method cannot be Published without updating this matrix.
+
+## Institutional update of 14 September 2026
+
+This section records the new Core outcomes at source `2c2ff27`; earlier rows retain
+their historical qualification scope. See [SOURCE.md](../../SOURCE.md) for exact
+source CI and separate Windows-package provenance.
+
+| Outcome | Named verification | Scope and limit |
+|---|---|---|
+| Named-application Broker lifecycle | `APPLICATION_REGISTER_INSPECT_UPDATE_REVOKE_PRESERVES_STATE`; `APPLICATION_INVALID_OR_RUNNING_CHANGE_DENIED_WITHOUT_PARTIAL_POLICY` | Focused policy/settings tests cover registration, inspection, executable update, revocation and fail-closed invalid/running-service edits. Real-service observations are separately scoped in the Local Broker guide. |
+| Distinct adopter application | `samples/LocalBrokerAdopter`; `eng/Test-LocalBrokerPackage.ps1` | SDK-based sample included and package inventory checked; source publication is not a newly tested binary. |
+| Enrollment-aware readiness and correct context | `GuidedOnboardingPage.test.tsx`; `FULLSTACK-02` | Published/Pending retains enrollment, Active permits readiness; reload and dependent selection preserve authoritative context. UI state is not invocation evidence. |
+| Bounded catalog search and authorization | `M5_E2E_Admin_searches_10000_PostgreSQL_tenants_with_bounded_results`; `M5_IT_DAT_PostgreSQL18_installation_search_preserves_tenant_and_context_filters`; `UI-MOCK-38/46/47` | Real Admin HTTP/PostgreSQL search across 10,000 synthetic tenant rows, bounded pages, duplicate names, empty/literal filters, anonymous denial and selected-ID resume. Keyboard/narrow-screen/reload coverage is separate; no production capacity benchmark. |
+
+The unchanged optional packs gain no new live-service qualification from this update.

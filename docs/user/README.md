@@ -6,12 +6,13 @@
 
 ## Where to start
 
+- [Evaluate SIP](evaluation.md): separate Core and Windows paths, integrity checks and recovery.
 - [Quick start](quickstart.md): distinct synthetic Core, Windows boundary and FSE2 pack paths.
 - [Local Core pilot](local-pilot.md): primary Docker-first path without cloud,
   external credentials, application SDKs or curl on the host.
 - [Windows / Local Broker](https://github.com/msala9/secure-integration-platform/blob/b13e6ba781a90d331836d37ec363baf27248737f/docs/history/README.md#windows--local-broker-evidence):
   historical service and isolation tests, with their own laboratory prerequisites.
-- [Standalone Local Broker candidate](local-broker.md): local SDK protection without
+- [Standalone Local Broker](local-broker.md): local SDK protection without
   Gateway, explicit key lifecycle and a real-service verification command that passed
   once on the exact software candidate; see the guide for remaining claim limits.
 - [FSE2 validation and status](https://github.com/ApoCert-it/secure-integration-platform/blob/main/docs/user/fse2-validation-status.md):
@@ -21,7 +22,7 @@
 - [Guided Connector onboarding](guided-connector-onboarding.md): five actions across
   three roles, one-time handoff, safe resume and first invocation.
 - [Troubleshooting](troubleshooting.md): code → likely cause → authorized action.
-- [Known limitations](known-limitations.md): what the private preview does not promise.
+- [Known limitations](known-limitations.md): what the alpha evaluation does not promise.
 - [CRA and NIS 2 adoption guidance](../security/cra-nis2-adoption.md): available controls and customer responsibilities.
 
 Capability status is summarized only in

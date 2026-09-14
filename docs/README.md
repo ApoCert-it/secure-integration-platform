@@ -2,6 +2,7 @@
 
 ## Start here
 
+- [Evaluate SIP](user/evaluation.md): separate Core/Windows paths, exact provenance and recovery.
 - [Quickstart](user/quickstart.md): evaluate the Core using Docker and a synthetic upstream.
 - [Local pilot](user/local-pilot.md): commands, prerequisites and recovery.
 - [Windows Local Broker](user/local-broker.md): local protection, service lifecycle and application credentials.

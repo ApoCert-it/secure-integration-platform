@@ -1,7 +1,9 @@
 # Implementation status
 
-Snapshot: 11 Sep 2026. Exact development baseline and source checks are recorded in
+Snapshot: 14 Sep 2026. Exact development baseline and source checks are recorded in
 [SOURCE.md](https://github.com/ApoCert-it/secure-integration-platform/blob/main/SOURCE.md). This is a source technical preview, not a production release.
+
+<a id="product-status"></a>
 
 ## Included capabilities
 
@@ -9,8 +11,8 @@ Snapshot: 11 Sep 2026. Exact development baseline and source checks are recorded
 |---|---|---|
 | Core Gateway | Installation authentication, operation grants, immutable Published configuration, restricted transport, provider capabilities and PostgreSQL persistence. | Synthetic evaluation and automated tests do not qualify every external protocol or production deployment. |
 | Local Core pilot | Docker-first Direct client → Gateway → Published Connector → synthetic HTTPS/mTLS service. | No host .NET SDK, Node or curl needed for this path. It does not exercise the Windows Service or an external vendor. |
-| Windows Local Broker | Authenticated Named Pipe SDK, installation identity, local key protection, credential adoption and service lifecycle. | Real-service and standard-account observations are scoped to the software and environments in the Local Broker guide; no universal Windows, MSI, COM or disaster-recovery claim. |
-| Admin | Guided onboarding, readable resource selection, distinct-role approval, exact-revision publication, responsive operator UI and embedded guidance. | Authentication and role configuration remain deployment responsibilities. |
+| Windows Local Broker | Authenticated Named Pipe SDK, installation identity, local key protection, credential adoption, service lifecycle and named-application registration/inspection/update/revocation. | Real-service and standard-account observations are scoped to the software and environments in the Local Broker guide; no universal Windows, MSI, COM or disaster-recovery claim. |
+| Admin | Guided onboarding with searchable paged catalogs, stable identifiers, Active-enrollment readiness, distinct-role approval, exact-revision publication, responsive UI and embedded guidance. | Real Admin API/PostgreSQL lookup among 10,000 synthetic tenants is a correctness test, not a capacity benchmark; authentication and role configuration remain deployment responsibilities. |
 | Audit | Metadata-only events, append-only application privileges and tenant-scoped bounded export with UTC interval and keyset pagination. | Does not prevent database-administrator access or establish regulatory conformity. |
 | Package preflight | Expected source commit and manifest SHA-256 checked before Broker install/update effects. | Integrity against trusted expected values is not artifact signing or publisher authentication. |
 | Optional providers | Azure and local PKCS#12 implementations outside the Core. | Identity permissions, custody, recovery and network configuration depend on the deployment. |
@@ -19,8 +21,19 @@ Snapshot: 11 Sep 2026. Exact development baseline and source checks are recorded
 | FSE2 workflow status | Observed FOUND response after a real Gateway restart, with PostgreSQL correlation. | Specific validation workflow and observed event; not clinical completion. |
 | FSE2 FHIR and publication | Offline implementations are included. | FHIR live validation remains unqualified after upstream 500 responses of undetermined cause; live document publication is not qualified. |
 
+## Evaluation provenance
+
+Current Core source is `2c2ff27`; the separately tested Windows package is `10a1300`.
+The ordinary-account Windows Service observation uses Windows 10 Pro 22H2 x64
+19045.6466 with Gateway disabled. It does not qualify a fresh current-source
+package, portable restore or live Broker/Gateway continuity. Exact-source main CI
+passed 22/22 jobs; no new provider or external-service qualification is asserted.
+Two moderate development-tool dependency advisories remain deferred.
+See [SOURCE.md](SOURCE.md) for exact commits, hashes and verification scope.
+
 ## Supported entry points
 
+- [Evaluate SIP](docs/user/evaluation.md): separate Core and Windows delivery, integrity and recovery.
 - [Core quickstart](docs/user/quickstart.md) and [local pilot](docs/user/local-pilot.md).
 - [Local Broker](docs/user/local-broker.md): service delivery, local protection and application credential adoption.
 - [Administration](docs/user/administration.md) and [guided onboarding](docs/user/guided-connector-onboarding.md).

@@ -125,6 +125,30 @@ in administrator-writable-only directories. Do not authorize `dotnet.exe`, a she
 or a general-purpose interpreter as the application. Path/publisher-controlled
 upgrades and optional hash updates are explicit administrator decisions.
 
+The current package provides supported administrator commands for this lifecycle,
+without hand-editing service settings. Stop the owned service, register a named
+application, inspect the metadata-only policy, then start:
+
+```powershell
+$adopter = "$env:ProgramFiles\SecureIntegration\LocalBroker\sample\adopter\SecureIntegration.Samples.LocalBrokerAdopter.exe"
+.\Invoke-LocalBroker.ps1 -Command Stop -Instance sample
+.\Invoke-LocalBroker.ps1 -Command RegisterApplication -Instance sample `
+  -ApplicationRegistrationId adopter-eval `
+  -ApplicationUserSid $applicationSid `
+  -ApplicationExecutablePath $adopter `
+  -ApplicationOperations ProtectData,UnprotectData,GetBrokerStatus `
+  -ApplicationDataContext adopter-secret:text/plain
+.\Invoke-LocalBroker.ps1 -Command InspectApplications -Instance sample
+.\Invoke-LocalBroker.ps1 -Command Start -Instance sample
+```
+
+`UpdateApplication` changes the authorized executable path/hash for that
+registration only; it is not a Broker service update and does not alter the
+Installation, keys or ciphertext. `RevokeApplication` preserves the registration
+record and unrelated applications, but clears SID, operation, context and Gateway
+grants so later use is denied after restart. The [package guide](../../deploy/windows/README.md#register-your-own-net-application)
+shows the exact evaluation app commands.
+
 The Broker derives the application from its OS-verified caller. Tenant/Gateway
 identities are not involved. AEAD binds Installation, application, purpose and
 content type; context identifiers must not contain CR/LF. A context grant is not
@@ -349,3 +373,23 @@ Metadata-only attempt-4 result SHA-256:
 This proves the sample's local adoption path, not an actual management-app migration,
 CVD closure, external credential change/authentication, machine/profile recovery,
 another Windows target or protection against injected code or Administrator/SYSTEM.
+
+## Own-application administration observations
+
+The supported administrator lifecycle is integrated in this source snapshot.
+The original ordinary-account Windows Service observation remains tied to software
+and package `4a8eb70aa399bc32399c69ed283f5ac422aa6e53`, manifest SHA-256
+`083EC0E45793B1E65F9DBFA6C200667A576FDEFEBCCDD562BD5B41C4DB2F9F19`.
+It covered a distinct SDK-based application: registration, status, protection,
+verification, restart with the original ciphertext, authorized executable update,
+old-executable denial, administrator-caller denial and revocation denial.
+Revocation preserved registration metadata, other registrations, Installation state,
+keys and protected state.
+
+The later evaluation observation is tied to the separate Windows package source
+`10a13009c369249cd3c23cf1ab72623fcf1ae929`, on Windows 10 Pro 22H2 x64 19045.6466
+with Gateway disabled. See [source provenance](../../SOURCE.md) for its hashes and
+[Evaluate SIP](evaluation.md) for the supported procedure. These observations do not
+qualify a newly built `2c2ff27` package, another Windows target, package signing,
+portable machine/profile recovery, live Broker/Gateway continuity, an actual
+management application or protection against Administrator/SYSTEM or injected code.
