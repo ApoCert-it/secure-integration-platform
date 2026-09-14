@@ -4,14 +4,14 @@
   "publishedDate": "2026-09-14",
   "sourceCommit": "2c2ff275afefb52c02e7660ec80944bcaf3d44a3",
   "sourceTree": "d0e10e158f5762f85b50666e3a7503a6a6aa9cbf",
-  "previousInstitutionalCommit": "f89f50c37ddfb7671c885bf2fbb753974a467952",
+  "previousInstitutionalCommit": "a7decd01f8ade8aa866572d82d537c688e54052b",
   "contentEncoding": "canonical Git blob bytes; checkout line endings may differ",
   "fileCount": 712,
   "selfExcludedPaths": [
     "DISTRIBUTION_MANIFEST.json",
     "DISTRIBUTION_MANIFEST.json.sha256"
   ],
-  "selection": "All previous institutional payload paths plus seven newly exported Core source files; no new optional pack.",
+  "selection": "Preserves all 712 payload paths of the previous institutional snapshot; only the Windows package builder is overlaid from the qualified source commit. No new optional pack.",
   "excludedCorePaths": [
     "docs/internal/complexity-governance.md"
   ],
@@ -1154,9 +1154,10 @@
     },
     {
       "path": "eng/Build-LocalBrokerPackage.ps1",
-      "bytes": 6471,
-      "sha256": "07F68338F7124EDBAC1736D2639E02B8472F9BA0D50BE9A8909B1D4FB09A4066",
-      "origin": "exact-source"
+      "bytes": 7332,
+      "sha256": "99414AB18EF13F5922E390A050505E3934D70BF9496EEABBC0DFBAA69339BC21",
+      "origin": "exact-source-overlay",
+      "sourceCommit": "8273d4fba4d2180605a7285cf237f5eb8de7eb8b"
     },
     {
       "path": "eng/CoreExportInventory.psm1",
@@ -4295,6 +4296,16 @@
       "bytes": 11637,
       "sha256": "AA7502FF0A82CAF78A6917FD4343D15A2C340B86BFB8EEE5DA6D6302DE90EEF3",
       "origin": "exact-source"
+    }
+  ],
+  "sourceOverlays": [
+    {
+      "sourceCommit": "8273d4fba4d2180605a7285cf237f5eb8de7eb8b",
+      "sourceTree": "a4dacf12f8b7088bc68efc1be4cd0fe43511a582",
+      "paths": [
+        "eng/Build-LocalBrokerPackage.ps1"
+      ],
+      "reason": "Pin the self-contained Windows package runtime to 10.0.12 while retaining SDK 10.0.302 and portable locks."
     }
   ]
 }
